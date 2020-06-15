@@ -13,6 +13,12 @@ class ArticuloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        
+        $this->middleware('auth');
+        // $this->middleware('roles:admin',['except' => ['edit','update','show']]);
+    }
     public function index(Request $request)
     {
         $buscar=$request->buscar;
@@ -38,6 +44,46 @@ class ArticuloController extends Controller
         ];
     }
 
+    public function listarArticulo(Request $request)
+    {
+        $buscar=$request->buscar;
+        $tipo=$request->tipo;
+
+        if($tipo==''){
+            if ($buscar==''){
+            $articulos = Articulo::with(['categoria'])->orderBy('id','DESC')->paginate(6);
+            }else{
+                $articulos = Articulo::with(['categoria'])->where('nombre','like','%'.$buscar.'%')->orderBy('id','DESC')->paginate(6);
+            }
+        }else{
+            if ($buscar==''){
+            $articulos = Articulo::with(['categoria'])
+            ->where('articulos.stock','>','0')
+            ->orderBy('id','DESC')
+            ->paginate(6);
+            }else{
+                $articulos = Articulo::with(['categoria'])
+                ->where('nombre','like','%'.$buscar.'%')
+                ->where('articulos.stock','>','0')
+                ->orderBy('id','DESC')->paginate(6);
+            }
+        }
+
+        
+        
+        return ['articulos' => $articulos];
+    }
+
+    public function buscarArticulo(Request $request)
+    {
+        $filtro=$request->filtro;
+        $articulos= Articulo::where('codigo','=',$filtro)
+        ->select('id','nombre','precio_venta')->orderBy('nombre','ASC')
+        ->take(1)->get();
+
+        return['articulos'=>$articulos];
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -56,59 +102,16 @@ class ArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        $articulo = new Articulo;
-        $articulo->idcategoria=$request->idcategoria;
-        $articulo->codigo=$request->codigo;
-        $articulo->nombre = $request->nombre;
-        $articulo->precio_venta=$request->precio_venta;
-        $articulo->stock=$request->stock;
-        $articulo->descripcion = $request->descripcion;
-        $articulo->save();
+        Articulo::Create($request->all());
+        return ;
         // $categoria = Categoria::create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
     	
-        $articulo = Articulo::findOrFail($request->id);
-        $articulo->idcategoria=$request->idcategoria;
-        $articulo->codigo=$request->codigo;
-        $articulo->nombre = $request->nombre;
-        $articulo->precio_venta=$request->precio_venta;
-        $articulo->stock=$request->stock;
-        $articulo->descripcion = $request->descripcion;
-        $articulo->save();
-
-
+        Articulo::findOrFail($request->id)->update($request->all());
+        return;
         // $categoria = Categoria::findOrFail($id)->update();
     }
 
@@ -120,15 +123,25 @@ class ArticuloController extends Controller
      */
     public function destroy(Request $request)
     {
-        $articulo= Articulo::findOrFail($request->id);
-        $articulo->condicion ="0";
-        $articulo->save();
+        Articulo::findOrFail($request->id)->update([
+            'condicion' => '0'
+        ]);
     }
 
     public function activar(Request $request)
     {
-        $articulo= Articulo::findOrFail($request->id);
-        $articulo->condicion ="2";
-        $articulo->save();
+        Articulo::findOrFail($request->id)->update([
+            'condicion' => '1'
+        ]);
+    }
+
+    public function listarPdf()
+    {
+        $articulos = Articulo::with(['categoria'])->orderBy('nombre','DESC')->get();
+        $cont=Articulo::count();
+
+        $pdf = \PDF::loadView('pdf.articulos',['articulos'=>$articulos,'cont'=>$cont]);
+        return $pdf->download('articulos.pdf');
+        
     }
 }

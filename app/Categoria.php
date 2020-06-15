@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
 	
-    protected $fullable=['nombre','descripcion','condicion'];
+    protected $fillable=['nombre','descripcion','condicion'];
 
     public function articulos()
     {

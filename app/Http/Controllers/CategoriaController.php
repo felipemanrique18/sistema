@@ -14,8 +14,15 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        
+        $this->middleware('auth');
+        $this->middleware('roles:1,2,3');
+    }
     public function index(Request $request)
     {
+        
         $buscar=$request->buscar;
 
         if ($buscar==''){
@@ -40,92 +47,33 @@ class CategoriaController extends Controller
     }
 
     public function selectCategoria(Request $request){
-        $categorias=Categoria::select('id','nombre')->get();
+        $categorias=Categoria::select('id','nombre')->where('condicion','1')->get();
         return ['categorias' => $categorias];
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $categoria = new Categoria;
-        $categoria->nombre = $request->nombre;
-        $categoria->descripcion = $request->descripcion;
-        $categoria->save();
-        // $categoria = Categoria::create($request->all());
+        Categoria::Create($request->all());
+        return ;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
-    	
-        $categoria = Categoria::findOrFail($request->id);
-        $categoria->nombre = $request->nombre;
-        $categoria->descripcion = $request->descripcion;
-        $categoria->save();
-
-
-        // $categoria = Categoria::findOrFail($id)->update();
+        Categoria::findOrFail($request->id)->update($request->all());
+        return;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
-        $categoria =Categoria::findOrFail($request->id);
-        $categoria->condicion = '0';
-        $categoria->save();;
+        Categoria::findOrFail($request->id)->update([
+            'condicion' => '0'
+        ]);
     }
 
     public function activar(Request $request)
     {
-        $categoria =Categoria::findOrFail($request->id);
-        $categoria->condicion = '1';
-        $categoria->save();
+        Categoria::findOrFail($request->id)->update([
+            'condicion' => '1'
+        ]);
     }
 }

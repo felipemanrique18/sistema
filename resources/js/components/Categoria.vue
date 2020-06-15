@@ -2,8 +2,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <div class="m-b-20 table-responsive">
-                <div class="form-group" style="margin-bottom: 50px;">
+            <div class="m-b-20">
+                <div class="form-group container-titulo">
                     <h2>
                         <b>Categorias</b>
                         <button class="btn btn-success pull-right" type="button" @click="abrirModal('categoria','registrar')">
@@ -27,50 +27,53 @@
 
                         </label>
                     </div>
-                    <table id="datatable-buttons" class="table table-striped table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripcion</th>
-                            <th>Estado</th>
-                            <th>Accion</th>
-                        </tr>
-                        </thead>
+                        <div class="table-responsive">
+                            <table id="datatable-buttons" class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Estado</th>
+                                    <th>Accion</th>
+                                </tr>
+                                </thead>
 
 
-                        <tbody>
-                        <tr v-for="categoria in arrayCategoria" :key="categoria.id">
-                            <td v-text="categoria.nombre"></td>
-                            <td >
-                                <div style='width:200px; overflow:hidden;' v-text="categoria.descripcion"></div>
-                            </td>
-                            <td>
-                                <div v-if="categoria.condicion">
-                                    <span class="label label-success">Activo</span>
-                                    
-                                </div>
-                                <div v-else>
-                                    <span class="label label-danger">Desactivado</span>
-                                    
-                                </div>
-                            </td>
-                            <td>
-                                
-                                <template v-if="categoria.condicion">
-                                    <button type="button" class="btn btn-sm btn-primary" @click="abrirModal('categoria','actualizar',categoria)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"><i class="fa fa-edit"></i></button>
+                                <tbody>
+                                <tr v-for="categoria in arrayCategoria" :key="categoria.id">
+                                    <td v-text="categoria.nombre"></td>
+                                    <td >
+                                        <div style='width:200px; overflow:hidden;' v-text="categoria.descripcion"></div>
+                                    </td>
+                                    <td>
+                                        <div v-if="categoria.condicion">
+                                            <span class="label label-success">Activo</span>
+                                            
+                                        </div>
+                                        <div v-else>
+                                            <span class="label label-danger">Desactivado</span>
+                                            
+                                        </div>
+                                    </td>
+                                    <td>
+                                        
+                                        <template v-if="categoria.condicion">
+                                            <button type="button" class="btn btn-sm btn-primary" @click="abrirModal('categoria','actualizar',categoria)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"><i class="fa fa-edit"></i></button>
 
-                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Desactivar" @click="desactivarCategoria(categoria.id)" ><i class="fa fa-trash-alt"></i></button>
-                                </template>
+                                            <button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Desactivar" @click="desactivarCategoria(categoria.id)" ><i class="fa fa-trash-alt"></i></button>
+                                        </template>
 
-                                <template v-else>
-                                    <button type="button" class="btn btn-sm btn-success"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Activar" @click="activarCategoria(categoria.id)"><i class="fa fa-check"></i></button>
-                                </template>
-                                
-                            </td>
-                        </tr>
+                                        <template v-else>
+                                            <button type="button" class="btn btn-sm btn-success"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Activar" @click="activarCategoria(categoria.id)"><i class="fa fa-check"></i></button>
+                                        </template>
+                                        
+                                    </td>
+                                </tr>
 
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite" _msthash="255762" _msttexthash="657423" v-text="num_entradas"></div>
@@ -105,13 +108,13 @@
                 </div>
                 <div class="modal-body">
                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                        <div class="form-group row " :class="[errorMostrarMsjCategoria[0].nombre? 'has-error' : '']">
+                            <label class="col-md-3 form-control-label" for="field-1">Nombre (*)</label>
                             <div class="col-md-9">
                                 <input type="text" v-model="nombre" class="form-control" placeholder="Nombre de categoría">
                                 <div v-show="errorCategoria" class="div-error">
                                     <div class="text-error">
-                                        <div v-for="error in errorMostrarMsjCategoria" :key="error" v-text="error">
+                                        <div v-text="errorMostrarMsjCategoria[0].nombre">
 
                                         </div>
                                     </div>
@@ -154,7 +157,7 @@
             tituloModal:'',
             tipoAccion:0,
             errorCategoria : 0,
-            errorMostrarMsjCategoria : [],
+            errorMostrarMsjCategoria : [{nombre:''}],
             pagination:{
                 'total':0 ,
                 'current_page':0 ,
@@ -200,10 +203,11 @@
         }
         ,
         mounted() {
+            
             this.listarCategoria(1,this.buscar); 
-            let initScript = document.createElement('script');
-            initScript.setAttribute('src', 'assets/pages/jquery.datatables.init.js');
-            document.head.appendChild(initScript);
+            // let initScript = document.createElement('script');
+            // initScript.setAttribute('src', 'assets/pages/jquery.datatables.init.js');
+            // document.head.appendChild(initScript);
 
         },
         methods: {
@@ -233,16 +237,26 @@
                 }
                 
                 let me=this;
-
-                axios.post('categoria/registrar',{
-                    'nombre':this.nombre,
-                    'descripcion':this.descripcion
-                }).then(function (response){
+                var url = 'categoria/registrar';
+                axios.post(url, {
+                    nombre:this.nombre,
+                    descripcion:this.descripcion
+                }).then(response => {
                     me.cerrarModal();
                     me.listarCategoria(1,''); 
-                }).catch(function(error){
+                }).catch(error => {
                     console.log(error);
-                })
+                });
+                // axios.post('categoria/registrar',{
+                //     'nombre':this.nombre,
+                //     'descripcion':this.descripcion
+                // }).then(function (response){
+                //     me.cerrarModal();
+                //     me.listarCategoria(1,''); 
+                //     console.log(response);
+                // }).catch(function(error){
+                //     console.log(error);
+                // })
             },
             actualizarCategoria(){
                if (this.validarCategoria()){
@@ -264,11 +278,10 @@
             },
             validarCategoria(){
                 this.errorCategoria=0;
-                this.errorMostrarMsjCategoria =[];
+                this.errorMostrarMsjCategoria =[{nombre:''}];
+                if (!this.nombre) this.errorMostrarMsjCategoria[0].nombre="* El nombre de la categoría no puede estar vacío.";
 
-                if (!this.nombre) this.errorMostrarMsjCategoria.push("* El nombre de la categoría no puede estar vacío.");
-
-                if (this.errorMostrarMsjCategoria.length) this.errorCategoria = 1;
+                if (this.errorMostrarMsjCategoria[0].nombre) this.errorCategoria = 1;
 
                 return this.errorCategoria;
             },
@@ -324,19 +337,22 @@
                 });
             },
             cerrarModal(){
-                this.modal=0;
+                $('#myModal').modal('hide');
                 this.tituloModal='',
                 this.nombre='',
                 this.descripcion=''
+                this.errorCategoria=0;
+                this.errorMostrarMsjCategoria =[{nombre:''}];
             },
             abrirModal(modelo, accion, data = []){
+                this.errorMostrarMsjCategoria =[{nombre:''}];
                 switch(modelo){
                     case "categoria":
                     {
                         switch(accion){
                             case 'registrar':
                             {
-                                this.modal = 1;
+                                $('#myModal').modal('show');
                                 this.tituloModal = 'Registrar Categoría';
                                 this.nombre= '';
                                 this.descripcion = '';
@@ -345,7 +361,7 @@
                             }
                             case 'actualizar':
                             {
-                                this.modal=1;
+                                $('#myModal').modal('show');
                                 this.tituloModal='Actualizar categoría';
                                 this.tipoAccion=2;
                                 this.categoria_id=data['id'];

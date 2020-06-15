@@ -3,49 +3,71 @@
 
 @section('contenido')
 	<template v-if="menu==0">
-		<example-component></example-component>		
+		<transition name="component-fade" mode="out-in">
+		  <dashboard></dashboard>
+		</transition>		
 	</template>
 
 	<template v-if="menu==1">
-		<categoria></categoria>
-		
-
+		<transition name="component-fade" mode="out-in">
+		  <categoria></categoria>
+		</transition>	
 	</template>
 
 	<template v-if="menu==2">
-		<articulo></articulo>
+		<transition name="component-fade" mode="out-in">
+		  <articulo></articulo>
+		</transition>
+		
 	</template>
 
 	<template v-if="menu==3">
-		<h1>contenido menu 3</h1>
+		<transition name="component-fade" mode="out-in">
+		  <ingreso></ingreso>
+		</transition>
 	</template>
 
 	<template v-if="menu==4">
-		<h1>contenido menu 4</h1>
+		<transition name="component-fade" mode="out-in">
+		  <proveedor></proveedor>
+		</transition>
 	</template>
 
 	<template v-if="menu==5">
-		<h1>contenido menu 5</h1>
+		<transition name="component-fade" mode="out-in">
+		  <venta2></venta2>
+		</transition>
 	</template>
 
 	<template v-if="menu==6">
-		<h1>contenido menu 6</h1>
+		<transition name="component-fade" mode="out-in">
+		  <cliente></cliente>
+		</transition>
+		
 	</template>
 
 	<template v-if="menu==7">
-		<h1>contenido menu 7</h1>
+		<transition name="component-fade" mode="out-in">
+		  <usuario></usuario>
+		</transition>
 	</template>
 
 	<template v-if="menu==8">
-		<h1>contenido menu 8</h1>
+		<transition name="component-fade" mode="out-in">
+		  <rol></rol>
+		</transition>
 	</template>
 
 	<template v-if="menu==9">
-		<h1>contenido menu 9</h1>
+		<transition name="component-fade" mode="out-in">
+		  <consultaingreso></consultaingreso>
+		</transition>
 	</template>
 
 	<template v-if="menu==10">
-		<h1>contenido menu 10</h1>
+		<transition name="component-fade" mode="out-in">
+		  <consultaventa></consultaventa>
+		</transition>
 	</template>
 
 	<template v-if="menu==11">
@@ -54,6 +76,12 @@
 
 	<template v-if="menu==12">
 		<h1>contenido menu 12</h1>
+	</template>
+
+	<template v-if="menu==13">
+		<transition name="component-fade" mode="out-in">
+		  <perfil></perfil>
+		</transition>
 	</template>
 
   

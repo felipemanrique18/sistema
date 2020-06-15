@@ -16,8 +16,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'persona_id','usuario','password','rol_id','condicion_user'
     ];
+    public $timestamps=false;
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,4 +37,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class);
+    }
+
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class);
+    }
+    
+    public function hasRoles(array $roles){
+
+        foreach($roles as $role){
+            if ($this->rol_id==$role) {
+                return true;
+            }
+        }
+
+        return false;      
+    }
 }

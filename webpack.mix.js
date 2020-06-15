@@ -18,6 +18,8 @@ mix.styles([
     'resources/assets/css/style.css',
 ], 'public/css/plantilla.css');
 
+
+
 mix.scripts([
     'resources/assets/js/jquery-2.1.4.min.js',
     'resources/assets/js/bootstrap.min.js',

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Str;
-
+$DATABASE_URL = parse_url ('postgres://czjnstjfvwmtep:102d17be9d6424c2e4dfeadf23f8b411d3d92c57ab22b951d10616505a6826f@ec2-18-214-211-47.compute-1.amazonaws.com:5432/dbo4gbgs5v5i0u');
 return [
-    $DATABASE_URL = parse_url ('postgres://czjnstjfvwmtep:102d17be9d6424c2e4dfeadf23f8b411d3d92c57ab22b951d10616505a6826f@ec2-18-214-211-47.compute-1.amazonaws.com:5432/dbo4gbgs5v5i0u');
+    
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name

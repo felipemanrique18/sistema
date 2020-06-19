@@ -28,7 +28,7 @@ Route::post('notification/leidas', 'NotificationController@MarcarLeida')->middle
 Route::get('dashboard', 'DashboardController');
 
 Route::get("/",function(){
-	$rol = App\rol::create([
+	$rol = App\Rol::create([
 		'nombre_rol'=>'Administrador',
 		'descripcion'=>'Administardor de la pagina',
 		'condicion'=>'1'

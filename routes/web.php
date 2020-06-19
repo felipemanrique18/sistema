@@ -27,7 +27,15 @@ Route::post('notification/leidas', 'NotificationController@MarcarLeida')->middle
 
 Route::get('dashboard', 'DashboardController');
 
-Route::get('/', 'Auth\LoginController@showLoginForm')->name('/');
+Route::get("/",function(){
+	$rol = App\rol::create([
+		'nombre_rol'=>'Administrador',
+		'descripcion'=>'Administardor de la pagina',
+		'condicion'=>'1'
+	]);
+});
+
+// Route::get('/', 'Auth\LoginController@showLoginForm')->name('/');
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/home', 'HomeController@index')->name('home');

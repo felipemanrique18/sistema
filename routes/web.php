@@ -28,10 +28,15 @@ Route::post('notification/leidas', 'NotificationController@MarcarLeida')->middle
 Route::get('dashboard', 'DashboardController');
 
 Route::get("/",function(){
-	$rol = App\Rol::create([
-		'nombre_rol'=>'Administrador',
-		'descripcion'=>'Administardor de la pagina',
-		'condicion'=>'1'
+	$persona = App\Persona::create([
+		'nombre'=>'Celso Manrique',
+	]);
+	$user=App\User::create([
+		'persona_id'=>$persona->id,
+		'rol_id'=>'1',
+		'usuario'=>'celsomanrique',
+		'password'=>bcrypt('celso1234'),
+		'condicion_user'=>'1'
 	]);
 });
 

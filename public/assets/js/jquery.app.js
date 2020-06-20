@@ -31,7 +31,7 @@
             event.preventDefault();
             $("body").toggleClass("nav-collapse");
         });
-        $('.nav-collapse').on('click', function (event) {
+        $('.page-right-content').on('click', function (event) {
             $("body").toggleClass("nav-collapse");
         });
     }

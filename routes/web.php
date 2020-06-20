@@ -27,20 +27,20 @@ Route::post('notification/leidas', 'NotificationController@MarcarLeida')->middle
 
 Route::get('dashboard', 'DashboardController');
 
-Route::get("/",function(){
-	$persona = App\Persona::create([
-		'nombre'=>'Celso Manrique',
-	]);
-	$user=App\User::create([
-		'persona_id'=>$persona->id,
-		'rol_id'=>'1',
-		'usuario'=>'celsomanrique',
-		'password'=>bcrypt('celso1234'),
-		'condicion_user'=>'1'
-	]);
-});
+// Route::get("/",function(){
+// 	$persona = App\Persona::create([
+// 		'nombre'=>'Celso Manrique',
+// 	]);
+// 	$user=App\User::create([
+// 		'persona_id'=>$persona->id,
+// 		'rol_id'=>'1',
+// 		'usuario'=>'celsomanrique',
+// 		'password'=>bcrypt('celso1234'),
+// 		'condicion_user'=>'1'
+// 	]);
+// });
 
-// Route::get('/', 'Auth\LoginController@showLoginForm')->name('/');
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('/');
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/home', 'HomeController@index')->name('home');

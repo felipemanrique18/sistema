@@ -21,11 +21,11 @@ class ProveedorController extends Controller
         $buscar=$request->buscar;
 
         if ($buscar==''){
-            $personas = Proveedor::join('personas','proveedores.id','=','personas.id')
+            $personas = Proveedor::join('personas','proveedores.Persona_id','=','personas.id')
             	->orderBy('persona_id','DESC')
             	->paginate(6);
         }else{
-            $personas = Proveedor::join('personas','proveedores.id','=','personas.id')        
+            $personas = Proveedor::join('personas','proveedores.Persona_id','=','personas.id')        
                     ->where('personas.'.$tipo, 'like', '%'. $buscar . '%')
                     ->orderBy('persona_id', 'desc')->paginate(6);
         }

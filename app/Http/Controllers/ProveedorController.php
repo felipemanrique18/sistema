@@ -81,7 +81,7 @@ class ProveedorController extends Controller
         $filtro =$request->filtro;
         $proveedores = Proveedor::join('personas','proveedores.persona_id','=','personas.id')        
                     ->where('personas.nombre','like', '%'. $filtro. '%')
-                    ->select('persona_id AS id','personas.nombre','personas.num_documento')
+                    ->select('proveedores.id AS id','personas.nombre','personas.num_documento')
                     ->orderBy('personas.nombre', 'ASC')
                     ->get();
 

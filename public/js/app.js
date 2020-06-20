@@ -2389,7 +2389,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     cargarPdf: function cargarPdf() {
-      window.open('http://localhost:8000/articulo/listarPdf', '_blank');
+      window.open('http://ventasmanrique.herokuapp.com/articulo/listarPdf', '_blank');
     }
   }
 });
@@ -8303,7 +8303,7 @@ __webpack_require__.r(__webpack_exports__);
         swal("Ingreso Registrado!", {
           icon: "success"
         });
-        window.open('localhost:8000/venta/pdf/' + response.data.id);
+        window.open('http://ventasmanrique.herokuapp.com/venta/pdf/' + response.data.id);
       })["catch"](function (error) {
         console.log(error);
       });

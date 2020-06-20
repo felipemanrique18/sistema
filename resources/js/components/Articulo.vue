@@ -477,7 +477,7 @@
                 }
             },
             cargarPdf(){
-                window.open('http://localhost:8000/articulo/listarPdf','_blank')
+                window.open('http://ventasmanrique.herokuapp.com/articulo/listarPdf','_blank')
             }
         }
 

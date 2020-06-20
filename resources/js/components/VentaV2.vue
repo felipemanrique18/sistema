@@ -647,7 +647,7 @@
                     swal("Ingreso Registrado!", {
                         icon: "success",
                     });
-                    window.open('localhost:8000/venta/pdf/'+response.data.id);
+                    window.open('http://ventasmanrique.herokuapp.com/venta/pdf/'+response.data.id);
                 }).catch(function(error){
                     console.log(error);
                 })

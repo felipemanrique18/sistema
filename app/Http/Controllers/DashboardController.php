@@ -12,7 +12,6 @@ class DashboardController extends Controller
     {
         $anio=date('Y');
         $ingresos=DB::table('ingresos as i')
-        EXTRACT(MONTH FROM fecha_entrega)
         ->select(DB::raw('EXTRACT(MONTH FROM i.fecha_hora as mes)'),
         DB::raw('YEAR(i.fecha_hora) as anio'),
         DB::raw('SUM(i.total) as total'))

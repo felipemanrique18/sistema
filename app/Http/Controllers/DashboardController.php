@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 class DashboardController extends Controller
 {
   
+    function __construct()
+    {
+        
+        $this->middleware('auth');
+        // $this->middleware('roles:admin',['except' => ['edit','update','show']]);
+    }
     public function __invoke(Request $request)
     {
         $anio=date('Y');

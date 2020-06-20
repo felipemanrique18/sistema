@@ -105,7 +105,7 @@
                 <!--left navigation end-->
 
                 <!-- START PAGE CONTENT -->
-                <div id="page-right-content">
+                <div id="page-right-content" class="page-right-content">
                     @yield('contenido')
                     <!-- end container -->
                     <div class="footer">

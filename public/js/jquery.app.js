@@ -35,6 +35,13 @@
             event.preventDefault();
             $("body").removeClass("nav-collapse");
         });
+        $('.seleccion').on('click', function (event) {
+            event.preventDefault();
+            $("body").removeClass("nav-collapse");
+        });
+
+
+        
     }
 
     function initComponents() {

@@ -2,7 +2,7 @@
     <div class="scrollbar-wrapper">
         <div>
             <button type="button" class="button-menu-mobile btn-mobile-view visible-xs visible-sm">
-                <i class="fas fa-times"></i>
+                <i class="fas fa-times boton-cerrar-menu"></i>
             </button>
             <!-- User Detail box -->
             <div class="user-details">

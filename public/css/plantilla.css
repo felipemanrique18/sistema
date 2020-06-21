@@ -303,8 +303,9 @@ File: Main file css
     display: none; }
     
   .navbar-right .dropdown-menu {
-    right: 0;
+    right: 13px;
     left: auto;
+    font-size: 15px;
   }
 
   .logo-sm {
@@ -320,8 +321,7 @@ File: Main file css
     background-color: #ffffff;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     left: auto;
-    position: absolute;
-    right: 0; }
+    position: absolute; }
 
   .footer {
     text-align: center; } }
@@ -2450,4 +2450,9 @@ h3.timeline-title {
   margin-bottom: 50px;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+/*boton cerra menu navegacion*/
+.boton-cerrar-menu{
+  font-size: 30px;
 }

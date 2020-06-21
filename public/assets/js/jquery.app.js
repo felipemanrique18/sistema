@@ -31,6 +31,11 @@
             event.preventDefault();
             $("body").toggleClass("nav-collapse");
         });
+        $('.seleccion').on('click', function (event) {
+            event.preventDefault();
+            $("body").removeClass();
+        });
+
     }
 
     function initComponents() {

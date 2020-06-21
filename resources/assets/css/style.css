@@ -158,10 +158,10 @@ File: Main file css
   background-color: #ffffff;
   width: 240px;
   top: 70px;
-  -moz-transition: margin-left 0.3s;
-  -o-transition: margin-left 0.3s;
-  -webkit-transition: margin-left 0.3s;
-  transition: margin-left 0.3s;
+  -moz-transition: margin-left 0.5s;
+  -o-transition: margin-left 0.5s;
+  -webkit-transition: margin-left 0.5s;
+  transition: margin-left 0.5s;
   background-repeat: repeat;
   z-index: 99; }
 
@@ -318,7 +318,7 @@ File: Main file css
     margin-left: 0;
     box-shadow: 7px 8px 9px rgba(0, 0, 0, 0.11);
     top: 0;
-    z-index: 999;
+    z-index: 9991;
     position: fixed;
     bottom: 0;
     font-size: 16px;
@@ -346,9 +346,10 @@ File: Main file css
   padding: 0;
   border-radius: 3px;
   float: right;
-  z-index: 9999;
+  z-index: 999999;
   position: relative;
   top: 10px;
+  font-size: 25px;
   color: #000000a8; }
 
 body {

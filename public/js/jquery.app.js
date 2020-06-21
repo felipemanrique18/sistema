@@ -37,7 +37,7 @@
         });
         $('.seleccion').on('click', function (event) {
             event.preventDefault();
-            $("body").removeClass("nav-collapse");
+            $("body").removeClass();
         });
 
 

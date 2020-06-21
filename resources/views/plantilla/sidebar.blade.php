@@ -19,7 +19,7 @@
 
             <!-- Left Menu Start -->
             <ul class="metisMenu nav" id="side-menu">
-                <li @click="menu=0" ><a class="seleccion" href="javascript:void(0)"><i class="fa fa-home"></i> Dashboard </a></li>
+                <li @click="menu=0" class="seleccion"><a href="javascript:void(0)"><i class="fa fa-home"></i> Dashboard </a></li>
                 
                 @if (auth()->check() && auth()->user()->hasRoles(['1','3']))
                     <li>

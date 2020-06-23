@@ -44,7 +44,6 @@ mix.scripts([
     'resources/assets/plugins/datatables/dataTables.buttons.min.js',
     'resources/assets/plugins/datatables/buttons.bootstrap.min.js',
     'resources/assets/plugins/datatables/jszip.min.js',
-    'resources/assets/plugins/datatables/pdfmake.min.js',
     'resources/assets/plugins/datatables/vfs_fonts.js',
     'resources/assets/plugins/datatables/buttons.html5.min.js',
     'resources/assets/plugins/datatables/buttons.print.min.js',

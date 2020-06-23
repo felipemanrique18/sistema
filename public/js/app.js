@@ -2611,9 +2611,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.listarCategoria(1, this.buscar); // let initScript = document.createElement('script');
-    // initScript.setAttribute('src', 'assets/pages/jquery.datatables.init.js');
-    // document.head.appendChild(initScript);
+    this.listarCategoria(1, this.buscar);
   },
   methods: {
     listarCategoria: function listarCategoria(page, buscar) {
@@ -63346,7 +63344,9 @@ var render = function() {
                 _c(
                   "table",
                   {
-                    staticClass: "table table-striped table-bordered",
+                    staticClass:
+                      "table table-striped table-bordered display responsive nowrap",
+                    staticStyle: { width: "100%" },
                     attrs: { id: "datatable-buttons" }
                   },
                   [
@@ -63813,11 +63813,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Descripcion")]),
+        _c("th", { attrs: { "data-title": "Descripcion" } }, [
+          _vm._v("Descripcion")
+        ]),
         _vm._v(" "),
-        _c("th", [_vm._v("Estado")]),
+        _c("th", { attrs: { "data-title": "Estado" } }, [_vm._v("Estado")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Accion")])
+        _c("th", { attrs: { "data-title": "Accion" } }, [_vm._v("Accion")])
       ])
     ])
   }
@@ -66975,7 +66977,7 @@ var render = function() {
               [
                 _vm.listado == 0
                   ? [
-                      _c("div", [
+                      _c("div", { staticClass: "container-new-ingreso" }, [
                         _c(
                           "form",
                           {
@@ -74412,7 +74414,7 @@ var render = function() {
               [
                 _vm.listado == 0
                   ? [
-                      _c("div", [
+                      _c("div", { staticClass: "container-new-ingreso" }, [
                         _c(
                           "form",
                           {

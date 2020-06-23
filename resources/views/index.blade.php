@@ -16,6 +16,9 @@
         <!-- DataTables -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <meta name="userId" content="{{ Auth::check()?Auth::user()->id:'' }}">
+        
+        
+
 
         <link href="css/plugins_datables.css" rel="stylesheet" type="text/css"/>
         <!-- Bootstrap core CSS -->
@@ -128,14 +131,18 @@
         </div>       
 
         <script src="js/app.js"></script>
-        <script src="js/plantilla.js"></script>    
+        <script src="js/plantilla.js"></script> 
         <script src="assets/plugins/morris/morris.min.js"></script>
+        {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script> --}}
+        <script src="js/plugins_datables.js"></script>
 
         <script src="assets/plugins/raphael/raphael-min.js"></script>
         <!-- Dashboard init -->
 
         <script src="assets/js/jquery.app.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script> --}}
+        {{-- <script src="js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8" async defer></script>
+        <script src="js/dataTables.responsive.min.js" type="text/javascript" charset="utf-8" async defer></script> --}}
 
         
 

@@ -28,13 +28,13 @@
                         </label>
                     </div>
                         <div class="table-responsive">
-                            <table id="datatable-buttons" class="table table-striped table-bordered">
+                            <table id="datatable-buttons" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Descripcion</th>
-                                    <th>Estado</th>
-                                    <th>Accion</th>
+                                    <th >Nombre</th>
+                                    <th data-title="Descripcion">Descripcion</th>
+                                    <th data-title="Estado">Estado</th>
+                                    <th data-title="Accion">Accion</th>
                                 </tr>
                                 </thead>
 
@@ -199,16 +199,14 @@
                 }
                 return pagesArray;
 
+
             }
+            
         }
         ,
         mounted() {
             
-            this.listarCategoria(1,this.buscar); 
-            // let initScript = document.createElement('script');
-            // initScript.setAttribute('src', 'assets/pages/jquery.datatables.init.js');
-            // document.head.appendChild(initScript);
-
+            this.listarCategoria(1,this.buscar);      
         },
         methods: {
             listarCategoria(page,buscar){
@@ -219,10 +217,12 @@
                     me.arrayCategoria = respuesta.categorias.data;
                     me.pagination= respuesta.pagination;
                     me.num_entradas='Mostrando de '+me.pagination.current_page+' a '+me.pagination.per_page+' de '+me.pagination.total+' entradas';
+
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
+
             },
             cambiarPagina(page,buscar){
                 let me = this;

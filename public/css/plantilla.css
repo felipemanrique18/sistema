@@ -342,6 +342,9 @@ File: Main file css
 
   .scrollbar-wrapper {
     overflow: auto; }
+  .container-new-ingreso{
+    font-size: 16px;
+  }
 
   #page-right-content {
     margin-left: 0; }

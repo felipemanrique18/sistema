@@ -45,6 +45,7 @@
     }
 
     function initComponents() {
+        
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
 

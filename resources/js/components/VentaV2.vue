@@ -113,7 +113,7 @@
                 <!-- detalles -->
                 <transition name="fade">
                     <template v-if="listado==0">
-                        <div>
+                        <div class="container-new-ingreso">
                             <form action="#" method="POST" enctype="multipart/form-data" v-on:submit.prevent>
                                 <div>
                                     <div class="col-md-7 detalle-venta">

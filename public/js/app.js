@@ -8143,10 +8143,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -8298,10 +8294,16 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.ocultarDetalle();
         me.listarVenta(1, 'nombre', '');
-        swal("Ingreso Registrado!", {
-          icon: "success"
+        swal({
+          title: "Venta Registrada",
+          text: "Quieres descargar la factura de la venta?",
+          icon: "success",
+          buttons: ["Cancelar", "Descargar"]
+        }).then(function (willDelete) {
+          if (willDelete) {
+            window.open('http://ventasmanrique.herokuapp.com/venta/pdf/' + response.data.id);
+          }
         });
-        window.open('http://ventasmanrique.herokuapp.com/venta/pdf/' + response.data.id);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -8323,7 +8325,9 @@ __webpack_require__.r(__webpack_exports__);
           }).then(function (response) {
             me.listarVenta(1, '', '');
             swal("Venta Anulada!", {
-              icon: "success"
+              icon: "success",
+              buttons: false,
+              timer: 2000
             });
           })["catch"](function (error) {
             console.log(error);
@@ -8369,15 +8373,13 @@ __webpack_require__.r(__webpack_exports__);
       this.errorIngreso = 0;
 
       switch (tipo) {
-        case "cliente":
-          if (this.idcliente == 0 || !this.idcliente) {
-            this.errorMostrarMsjCliente[0].cliente = "Seleccione Cliente";
-          } else {
-            this.errorMostrarMsjCliente[0].cliente = "";
-          }
-
-          break;
-
+        // case "cliente":
+        //     if (this.idcliente==0||!this.idcliente){
+        //         this.errorMostrarMsjCliente[0].cliente="Seleccione Cliente";
+        //     }else{
+        //         this.errorMostrarMsjCliente[0].cliente="";
+        //     }
+        //     break;
         case "impuesto":
           if (this.impuesto < 0) {
             this.errorMostrarMsjCliente[0].impuesto = "Seleccione Impuesto";
@@ -8395,15 +8397,13 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           break;
-
-        case "num_comprobante":
-          if (!this.num_comprobante) {
-            this.errorMostrarMsjCliente[0].num_comprobante = "Seleccione el numero de comprobante";
-          } else {
-            this.errorMostrarMsjCliente[0].num_comprobante = "";
-          }
-
-          break;
+        // case "num_comprobante":
+        //     if (!this.num_comprobante){
+        //         this.errorMostrarMsjCliente[0].num_comprobante="Seleccione el numero de comprobante"
+        //     }else{
+        //         this.errorMostrarMsjCliente[0].num_comprobante="";
+        //     }
+        //     break;
 
         case "articulo":
           if (this.arrayDetalle.length == 0) {
@@ -8415,12 +8415,11 @@ __webpack_require__.r(__webpack_exports__);
           break;
 
         case "todos":
-          if (this.idcliente == 0 || !this.idcliente) {
-            this.errorMostrarMsjCliente[0].cliente = "Seleccione Cliente";
-          } else {
-            this.errorMostrarMsjCliente[0].cliente = "";
-          }
-
+          // if (this.idcliente==0||!this.idcliente){
+          //     this.errorMostrarMsjCliente[0].cliente="Seleccione Cliente"
+          // }else{
+          //     this.errorMostrarMsjCliente[0].cliente="";
+          // }
           if (this.impuesto < 0) {
             this.errorMostrarMsjCliente[0].impuesto = "Seleccione Impuesto";
           } else {
@@ -8431,13 +8430,12 @@ __webpack_require__.r(__webpack_exports__);
             this.errorMostrarMsjCliente[0].comprobante = "Seleccione El tipo de comprobante";
           } else {
             this.errorMostrarMsjCliente[0].comprobante = "";
-          }
+          } // if (!this.num_comprobante){
+          //     this.errorMostrarMsjCliente[0].num_comprobante="Seleccione el numero de comprobante"
+          // }else{
+          //     this.errorMostrarMsjCliente[0].num_comprobante="";
+          // }
 
-          if (!this.num_comprobante) {
-            this.errorMostrarMsjCliente[0].num_comprobante = "Seleccione el numero de comprobante";
-          } else {
-            this.errorMostrarMsjCliente[0].num_comprobante = "";
-          }
 
           if (this.arrayDetalle.length == 0) {
             this.errorMostrarMsjCliente[0].articulo = "Sin articulos";
@@ -8455,7 +8453,7 @@ __webpack_require__.r(__webpack_exports__);
           break;
       }
 
-      if (this.errorMostrarMsjCliente[0].cliente == "" && this.errorMostrarMsjCliente[0].impuesto == "" && this.errorMostrarMsjCliente[0].comprobante == "" && this.errorMostrarMsjCliente[0].articulo == "") {
+      if (this.errorMostrarMsjCliente[0].impuesto == "" && this.errorMostrarMsjCliente[0].comprobante == "" && this.errorMostrarMsjCliente[0].articulo == "") {
         this.errorIngreso = 0;
       } else {
         this.errorIngreso = 1;
@@ -13386,7 +13384,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n    background-color: #000000c9 !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: #d57171!important;\n    width: 100%;\n}\n\n", ""]);
+exports.push([module.i, "\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n    background-color: #000000c9 !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: #d57171!important;\n    width: 100%;\n}\n\n\n", ""]);
 
 // exports
 
@@ -74452,7 +74450,7 @@ var render = function() {
                                           _c(
                                             "label",
                                             { staticClass: "control-label" },
-                                            [_vm._v("Cliente (*)")]
+                                            [_vm._v("Cliente")]
                                           ),
                                           _vm._v(" "),
                                           _c("v-select", {
@@ -74461,24 +74459,7 @@ var render = function() {
                                               options: _vm.arrayCliente,
                                               placeholder: "Buscar Clientes..."
                                             },
-                                            on: {
-                                              search: _vm.selectCliente,
-                                              "search:blur": function($event) {
-                                                return _vm.validarVenta(
-                                                  "cliente"
-                                                )
-                                              },
-                                              input: function($event) {
-                                                return _vm.validarVenta(
-                                                  "cliente"
-                                                )
-                                              },
-                                              blur: function($event) {
-                                                return _vm.validarVenta(
-                                                  "cliente"
-                                                )
-                                              }
-                                            },
+                                            on: { search: _vm.selectCliente },
                                             model: {
                                               value: _vm.idcliente,
                                               callback: function($$v) {
@@ -74753,139 +74734,6 @@ var render = function() {
                                         )
                                       ]
                                     )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "row" }, [
-                                    _c("div", { staticClass: "col-md-6" }, [
-                                      _c("div", { staticClass: "form-group" }, [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass: "control-label",
-                                            attrs: { for: "field-1" }
-                                          },
-                                          [_vm._v("Serie")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.serie_comprobante,
-                                              expression: "serie_comprobante"
-                                            }
-                                          ],
-                                          staticClass: "form-control",
-                                          attrs: {
-                                            type: "number",
-                                            placeholder: "000x",
-                                            min: "0"
-                                          },
-                                          domProps: {
-                                            value: _vm.serie_comprobante
-                                          },
-                                          on: {
-                                            input: function($event) {
-                                              if ($event.target.composing) {
-                                                return
-                                              }
-                                              _vm.serie_comprobante =
-                                                $event.target.value
-                                            }
-                                          }
-                                        })
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col-md-6" }, [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "form-group ",
-                                          class: [
-                                            _vm.errorMostrarMsjCliente[0]
-                                              .num_comprobante
-                                              ? "has-error"
-                                              : ""
-                                          ]
-                                        },
-                                        [
-                                          _c(
-                                            "label",
-                                            {
-                                              staticClass: "control-label",
-                                              attrs: { for: "field-2" }
-                                            },
-                                            [_vm._v("Numero (*)")]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: _vm.num_comprobante,
-                                                expression: "num_comprobante"
-                                              }
-                                            ],
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "number",
-                                              placeholder: "00xxx",
-                                              min: "0"
-                                            },
-                                            domProps: {
-                                              value: _vm.num_comprobante
-                                            },
-                                            on: {
-                                              blur: function($event) {
-                                                return _vm.validarVenta(
-                                                  "num_comprobante"
-                                                )
-                                              },
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
-                                                }
-                                                _vm.num_comprobante =
-                                                  $event.target.value
-                                              }
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              directives: [
-                                                {
-                                                  name: "show",
-                                                  rawName: "v-show",
-                                                  value:
-                                                    _vm
-                                                      .errorMostrarMsjCliente[0]
-                                                      .num_comprobante,
-                                                  expression:
-                                                    "errorMostrarMsjCliente[0].num_comprobante"
-                                                }
-                                              ],
-                                              staticClass: "text-error"
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\r\n                                                        " +
-                                                  _vm._s(
-                                                    _vm
-                                                      .errorMostrarMsjCliente[0]
-                                                      .num_comprobante
-                                                  ) +
-                                                  "\r\n                                                    "
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ])
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "row" }, [

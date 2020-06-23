@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Venta;
 use App\DetalleVenta;
 use App\User;
+use App\Persona;
 use App\Notifications\NotifyAdmin;
 
 class VentaController extends Controller
@@ -53,19 +54,49 @@ class VentaController extends Controller
     public function store(Request $request)
     {
 
+        $numventas=Venta::count();
     	$mytime=Carbon::now('America/Bogota');
-        $venta=Venta::create([
-        	'cliente_id' => $request->cliente_id,
-            'usuario_id' => \Auth::user()->id,
-            'tipo_comprobante' => $request->tipo_comprobante,
-            'serie_comprobante' => $request->serie_comprobante,
-            'num_comprobante' => $request->num_comprobante,
-            'fecha_hora' => $mytime->toDateString(),
-            'impuesto' => $request->impuesto,
-            'total' => $request->total,
-            'estado' => 'Registrado'
+        switch ($numventas) {
+            case $numventas<100:
+                $serie_comprobante="000".$numventas;
+                $num_comprobante='000'.$numventas;
+                break;
+            case $numventas<1000:
+                $serie_comprobante="00".$numventas;
+                $num_comprobante='00'.$numventas;
+            default:
+                $serie_comprobante=$numventas;
+                $num_comprobante=$numventas;
+                break;
+        }
+        if ($request->cliente_id==0) {
+            $desconocido=Persona::where('nombre','=','desconocido')->get();
+            $venta=Venta::create([
+                'cliente_id' => $desconocido[0]->id,
+                'usuario_id' => \Auth::user()->id,
+                'tipo_comprobante' => $request->tipo_comprobante,
+                'serie_comprobante' => $serie_comprobante,
+                'num_comprobante' => $num_comprobante,
+                'fecha_hora' => $mytime->toDateString(),
+                'impuesto' => $request->impuesto,
+                'total' => $request->total,
+                'estado' => 'Registrado'
+            ]);
 
-        ]);
+        }else{
+            $venta=Venta::create([
+                'cliente_id' => $request->cliente_id,
+                'usuario_id' => \Auth::user()->id,
+                'tipo_comprobante' => $request->tipo_comprobante,
+                'serie_comprobante' => $serie_comprobante,
+                'num_comprobante' => $num_comprobante,
+                'fecha_hora' => $mytime->toDateString(),
+                'impuesto' => $request->impuesto,
+                'total' => $request->total,
+                'estado' => 'Registrado'
+            ]);
+        }
+        
         $detalles = $request->data;//Array de detalles
             //Recorro todos los elementos
 

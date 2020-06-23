@@ -120,12 +120,9 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group " :class="[errorMostrarMsjCliente[0].cliente? 'has-error' : '']">
-                                                    <label class="control-label">Cliente (*)</label>
+                                                    <label class="control-label">Cliente</label>
                                                     <v-select v-model="idcliente"
                                                         @search="selectCliente"
-                                                        @search:blur="validarVenta('cliente')"
-                                                        @input="validarVenta('cliente')"
-                                                        @blur="validarVenta('cliente')"
                                                         label="nombre"
                                                         :options="arrayCliente"
                                                         placeholder="Buscar Clientes..."                                    
@@ -165,7 +162,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="field-1" class="control-label">Serie</label>
@@ -181,8 +178,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-                                        </div>
+                                        </div> -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -644,10 +640,19 @@
                 }).then(function (response){
                     me.ocultarDetalle();
                     me.listarVenta(1,'nombre','');
-                    swal("Ingreso Registrado!", {
-                        icon: "success",
+                    swal({
+                      title: "Venta Registrada",
+                      text: "Quieres descargar la factura de la venta?",
+                      icon: "success",
+                      buttons: ["Cancelar","Descargar"],
+                    })
+                    .then((willDelete) => {
+                      if (willDelete) {
+                        window.open('http://ventasmanrique.herokuapp.com/venta/pdf/'+response.data.id);
+                      }
                     });
-                    window.open('http://ventasmanrique.herokuapp.com/venta/pdf/'+response.data.id);
+                
+            
                 }).catch(function(error){
                     console.log(error);
                 })
@@ -669,6 +674,8 @@
                         me.listarVenta(1,'','');
                         swal("Venta Anulada!", {
                           icon: "success",
+                          buttons: false,
+                          timer: 2000,
                         });
                     }).catch(function (error) {
                         console.log(error);
@@ -718,13 +725,13 @@
                 this.errorIngreso=0;
                 
                     switch (tipo) {
-                        case "cliente":
-                            if (this.idcliente==0||!this.idcliente){
-                                this.errorMostrarMsjCliente[0].cliente="Seleccione Cliente";
-                            }else{
-                                this.errorMostrarMsjCliente[0].cliente="";
-                            }
-                            break;
+                        // case "cliente":
+                        //     if (this.idcliente==0||!this.idcliente){
+                        //         this.errorMostrarMsjCliente[0].cliente="Seleccione Cliente";
+                        //     }else{
+                        //         this.errorMostrarMsjCliente[0].cliente="";
+                        //     }
+                        //     break;
                         case "impuesto":
                            if (this.impuesto<0){
                                 this.errorMostrarMsjCliente[0].impuesto="Seleccione Impuesto"
@@ -742,15 +749,15 @@
                             }
 
                             break;
-                        case "num_comprobante":
-                            if (!this.num_comprobante){
-                                this.errorMostrarMsjCliente[0].num_comprobante="Seleccione el numero de comprobante"
-                            }else{
+                        // case "num_comprobante":
+                        //     if (!this.num_comprobante){
+                        //         this.errorMostrarMsjCliente[0].num_comprobante="Seleccione el numero de comprobante"
+                        //     }else{
                                 
-                                this.errorMostrarMsjCliente[0].num_comprobante="";
-                            }
+                        //         this.errorMostrarMsjCliente[0].num_comprobante="";
+                        //     }
 
-                            break;
+                        //     break;
                         case "articulo":
                             if (this.arrayDetalle.length==0){
                                 this.errorMostrarMsjCliente[0].articulo="Sin articulos"
@@ -760,13 +767,13 @@
                             }
                             break;
                         case "todos":
-                            if (this.idcliente==0||!this.idcliente){
-                                this.errorMostrarMsjCliente[0].cliente="Seleccione Cliente"
+                            // if (this.idcliente==0||!this.idcliente){
+                            //     this.errorMostrarMsjCliente[0].cliente="Seleccione Cliente"
 
-                            }else{
+                            // }else{
 
-                                this.errorMostrarMsjCliente[0].cliente="";
-                            }
+                            //     this.errorMostrarMsjCliente[0].cliente="";
+                            // }
 
                             if (this.impuesto<0){
                                 this.errorMostrarMsjCliente[0].impuesto="Seleccione Impuesto"
@@ -782,12 +789,12 @@
                                 this.errorMostrarMsjCliente[0].comprobante="";
                             }
 
-                            if (!this.num_comprobante){
-                                this.errorMostrarMsjCliente[0].num_comprobante="Seleccione el numero de comprobante"
-                            }else{
+                            // if (!this.num_comprobante){
+                            //     this.errorMostrarMsjCliente[0].num_comprobante="Seleccione el numero de comprobante"
+                            // }else{
                                 
-                                this.errorMostrarMsjCliente[0].num_comprobante="";
-                            }
+                            //     this.errorMostrarMsjCliente[0].num_comprobante="";
+                            // }
 
                             if (this.arrayDetalle.length==0){
                                 this.errorMostrarMsjCliente[0].articulo="Sin articulos"
@@ -804,7 +811,7 @@
                             break;
                     }
 
-                if (this.errorMostrarMsjCliente[0].cliente=="" && this.errorMostrarMsjCliente[0].impuesto=="" && this.errorMostrarMsjCliente[0].comprobante=="" && this.errorMostrarMsjCliente[0].articulo=="" ){
+                if (this.errorMostrarMsjCliente[0].impuesto=="" && this.errorMostrarMsjCliente[0].comprobante=="" && this.errorMostrarMsjCliente[0].articulo=="" ){
                     this.errorIngreso = 0;
                 }else{
                     this.errorIngreso=1;
@@ -954,6 +961,7 @@
         color: #d57171!important;
         width: 100%;
     }
+    
     
 </style>
 

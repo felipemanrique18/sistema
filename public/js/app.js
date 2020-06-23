@@ -74111,6 +74111,8 @@ var render = function() {
                               [
                                 _c("thead", [
                                   _c("tr", [
+                                    _c("th", [_vm._v("Accion")]),
+                                    _vm._v(" "),
                                     _c("th", [_vm._v("Cliente")]),
                                     _vm._v(" "),
                                     _c("th", [_vm._v("Usuario")]),
@@ -74127,9 +74129,7 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("th", [_vm._v("Total")]),
                                     _vm._v(" "),
-                                    _c("th", [_vm._v("Estado")]),
-                                    _vm._v(" "),
-                                    _c("th", [_vm._v("Accion")])
+                                    _c("th", [_vm._v("Estado")])
                                   ])
                                 ]),
                                 _vm._v(" "),
@@ -74137,6 +74137,70 @@ var render = function() {
                                   "tbody",
                                   _vm._l(_vm.arrayVenta, function(venta) {
                                     return _c("tr", { key: venta.id }, [
+                                      _c(
+                                        "td",
+                                        [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-sm btn-info",
+                                              attrs: {
+                                                type: "button",
+                                                "data-toggle": "tooltip",
+                                                "data-placement": "top",
+                                                title: "",
+                                                "data-original-title": "Editar"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.verVenta(venta)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-eye"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          venta.estado == "Registrado"
+                                            ? [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-sm btn-danger",
+                                                    attrs: {
+                                                      type: "button",
+                                                      "data-toggle": "tooltip",
+                                                      "data-placement": "top",
+                                                      title: "",
+                                                      "data-original-title":
+                                                        "Desactivar"
+                                                    },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.anularVenta(
+                                                          venta.id
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fa fa-trash-alt"
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                            : _vm._e()
+                                        ],
+                                        2
+                                      ),
+                                      _vm._v(" "),
                                       _c("td", {
                                         domProps: {
                                           textContent: _vm._s(
@@ -74201,71 +74265,7 @@ var render = function() {
                                         domProps: {
                                           textContent: _vm._s(venta.estado)
                                         }
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "td",
-                                        [
-                                          _c(
-                                            "button",
-                                            {
-                                              staticClass:
-                                                "btn btn-sm btn-info",
-                                              attrs: {
-                                                type: "button",
-                                                "data-toggle": "tooltip",
-                                                "data-placement": "top",
-                                                title: "",
-                                                "data-original-title": "Editar"
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.verVenta(venta)
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fas fa-eye"
-                                              })
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          venta.estado == "Registrado"
-                                            ? [
-                                                _c(
-                                                  "button",
-                                                  {
-                                                    staticClass:
-                                                      "btn btn-sm btn-danger",
-                                                    attrs: {
-                                                      type: "button",
-                                                      "data-toggle": "tooltip",
-                                                      "data-placement": "top",
-                                                      title: "",
-                                                      "data-original-title":
-                                                        "Desactivar"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.anularVenta(
-                                                          venta.id
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  [
-                                                    _c("i", {
-                                                      staticClass:
-                                                        "fa fa-trash-alt"
-                                                    })
-                                                  ]
-                                                )
-                                              ]
-                                            : _vm._e()
-                                        ],
-                                        2
-                                      )
+                                      })
                                     ])
                                   }),
                                   0

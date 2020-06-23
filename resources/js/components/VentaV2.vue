@@ -47,6 +47,7 @@
                                 <table id="datatable-buttons" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
+                                        <th>Accion</th>
                                         <th>Cliente</th>
                                         <th>Usuario</th>
                                         <th>Tipo Comprobante</th>
@@ -56,14 +57,18 @@
                                         <th>Impuesto</th>
                                         <th>Total</th>
                                         <th>Estado</th>
-                                        <th>Accion</th>
-                                        
                                     </tr>
                                     </thead>
 
 
                                     <tbody>
                                     <tr v-for="venta in arrayVenta" :key="venta.id">
+                                        <td>       
+                                            <button type="button" class="btn btn-sm btn-info" @click="verVenta(venta)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"><i class="fas fa-eye"></i></button>
+                                            <template v-if="venta.estado=='Registrado'">
+                                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Desactivar" @click="anularVenta(venta.id)" ><i class="fa fa-trash-alt"></i></button>
+                                                </template>
+                                        </td>
                                         <td v-text="venta.cliente.nombre"></td>
                                         <td v-text="venta.usuario.persona.nombre"></td>
                                         <td v-text="venta.tipo_comprobante"></td>
@@ -73,12 +78,7 @@
                                         <td>{{ formatNumber(venta.impuesto) }}</td>
                                         <td>{{ formatNumber(venta.total) }}</td>
                                         <td v-text="venta.estado"></td>
-                                        <td>       
-                                            <button type="button" class="btn btn-sm btn-info" @click="verVenta(venta)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"><i class="fas fa-eye"></i></button>
-                                            <template v-if="venta.estado=='Registrado'">
-                                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Desactivar" @click="anularVenta(venta.id)" ><i class="fa fa-trash-alt"></i></button>
-                                                </template>
-                                        </td>
+                                        
                                     </tr>
 
                                     </tbody>

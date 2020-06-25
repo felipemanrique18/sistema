@@ -146,8 +146,42 @@
                     me.user = respuesta.user;
                 })
                 .catch(function (error) {
+                    me.mostrarerror(error);
                     console.log(error);
                 });
+            },
+            mostrarerror(error){
+                switch (error.response.status) {
+                    case 500:
+                        swal("Eroor!", {
+                          icon: "error",
+                          text: "Actualiza tu fecha!",
+                          buttons: false,
+                          timer: 3000,
+                        });
+                        break;
+                    case 401:
+                        swal("Eroor!", {
+                          icon: "error",
+                          text: "A caducado tu session!",
+                          buttons: false,
+                          timer: 3000,
+                        });
+                        window.location.reload(); 
+                        break;
+                    case 419:
+                        swal("Eroor!", {
+                          icon: "error",
+                          text: "A caducado tu session!",
+                          buttons: false,
+                          timer: 3000,
+                        });
+                        window.location.reload(); 
+                        break;
+                    default:
+                        // statements_def
+                        break;
+                }
             }
         }
     }

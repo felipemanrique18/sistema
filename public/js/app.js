@@ -2200,6 +2200,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -2211,6 +2212,7 @@ __webpack_require__.r(__webpack_exports__);
         var respuesta = response.data;
         me.arrayCategorias = respuesta.categorias;
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -2238,6 +2240,7 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarArticulo(1, '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -2262,6 +2265,7 @@ __webpack_require__.r(__webpack_exports__);
           icon: "success"
         });
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -2300,6 +2304,7 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
           })["catch"](function (error) {
+            me.mostrarerror(error);
             console.log(error);
           });
         }
@@ -2325,6 +2330,7 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
           })["catch"](function (error) {
+            me.mostrarerror(error);
             console.log(error);
           });
         }
@@ -2390,6 +2396,42 @@ __webpack_require__.r(__webpack_exports__);
     },
     cargarPdf: function cargarPdf() {
       window.open('http://ventasmanrique.herokuapp.com/articulo/listarPdf', '_blank');
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
+      }
     }
   }
 });
@@ -2623,6 +2665,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -2647,6 +2690,7 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarCategoria(1, '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       }); // axios.post('categoria/registrar',{
       //     'nombre':this.nombre,
@@ -2673,6 +2717,7 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarCategoria(1, '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -2705,6 +2750,7 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
           })["catch"](function (error) {
+            me.mostrarerror(error);
             console.log(error);
           });
         }
@@ -2730,6 +2776,7 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
           })["catch"](function (error) {
+            me.mostrarerror(error);
             console.log(error);
           });
         }
@@ -2775,6 +2822,42 @@ __webpack_require__.r(__webpack_exports__);
                 }
             }
           }
+      }
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
       }
     }
   }
@@ -3031,6 +3114,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -3058,6 +3142,7 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarPersona(1, '', '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -3079,6 +3164,7 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarPersona(1, '', '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -3137,6 +3223,42 @@ __webpack_require__.r(__webpack_exports__);
                 }
             }
           }
+      }
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
       }
     }
   }
@@ -3484,6 +3606,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -3538,6 +3661,42 @@ __webpack_require__.r(__webpack_exports__);
       n = Math.trunc(n);
       n = String(n).replace(/\D/g, "");
       return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
+      }
     }
   }
 });
@@ -3887,6 +4046,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -3941,6 +4101,42 @@ __webpack_require__.r(__webpack_exports__);
       n = Math.trunc(n);
       n = String(n).replace(/\D/g, "");
       return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
+      }
     }
   }
 });
@@ -3956,9 +4152,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -4073,6 +4266,7 @@ __webpack_require__.r(__webpack_exports__);
         me.loadVentas();
         me.totales();
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -4167,6 +4361,42 @@ __webpack_require__.r(__webpack_exports__);
       n = Math.trunc(n);
       n = String(n).replace(/\D/g, "");
       return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
+      }
     }
   },
   mounted: function mounted() {
@@ -4649,20 +4879,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4670,7 +4886,7 @@ __webpack_require__.r(__webpack_exports__);
       ingreso_id: 0,
       idproveedor: 0,
       proveedor: '',
-      tipo_comprobante: 0,
+      tipo_comprobante: 'Factura',
       num_comprobante: '',
       serie_comprobante: '',
       impuesto: 0,
@@ -4772,6 +4988,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -4782,6 +4999,7 @@ __webpack_require__.r(__webpack_exports__);
         var respuesta = response.data;
         me.arrayArticulos = respuesta.articulos.data;
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -4801,8 +5019,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('ingreso/registrar', {
         'proveedor_id': this.idproveedor.id,
         'tipo_comprobante': this.tipo_comprobante,
-        'num_comprobante': this.num_comprobante,
-        'serie_comprobante': this.serie_comprobante,
         'impuesto': this.impuesto,
         'total': this.total,
         'data': this.arrayDetalle
@@ -4813,6 +5029,7 @@ __webpack_require__.r(__webpack_exports__);
           icon: "success"
         });
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -4857,6 +5074,7 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarPersona(1, '', '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -4880,6 +5098,7 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
           })["catch"](function (error) {
+            me.mostrarerror(error);
             console.log(error);
           });
         }
@@ -4905,6 +5124,7 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
           })["catch"](function (error) {
+            me.mostrarerror(error);
             console.log(error);
           });
         }
@@ -4922,6 +5142,7 @@ __webpack_require__.r(__webpack_exports__);
         me.arrayProveedor = respuesta.proveedores;
         loading(false);
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -4940,6 +5161,7 @@ __webpack_require__.r(__webpack_exports__);
           me.idarticulo = 0;
         }
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -4973,15 +5195,13 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           break;
-
-        case "num_comprobante":
-          if (!this.num_comprobante) {
-            this.errorMostrarMsjIngreso[0].num_comprobante = "Seleccione el numero de comprobante";
-          } else {
-            this.errorMostrarMsjIngreso[0].num_comprobante = "";
-          }
-
-          break;
+        // case "num_comprobante":
+        //     if (!this.num_comprobante){
+        //         this.errorMostrarMsjIngreso[0].num_comprobante="Seleccione el numero de comprobante"
+        //     }else{
+        //         this.errorMostrarMsjIngreso[0].num_comprobante="";
+        //     }
+        //     break;
 
         case "articulo":
           if (this.arrayDetalle.length == 0) {
@@ -5023,11 +5243,32 @@ __webpack_require__.r(__webpack_exports__);
             this.errorMostrarMsjIngreso[0].articulo = "";
           }
 
+          var error = 0;
+
+          for (var i = 0; i < this.arrayDetalle.length; i++) {
+            if (this.arrayDetalle[i].precio <= 0 || !this.arrayDetalle[i].precio || this.arrayDetalle[i].cantidad < 1) {
+              error = 1;
+              break;
+            }
+          }
+
+          if (error == 1) {
+            this.errorIngreso = 1;
+            swal("", {
+              icon: "error",
+              text: "El precio o la cantidad de los productos es incorrecto!",
+              buttons: false,
+              timer: 3000
+            });
+          }
+
           break;
       }
 
       if (this.errorMostrarMsjIngreso[0].proveedor == "" && this.errorMostrarMsjIngreso[0].impuesto == "" && this.errorMostrarMsjIngreso[0].comprobante == "" && this.errorMostrarMsjIngreso[0].articulo == "") {
-        this.errorIngreso = 0;
+        if (this.error == 0) {
+          this.errorIngreso = 1;
+        }
       } else {
         this.errorIngreso = 1;
       }
@@ -5102,8 +5343,7 @@ __webpack_require__.r(__webpack_exports__);
       this.idproveedor = [];
       this.arrayDetalle = [];
       this.arrayDetalleIngreso = [];
-      this.tipo_comprobante = 0;
-      this.num_comprobante = '';
+      this.tipo_comprobante = 'Factura', this.num_comprobante = '';
       this.serie_comprobante = '';
       this.impuesto = 0;
       this.total = '';
@@ -5148,6 +5388,42 @@ __webpack_require__.r(__webpack_exports__);
       n = Math.trunc(n);
       n = String(n).replace(/\D/g, "");
       return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
+      }
     }
   }
 });
@@ -5413,8 +5689,45 @@ __webpack_require__.r(__webpack_exports__);
         var respuesta = response.data;
         me.user = respuesta.user;
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
+      }
     }
   }
 });
@@ -5692,6 +6005,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -5726,6 +6040,7 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarPersona(1, '', '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -5754,6 +6069,7 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarPersona(1, '', '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -5820,6 +6136,42 @@ __webpack_require__.r(__webpack_exports__);
                 }
             }
           }
+      }
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
       }
     }
   }
@@ -5989,6 +6341,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -5998,6 +6351,42 @@ __webpack_require__.r(__webpack_exports__);
       me.pagination.current_page = page; //Envia la petición para visualizar la data de esa página
 
       me.listarRol(page, buscar);
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
+      }
     }
   }
 });
@@ -6366,6 +6755,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -6418,6 +6808,8 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarPersona(1, '', '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
+
         if (error.response.status == 422) {
           if (me.tipo_documento == '') {
             me.tipo_documento = 0;
@@ -6470,6 +6862,8 @@ __webpack_require__.r(__webpack_exports__);
         me.cerrarModal();
         me.listarPersona(1, '', '');
       })["catch"](function (error) {
+        me.mostrarerror(error);
+
         if (error.response.status == 422) {
           if (me.tipo_documento == '') {
             me.tipo_documento = 0;
@@ -6499,6 +6893,7 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
           })["catch"](function (error) {
+            me.mostrarerror(error);
             console.log(error);
           });
         }
@@ -6524,6 +6919,7 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
           })["catch"](function (error) {
+            me.mostrarerror(error);
             console.log(error);
           });
         }
@@ -6674,6 +7070,42 @@ __webpack_require__.r(__webpack_exports__);
                 }
             }
           }
+      }
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
       }
     }
   }
@@ -8476,11 +8908,32 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
 
+          var error = 0;
+
+          for (var i = 0; i < this.arrayDetalle.length; i++) {
+            if (this.arrayDetalle[i].cantidad <= 0 || !this.arrayDetalle[i].cantidad || this.arrayDetalle[0].descuento < 0) {
+              error = 1;
+              break;
+            }
+          }
+
+          if (error == 1) {
+            this.errorIngreso = 1;
+            swal("", {
+              icon: "error",
+              text: "La cantidad o el descuento de los productos es incorrecto!",
+              buttons: false,
+              timer: 3000
+            });
+          }
+
           break;
       }
 
       if (this.errorMostrarMsjCliente[0].impuesto == "" && this.errorMostrarMsjCliente[0].comprobante == "" && this.errorMostrarMsjCliente[0].articulo == "") {
-        this.errorIngreso = 0;
+        if (this.error == 0) {
+          this.errorIngreso = 1;
+        }
       } else {
         this.errorIngreso = 1;
       }
@@ -66432,25 +66885,9 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "p",
-                  { staticClass: "text-muted" },
-                  [
-                    _vm._v("Total Ingreso \n                      "),
-                    _c(
-                      "transition",
-                      { attrs: { name: "fade", mode: "in-out" } },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.ultimo_mes) +
-                            "\n                      "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
+                _c("p", { staticClass: "text-muted" }, [
+                  _vm._v("Total Ingreso " + _vm._s(_vm.ultimo_mes))
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -67355,139 +67792,6 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "row" }, [
-                                    _c("div", { staticClass: "col-md-6" }, [
-                                      _c("div", { staticClass: "form-group" }, [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass: "control-label",
-                                            attrs: { for: "field-1" }
-                                          },
-                                          [_vm._v("Serie")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.serie_comprobante,
-                                              expression: "serie_comprobante"
-                                            }
-                                          ],
-                                          staticClass: "form-control",
-                                          attrs: {
-                                            type: "number",
-                                            placeholder: "000x",
-                                            min: "0"
-                                          },
-                                          domProps: {
-                                            value: _vm.serie_comprobante
-                                          },
-                                          on: {
-                                            input: function($event) {
-                                              if ($event.target.composing) {
-                                                return
-                                              }
-                                              _vm.serie_comprobante =
-                                                $event.target.value
-                                            }
-                                          }
-                                        })
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col-md-6" }, [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "form-group ",
-                                          class: [
-                                            _vm.errorMostrarMsjIngreso[0]
-                                              .num_comprobante
-                                              ? "has-error"
-                                              : ""
-                                          ]
-                                        },
-                                        [
-                                          _c(
-                                            "label",
-                                            {
-                                              staticClass: "control-label",
-                                              attrs: { for: "field-2" }
-                                            },
-                                            [_vm._v("Numero (*)")]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: _vm.num_comprobante,
-                                                expression: "num_comprobante"
-                                              }
-                                            ],
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "number",
-                                              placeholder: "00xxx",
-                                              min: "0"
-                                            },
-                                            domProps: {
-                                              value: _vm.num_comprobante
-                                            },
-                                            on: {
-                                              blur: function($event) {
-                                                return _vm.validarIngreso(
-                                                  "num_comprobante"
-                                                )
-                                              },
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
-                                                }
-                                                _vm.num_comprobante =
-                                                  $event.target.value
-                                              }
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              directives: [
-                                                {
-                                                  name: "show",
-                                                  rawName: "v-show",
-                                                  value:
-                                                    _vm
-                                                      .errorMostrarMsjIngreso[0]
-                                                      .num_comprobante,
-                                                  expression:
-                                                    "errorMostrarMsjIngreso[0].num_comprobante"
-                                                }
-                                              ],
-                                              staticClass: "text-error"
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\r\n                                                        " +
-                                                  _vm._s(
-                                                    _vm
-                                                      .errorMostrarMsjIngreso[0]
-                                                      .num_comprobante
-                                                  ) +
-                                                  "\r\n                                                    "
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "row" }, [
                                     _c("div", { staticClass: "col-md-12" }, [
                                       _c("div", { staticClass: "form-group" }, [
                                         _c(
@@ -67771,352 +68075,396 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "col-md-5 ventas-agregadas" },
+                                {
+                                  staticClass:
+                                    "col-md-5 container-ventas-agregadas"
+                                },
                                 [
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c("h3", [
+                                  _c(
+                                    "div",
+                                    { staticClass: "ventas-agregadas" },
+                                    [
+                                      _c("div", { staticClass: "form-group" }, [
+                                        _c("h3", [
+                                          _vm.arrayDetalle.length
+                                            ? _c("b", [
+                                                _vm._v("Productos Agregados")
+                                              ])
+                                            : _c("b", [
+                                                _vm._v(
+                                                  "No hay productos Agregados"
+                                                )
+                                              ])
+                                        ])
+                                      ]),
+                                      _vm._v(" "),
                                       _vm.arrayDetalle.length
-                                        ? _c("b", [
-                                            _vm._v("Productos Agregados")
-                                          ])
-                                        : _c("b", [
-                                            _vm._v("No hay productos Agregados")
-                                          ])
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _vm.arrayDetalle.length
-                                    ? _c("div", { staticClass: "row" }, [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "table-responsive form-group "
-                                          },
-                                          [
+                                        ? _c("div", { staticClass: "row" }, [
                                             _c(
-                                              "table",
+                                              "div",
                                               {
                                                 staticClass:
-                                                  "table table-striped table-bordered table-sm"
+                                                  "table-responsive form-group "
                                               },
                                               [
-                                                _c("thead", [
-                                                  _c("tr", [
-                                                    _c("th"),
-                                                    _vm._v(" "),
-                                                    _c("th", [
-                                                      _vm._v("Articulo")
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "th",
-                                                      {
-                                                        staticStyle: {
-                                                          "padding-right":
-                                                            "40px",
-                                                          "padding-left": "40px"
-                                                        }
-                                                      },
-                                                      [_vm._v("Precio")]
-                                                    ),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "th",
-                                                      {
-                                                        staticStyle: {
-                                                          "padding-right":
-                                                            "25px",
-                                                          "padding-left": "25px"
-                                                        }
-                                                      },
-                                                      [_vm._v("Cantidad")]
-                                                    ),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "th",
-                                                      {
-                                                        staticStyle: {
-                                                          "padding-right":
-                                                            "40px",
-                                                          "padding-left": "40px"
-                                                        }
-                                                      },
-                                                      [_vm._v("Subtotal")]
-                                                    )
-                                                  ])
-                                                ]),
-                                                _vm._v(" "),
-                                                _vm.arrayDetalle.length
-                                                  ? _c(
-                                                      "tbody",
-                                                      _vm._l(
-                                                        _vm.arrayDetalle,
-                                                        function(
-                                                          detalle,
-                                                          index
-                                                        ) {
-                                                          return _c(
-                                                            "tr",
-                                                            { key: detalle.id },
-                                                            [
-                                                              _c("td", [
-                                                                _c(
-                                                                  "button",
-                                                                  {
-                                                                    staticClass:
-                                                                      "btn btn-danger btn-sm",
-                                                                    on: {
-                                                                      click: function(
-                                                                        $event
-                                                                      ) {
-                                                                        _vm.eliminarDetalle(
-                                                                          index
-                                                                        ),
-                                                                          _vm.validarIngreso(
-                                                                            "articulo"
-                                                                          )
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  [
-                                                                    _c("i", {
-                                                                      staticClass:
-                                                                        "fa fa-trash-alt"
-                                                                    })
-                                                                  ]
-                                                                )
-                                                              ]),
-                                                              _vm._v(" "),
-                                                              _c("td", {
-                                                                domProps: {
-                                                                  textContent: _vm._s(
-                                                                    detalle.articulo
-                                                                  )
-                                                                }
-                                                              }),
-                                                              _vm._v(" "),
-                                                              _c("td", [
-                                                                _c("input", {
-                                                                  directives: [
-                                                                    {
-                                                                      name:
-                                                                        "model",
-                                                                      rawName:
-                                                                        "v-model",
-                                                                      value:
-                                                                        detalle.precio,
-                                                                      expression:
-                                                                        "detalle.precio"
-                                                                    }
-                                                                  ],
-                                                                  staticClass:
-                                                                    "form-control",
-                                                                  attrs: {
-                                                                    type:
-                                                                      "number",
-                                                                    min: "0",
-                                                                    name: ""
-                                                                  },
-                                                                  domProps: {
-                                                                    value:
-                                                                      detalle.precio
-                                                                  },
-                                                                  on: {
-                                                                    input: function(
-                                                                      $event
-                                                                    ) {
-                                                                      if (
-                                                                        $event
-                                                                          .target
-                                                                          .composing
-                                                                      ) {
-                                                                        return
-                                                                      }
-                                                                      _vm.$set(
-                                                                        detalle,
-                                                                        "precio",
-                                                                        $event
-                                                                          .target
-                                                                          .value
-                                                                      )
-                                                                    }
-                                                                  }
-                                                                })
-                                                              ]),
-                                                              _vm._v(" "),
-                                                              _c("td", [
-                                                                _c("input", {
-                                                                  directives: [
-                                                                    {
-                                                                      name:
-                                                                        "model",
-                                                                      rawName:
-                                                                        "v-model",
-                                                                      value:
-                                                                        detalle.cantidad,
-                                                                      expression:
-                                                                        "detalle.cantidad"
-                                                                    }
-                                                                  ],
-                                                                  staticClass:
-                                                                    "form-control",
-                                                                  attrs: {
-                                                                    type:
-                                                                      "number",
-                                                                    name: ""
-                                                                  },
-                                                                  domProps: {
-                                                                    value:
-                                                                      detalle.cantidad
-                                                                  },
-                                                                  on: {
-                                                                    input: function(
-                                                                      $event
-                                                                    ) {
-                                                                      if (
-                                                                        $event
-                                                                          .target
-                                                                          .composing
-                                                                      ) {
-                                                                        return
-                                                                      }
-                                                                      _vm.$set(
-                                                                        detalle,
-                                                                        "cantidad",
-                                                                        $event
-                                                                          .target
-                                                                          .value
-                                                                      )
-                                                                    }
-                                                                  }
-                                                                })
-                                                              ]),
-                                                              _vm._v(" "),
-                                                              _c("td", [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    _vm.formatNumber(
-                                                                      detalle.precio *
-                                                                        detalle.cantidad
-                                                                    )
-                                                                  )
-                                                                )
-                                                              ])
-                                                            ]
-                                                          )
-                                                        }
-                                                      ),
-                                                      0
-                                                    )
-                                                  : _vm._e()
-                                              ]
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass: "form-group",
-                                            staticStyle: { "text-align": "end" }
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              { staticClass: "form-group" },
-                                              [
-                                                _c("strong", [
-                                                  _vm._v(
-                                                    "\r\n                                                        Total Parcial: $ " +
-                                                      _vm._s(
-                                                        _vm.formatNumber(
-                                                          (_vm.totalparcial =
-                                                            _vm.total -
-                                                            _vm.totalimpuesto)
-                                                        )
-                                                      ) +
-                                                      "\r\n                                                    "
-                                                  )
-                                                ])
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              { staticClass: "form-group" },
-                                              [
-                                                _c("strong", [
-                                                  _vm._v(
-                                                    "\r\n                                                        Total Impuesto: $ " +
-                                                      _vm._s(
-                                                        _vm.formatNumber(
-                                                          (_vm.totalimpuesto =
-                                                            (_vm.total *
-                                                              _vm.impuesto) /
-                                                            (1 + _vm.impuesto))
-                                                        )
-                                                      ) +
-                                                      "\r\n                                                    "
-                                                  )
-                                                ])
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              { staticClass: "form-group" },
-                                              [
-                                                _c("strong", [
-                                                  _vm._v(
-                                                    "\r\n                                                        Total: $ " +
-                                                      _vm._s(
-                                                        _vm.formatNumber(
-                                                          (_vm.total =
-                                                            _vm.calculartotal)
-                                                        )
-                                                      ) +
-                                                      "\r\n                                                    "
-                                                  )
-                                                ])
-                                              ]
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-12" },
-                                          [
-                                            _c(
-                                              "div",
-                                              { staticClass: "form-group" },
-                                              [
-                                                _c("label", {
-                                                  staticClass:
-                                                    "totalcontrol-label",
-                                                  attrs: { for: "field-2" }
-                                                }),
-                                                _vm._v(" "),
                                                 _c(
-                                                  "button",
+                                                  "table",
                                                   {
                                                     staticClass:
-                                                      "btn btn-primary form-control",
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.registrarIngreso()
-                                                      }
-                                                    }
+                                                      "table table-striped table-bordered table-sm"
                                                   },
-                                                  [_vm._v("Registrar Compra")]
+                                                  [
+                                                    _c("thead", [
+                                                      _c("tr", [
+                                                        _c("th"),
+                                                        _vm._v(" "),
+                                                        _c("th", [
+                                                          _vm._v("Articulo")
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "th",
+                                                          {
+                                                            staticStyle: {
+                                                              "padding-right":
+                                                                "40px",
+                                                              "padding-left":
+                                                                "40px"
+                                                            }
+                                                          },
+                                                          [_vm._v("Precio")]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "th",
+                                                          {
+                                                            staticStyle: {
+                                                              "padding-right":
+                                                                "25px",
+                                                              "padding-left":
+                                                                "25px"
+                                                            }
+                                                          },
+                                                          [_vm._v("Cantidad")]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "th",
+                                                          {
+                                                            staticStyle: {
+                                                              "padding-right":
+                                                                "40px",
+                                                              "padding-left":
+                                                                "40px"
+                                                            }
+                                                          },
+                                                          [_vm._v("Subtotal")]
+                                                        )
+                                                      ])
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _vm.arrayDetalle.length
+                                                      ? _c(
+                                                          "tbody",
+                                                          _vm._l(
+                                                            _vm.arrayDetalle,
+                                                            function(
+                                                              detalle,
+                                                              index
+                                                            ) {
+                                                              return _c(
+                                                                "tr",
+                                                                {
+                                                                  key:
+                                                                    detalle.id
+                                                                },
+                                                                [
+                                                                  _c("td", [
+                                                                    _c(
+                                                                      "button",
+                                                                      {
+                                                                        staticClass:
+                                                                          "btn btn-danger btn-sm",
+                                                                        on: {
+                                                                          click: function(
+                                                                            $event
+                                                                          ) {
+                                                                            _vm.eliminarDetalle(
+                                                                              index
+                                                                            ),
+                                                                              _vm.validarIngreso(
+                                                                                "articulo"
+                                                                              )
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "i",
+                                                                          {
+                                                                            staticClass:
+                                                                              "fa fa-trash-alt"
+                                                                          }
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ]),
+                                                                  _vm._v(" "),
+                                                                  _c("td", {
+                                                                    domProps: {
+                                                                      textContent: _vm._s(
+                                                                        detalle.articulo
+                                                                      )
+                                                                    }
+                                                                  }),
+                                                                  _vm._v(" "),
+                                                                  _c("td", [
+                                                                    _c("div", [
+                                                                      _c(
+                                                                        "input",
+                                                                        {
+                                                                          directives: [
+                                                                            {
+                                                                              name:
+                                                                                "model",
+                                                                              rawName:
+                                                                                "v-model",
+                                                                              value:
+                                                                                detalle.precio,
+                                                                              expression:
+                                                                                "detalle.precio"
+                                                                            }
+                                                                          ],
+                                                                          staticClass:
+                                                                            "form-control",
+                                                                          attrs: {
+                                                                            type:
+                                                                              "number",
+                                                                            min:
+                                                                              "0",
+                                                                            name:
+                                                                              ""
+                                                                          },
+                                                                          domProps: {
+                                                                            value:
+                                                                              detalle.precio
+                                                                          },
+                                                                          on: {
+                                                                            input: function(
+                                                                              $event
+                                                                            ) {
+                                                                              if (
+                                                                                $event
+                                                                                  .target
+                                                                                  .composing
+                                                                              ) {
+                                                                                return
+                                                                              }
+                                                                              _vm.$set(
+                                                                                detalle,
+                                                                                "precio",
+                                                                                $event
+                                                                                  .target
+                                                                                  .value
+                                                                              )
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      )
+                                                                    ])
+                                                                  ]),
+                                                                  _vm._v(" "),
+                                                                  _c("td", [
+                                                                    _c(
+                                                                      "input",
+                                                                      {
+                                                                        directives: [
+                                                                          {
+                                                                            name:
+                                                                              "model",
+                                                                            rawName:
+                                                                              "v-model",
+                                                                            value:
+                                                                              detalle.cantidad,
+                                                                            expression:
+                                                                              "detalle.cantidad"
+                                                                          }
+                                                                        ],
+                                                                        staticClass:
+                                                                          "form-control",
+                                                                        attrs: {
+                                                                          type:
+                                                                            "number",
+                                                                          min:
+                                                                            "1",
+                                                                          max:
+                                                                            "500",
+                                                                          name:
+                                                                            ""
+                                                                        },
+                                                                        domProps: {
+                                                                          value:
+                                                                            detalle.cantidad
+                                                                        },
+                                                                        on: {
+                                                                          input: function(
+                                                                            $event
+                                                                          ) {
+                                                                            if (
+                                                                              $event
+                                                                                .target
+                                                                                .composing
+                                                                            ) {
+                                                                              return
+                                                                            }
+                                                                            _vm.$set(
+                                                                              detalle,
+                                                                              "cantidad",
+                                                                              $event
+                                                                                .target
+                                                                                .value
+                                                                            )
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    )
+                                                                  ]),
+                                                                  _vm._v(" "),
+                                                                  _c("td", [
+                                                                    _vm._v(
+                                                                      _vm._s(
+                                                                        _vm.formatNumber(
+                                                                          detalle.precio *
+                                                                            detalle.cantidad
+                                                                        )
+                                                                      )
+                                                                    )
+                                                                  ])
+                                                                ]
+                                                              )
+                                                            }
+                                                          ),
+                                                          0
+                                                        )
+                                                      : _vm._e()
+                                                  ]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "form-group",
+                                                staticStyle: {
+                                                  "text-align": "end"
+                                                }
+                                              },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  { staticClass: "form-group" },
+                                                  [
+                                                    _c("strong", [
+                                                      _vm._v(
+                                                        "\r\n                                                            Total Parcial: $ " +
+                                                          _vm._s(
+                                                            _vm.formatNumber(
+                                                              (_vm.totalparcial =
+                                                                _vm.total -
+                                                                _vm.totalimpuesto)
+                                                            )
+                                                          ) +
+                                                          "\r\n                                                        "
+                                                      )
+                                                    ])
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "div",
+                                                  { staticClass: "form-group" },
+                                                  [
+                                                    _c("strong", [
+                                                      _vm._v(
+                                                        "\r\n                                                            Total Impuesto: $ " +
+                                                          _vm._s(
+                                                            _vm.formatNumber(
+                                                              (_vm.totalimpuesto =
+                                                                (_vm.total *
+                                                                  _vm.impuesto) /
+                                                                (1 +
+                                                                  _vm.impuesto))
+                                                            )
+                                                          ) +
+                                                          "\r\n                                                        "
+                                                      )
+                                                    ])
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "div",
+                                                  { staticClass: "form-group" },
+                                                  [
+                                                    _c("strong", [
+                                                      _vm._v(
+                                                        "\r\n                                                            Total: $ " +
+                                                          _vm._s(
+                                                            _vm.formatNumber(
+                                                              (_vm.total =
+                                                                _vm.calculartotal)
+                                                            )
+                                                          ) +
+                                                          "\r\n                                                        "
+                                                      )
+                                                    ])
+                                                  ]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-md-12" },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  { staticClass: "form-group" },
+                                                  [
+                                                    _c("label", {
+                                                      staticClass:
+                                                        "totalcontrol-label",
+                                                      attrs: { for: "field-2" }
+                                                    }),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-primary form-control",
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.registrarIngreso()
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "Registrar Compra"
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
                                                 )
                                               ]
                                             )
-                                          ]
-                                        )
-                                      ])
-                                    : _vm._e()
+                                          ])
+                                        : _vm._e()
+                                    ]
+                                  )
                                 ]
                               )
                             ])

@@ -812,11 +812,29 @@
                                 }
                                 
                             }
+                            let error=0;
+                            for (var i = 0; i < this.arrayDetalle.length; i++) {
+                                if (this.arrayDetalle[i].cantidad<=0 || !this.arrayDetalle[i].cantidad || this.arrayDetalle[0].descuento<0) {
+                                    error=1;
+                                    break;
+                                }
+                            }
+                            if (error==1) {
+                                this.errorIngreso=1;
+                                 swal("", {
+                                    icon: "error",
+                                    text: "La cantidad o el descuento de los productos es incorrecto!",
+                                    buttons: false,
+                                    timer: 3000,
+                                });
+                            }
                             break;
                     }
 
                 if (this.errorMostrarMsjCliente[0].impuesto=="" && this.errorMostrarMsjCliente[0].comprobante=="" && this.errorMostrarMsjCliente[0].articulo=="" ){
-                    this.errorIngreso = 0;
+                    if (this.error==0) {
+                            this.errorIngreso = 1;   
+                        }
                 }else{
                     this.errorIngreso=1;
                 }

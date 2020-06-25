@@ -56,18 +56,28 @@ class VentaController extends Controller
 
         $numventas=Venta::count();
     	$mytime=Carbon::now('America/Bogota');
-        switch ($numventas) {
-            case $numventas<100:
-                $serie_comprobante="000".$numventas;
-                $num_comprobante='000'.$numventas;
-                break;
-            case $numventas<1000:
-                $serie_comprobante="00".$numventas;
-                $num_comprobante='00'.$numventas;
-            default:
-                $serie_comprobante=$numventas;
-                $num_comprobante=$numventas;
-                break;
+        if ($numventas<10) {
+            $serie_comprobante="0000".$numventas;
+            $num_comprobante='0000'.$numventas;
+        }else{
+            if ($numventas<100) {
+                 $serie_comprobante="000".$numventas;
+                 $num_comprobante='000'.$numventas;
+            }else{
+                if ($numventas<1000) {
+                    $serie_comprobante="00".$numventas;
+                    $num_comprobante='00'.$numventas;
+                }else{
+                    if ($numventas<10000) {
+                        $serie_comprobante="0".$numventas;
+                        $num_comprobante='0'.$numventas;
+                    }else{
+                        $serie_comprobante=$numventas;
+                        $num_comprobante=$numventas;
+                    }
+                    
+                }
+            }
         }
         if ($request->cliente_id==0) {
             $desconocido=Persona::where('nombre','=','desconocido')->get();

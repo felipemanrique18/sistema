@@ -162,23 +162,6 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="field-1" class="control-label">Serie</label>
-                                                     <input type="number" v-model="serie_comprobante" class="form-control" placeholder="000x" min="0">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group " :class="[errorMostrarMsjIngreso[0].num_comprobante? 'has-error' : '']">
-                                                    <label for="field-2" class="control-label">Numero (*)</label>
-                                                    <input type="number" v-model="num_comprobante" class="form-control" placeholder="00xxx" min="0" @blur="validarIngreso('num_comprobante')">
-                                                    <div v-show="errorMostrarMsjIngreso[0].num_comprobante" class="text-error">
-                                                        {{ errorMostrarMsjIngreso[0].num_comprobante }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="field-1" class="control-label">Articulo <span v-show="idarticulo==0" style="color: red">Seleccione</span></label>
@@ -218,73 +201,76 @@
 
 
                                     <!-- ventas agregadas -->
-                                    <div class="col-md-5 ventas-agregadas">
-                                        <div class="form-group">
-                                            <h3>
-                                                <b v-if="arrayDetalle.length">Productos Agregados</b>
-                                                <b v-else>No hay productos Agregados</b>
-                                            </h3>
-                                        </div>
-                                        <div class="row" v-if="arrayDetalle.length">
-                                            <div class="table-responsive form-group ">
-                                                <table  class="table table-striped table-bordered table-sm">
-                                                    <thead>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th>Articulo</th>
-                                                            <th style="padding-right:40px;padding-left:40px ">Precio</th>
-                                                            <th style="padding-right:25px;padding-left:25px ">Cantidad</th>
-                                                            <th style="padding-right:40px;padding-left:40px ">Subtotal</th>
-                                                            
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody v-if="arrayDetalle.length">
-                                                        <tr v-for="(detalle,index) in arrayDetalle" :key="detalle.id">
-                                                            <td>
-                                                                <button class="btn btn-danger btn-sm" @click="eliminarDetalle(index),validarIngreso('articulo')">
-                                                                    <i class="fa fa-trash-alt"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td v-text="detalle.articulo"></td>
-                                                            <td><input type="number" class="form-control" min="0" v-model="detalle.precio" name=""></td>
-                                                            <td><input type="number" class="form-control" v-model="detalle.cantidad" name=""></td>
-                                                            <td>{{ formatNumber((detalle.precio*detalle.cantidad)) }}</td>
-                                                        </tr>
-                                                    </tbody>
+                                    <div class="col-md-5 container-ventas-agregadas">
+                                        <div class="ventas-agregadas">
+                                            <div class="form-group">
+                                                <h3>
+                                                    <b v-if="arrayDetalle.length">Productos Agregados</b>
+                                                    <b v-else>No hay productos Agregados</b>
+                                                </h3>
+                                            </div>
+                                            <div class="row" v-if="arrayDetalle.length">
+                                                <div class="table-responsive form-group ">
+                                                    <table  class="table table-striped table-bordered table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>Articulo</th>
+                                                                <th style="padding-right:40px;padding-left:40px ">Precio</th>
+                                                                <th style="padding-right:25px;padding-left:25px ">Cantidad</th>
+                                                                <th style="padding-right:40px;padding-left:40px ">Subtotal</th>
+                                                                
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody v-if="arrayDetalle.length">
+                                                            <tr v-for="(detalle,index) in arrayDetalle" :key="detalle.id">
+                                                                <td>
+                                                                    <button class="btn btn-danger btn-sm" @click="eliminarDetalle(index),validarIngreso('articulo')">
+                                                                        <i class="fa fa-trash-alt"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td v-text="detalle.articulo"></td>
+                                                                <td><div><input type="number"  min="0" class="form-control" v-model="detalle.precio" name="" ></div>
+                                                                </td>
+                                                                <td><input type="number" min="1" max="500" class="form-control" v-model="detalle.cantidad" name=""></td>
+                                                                <td>{{ formatNumber((detalle.precio*detalle.cantidad)) }}</td>
+                                                            </tr>
+                                                        </tbody>
 
-                                                </table>
-                                                
-                                            </div>
-                                            <div class="form-group" style="text-align: end">
-                                                <div class="form-group">
-                                                    <strong>
-                                                        Total Parcial: $ {{ formatNumber(totalparcial=(total-totalimpuesto)) }}
-                                                    </strong>
+                                                    </table>
+                                                    
                                                 </div>
-                                                <div class="form-group">
-                                                    <strong>
-                                                        Total Impuesto: $ {{ formatNumber(totalimpuesto=((total*impuesto)/(1+impuesto))) }}
-                                                    </strong>
-                                                </div>
-                                                <div class="form-group">
-                                                    <strong>
-                                                        Total: $ {{ formatNumber(total=calculartotal) }}
-                                                    </strong>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="field-2" class="totalcontrol-label"></label>
-                                                    <button class="btn btn-primary form-control" @click="registrarIngreso()">Registrar Compra</button>
-                                                </div>
-                                            </div>
-                                             <!-- <div v-show="errorIngreso" class="div-error">
-                                                <div class="text-error">
-                                                    <div v-for="error in errorMostrarMsjIngreso" :key="error" v-text="error">
-
+                                                <div class="form-group" style="text-align: end">
+                                                    <div class="form-group">
+                                                        <strong>
+                                                            Total Parcial: $ {{ formatNumber(totalparcial=(total-totalimpuesto)) }}
+                                                        </strong>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <strong>
+                                                            Total Impuesto: $ {{ formatNumber(totalimpuesto=((total*impuesto)/(1+impuesto))) }}
+                                                        </strong>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <strong>
+                                                            Total: $ {{ formatNumber(total=calculartotal) }}
+                                                        </strong>
                                                     </div>
                                                 </div>
-                                            </div> -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="field-2" class="totalcontrol-label"></label>
+                                                        <button class="btn btn-primary form-control" @click="registrarIngreso()">Registrar Compra</button>
+                                                    </div>
+                                                </div>
+                                                 <!-- <div v-show="errorIngreso" class="div-error">
+                                                    <div class="text-error">
+                                                        <div v-for="error in errorMostrarMsjIngreso" :key="error" v-text="error">
+
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -484,7 +470,7 @@
             ingreso_id:0,
             idproveedor:0,
             proveedor:'',
-            tipo_comprobante:0,
+            tipo_comprobante:'Factura',
             num_comprobante:'',
             serie_comprobante:'',
             impuesto:0,
@@ -582,6 +568,7 @@
                     me.num_entradas='Mostrando de '+me.pagination.current_page+' a '+me.pagination.per_page+' de '+me.pagination.total+' entradas';
                 })
                 .catch(function (error) {
+                    me.mostrarerror(error);
                     console.log(error);
                 });
             },
@@ -593,6 +580,7 @@
                     me.arrayArticulos = respuesta.articulos.data;
                 })
                 .catch(function (error) {
+                    me.mostrarerror(error);
                     console.log(error);
                 });
             },
@@ -612,8 +600,6 @@
                 axios.post('ingreso/registrar',{
                     'proveedor_id':this.idproveedor.id,
                     'tipo_comprobante':this.tipo_comprobante,
-                    'num_comprobante':this.num_comprobante,
-                    'serie_comprobante':this.serie_comprobante,
                     'impuesto':this.impuesto,
                     'total':this.total,
                     'data':this.arrayDetalle
@@ -624,6 +610,7 @@
                         icon: "success",
                     });
                 }).catch(function(error){
+                    me.mostrarerror(error);
                     console.log(error);
                 })
             },
@@ -663,6 +650,7 @@
                     me.cerrarModal();
                     me.listarPersona(1,'','');
                 }).catch(function (error) {
+                    me.mostrarerror(error);
                     console.log(error);
                 }); 
             },
@@ -685,6 +673,7 @@
                           icon: "success",
                         });
                     }).catch(function (error) {
+                        me.mostrarerror(error);
                         console.log(error);
                     });
                     
@@ -711,6 +700,7 @@
                           icon: "success",
                         });
                     }).catch(function (error) {
+                        me.mostrarerror(error);
                         console.log(error);
                     });
                     
@@ -729,6 +719,7 @@
                     loading(false)
                 })
                 .catch(function (error) {
+                    me.mostrarerror(error);
                     console.log(error);
                 });
             },
@@ -749,6 +740,7 @@
                     }
                 })
                 .catch(function (error) {
+                    me.mostrarerror(error);
                     console.log(error);
                 });
             },
@@ -782,15 +774,15 @@
                             }
 
                             break;
-                        case "num_comprobante":
-                            if (!this.num_comprobante){
-                                this.errorMostrarMsjIngreso[0].num_comprobante="Seleccione el numero de comprobante"
-                            }else{
+                        // case "num_comprobante":
+                        //     if (!this.num_comprobante){
+                        //         this.errorMostrarMsjIngreso[0].num_comprobante="Seleccione el numero de comprobante"
+                        //     }else{
                                 
-                                this.errorMostrarMsjIngreso[0].num_comprobante="";
-                            }
+                        //         this.errorMostrarMsjIngreso[0].num_comprobante="";
+                        //     }
 
-                            break;
+                        //     break;
                         case "articulo":
                             if (this.arrayDetalle.length==0){
                                 this.errorMostrarMsjIngreso[0].articulo="Sin articulos"
@@ -835,11 +827,32 @@
                                 
                                 this.errorMostrarMsjIngreso[0].articulo="";
                             }
+                            let error=0;
+                            for (var i = 0; i < this.arrayDetalle.length; i++) {
+                                if (this.arrayDetalle[i].precio<=0 || !this.arrayDetalle[i].precio || this.arrayDetalle[i].cantidad<1) {
+                                    error=1;
+                                    break;
+                                }
+                            }
+                            if (error==1) {
+                                this.errorIngreso=1;
+                                 swal("", {
+                                    icon: "error",
+                                    text: "El precio o la cantidad de los productos es incorrecto!",
+                                    buttons: false,
+                                    timer: 3000,
+                                });
+                            }
+                            
                             break;
                     }
 
                 if (this.errorMostrarMsjIngreso[0].proveedor=="" && this.errorMostrarMsjIngreso[0].impuesto=="" && this.errorMostrarMsjIngreso[0].comprobante=="" && this.errorMostrarMsjIngreso[0].articulo=="" ){
-                             this.errorIngreso = 0;
+                        
+                        if (this.error==0) {
+                            this.errorIngreso = 1;   
+                        }
+                        
                 }else{
                     this.errorIngreso=1;
                 }
@@ -914,7 +927,7 @@
                 this.idproveedor=[];
                 this.arrayDetalle=[];
                 this.arrayDetalleIngreso=[]; 
-                this.tipo_comprobante=0;
+                this.tipo_comprobante='Factura',
                 this.num_comprobante='';
                 this.serie_comprobante='';
                 this.impuesto=0;
@@ -954,6 +967,39 @@
                 n = String(n).replace(/\D/g, "");
                 return (n === '' ? n : Number(n).toLocaleString())
                 // return n === '' ? n : Number(n).toLocaleString();
+            },
+            mostrarerror(error){
+                switch (error.response.status) {
+                    case 500:
+                        swal("Eroor!", {
+                          icon: "error",
+                          text: "Actualiza tu fecha!",
+                          buttons: false,
+                          timer: 3000,
+                        });
+                        break;
+                    case 401:
+                        swal("Eroor!", {
+                          icon: "error",
+                          text: "A caducado tu session!",
+                          buttons: false,
+                          timer: 3000,
+                        });
+                        window.location.reload(); 
+                        break;
+                    case 419:
+                        swal("Eroor!", {
+                          icon: "error",
+                          text: "A caducado tu session!",
+                          buttons: false,
+                          timer: 3000,
+                        });
+                        window.location.reload(); 
+                        break;
+                    default:
+                        // statements_def
+                        break;
+                }
             }
             
         }

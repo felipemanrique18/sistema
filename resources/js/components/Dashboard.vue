@@ -7,10 +7,7 @@
                   <div class="col-lg-4 col-sm-4">
                     <div class="widget-inline-box text-center">
                       <h3 class="m-t-10"><i class="fas fa-luggage-cart"></i> <b data-plugin="counterup">{{ formatNumber(total_ingresos) }}</b></h3>
-                      <p class="text-muted">Total Ingreso 
-                        <transition name="fade" mode="in-out">
-                          {{ ultimo_mes }}
-                        </transition></p>
+                      <p class="text-muted">Total Ingreso {{ ultimo_mes }}</p>
                     </div>
                   </div>
 
@@ -121,6 +118,7 @@
                     me.totales();
                 })
                 .catch(function (error) {
+                    me.mostrarerror(error);
                     console.log(error);
                 });
             },
@@ -220,6 +218,39 @@
                 n = String(n).replace(/\D/g, "");
                 return (n === '' ? n : Number(n).toLocaleString())
                 // return n === '' ? n : Number(n).toLocaleString();
+            },
+            mostrarerror(error){
+                switch (error.response.status) {
+                    case 500:
+                        swal("Eroor!", {
+                          icon: "error",
+                          text: "Actualiza tu fecha!",
+                          buttons: false,
+                          timer: 3000,
+                        });
+                        break;
+                    case 401:
+                        swal("Eroor!", {
+                          icon: "error",
+                          text: "A caducado tu session!",
+                          buttons: false,
+                          timer: 3000,
+                        });
+                        window.location.reload(); 
+                        break;
+                    case 419:
+                        swal("Eroor!", {
+                          icon: "error",
+                          text: "A caducado tu session!",
+                          buttons: false,
+                          timer: 3000,
+                        });
+                        window.location.reload(); 
+                        break;
+                    default:
+                        // statements_def
+                        break;
+                }
             }
         },
         mounted() {

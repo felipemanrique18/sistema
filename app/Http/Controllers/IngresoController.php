@@ -53,13 +53,38 @@ class IngresoController extends Controller
     public function store(Request $request)
     {
 
-    	$mytime=Carbon::now('America/Bogota');
+    	$numingresos=Ingreso::count();
+        $mytime=Carbon::now('America/Bogota');
+        if ($numingresos<10) {
+            $serie_comprobante="0000".$numingresos;
+            $num_comprobante='0000'.$numingresos;
+        }else{
+            if ($numingresos<100) {
+                 $serie_comprobante="000".$numingresos;
+                 $num_comprobante='000'.$numingresos;
+            }else{
+                if ($numingresos<1000) {
+                    $serie_comprobante="00".$numingresos;
+                    $num_comprobante='00'.$numingresos;
+                }else{
+                    if ($numingresos<10000) {
+                        $serie_comprobante="0".$numingresos;
+                        $num_comprobante='0'.$numingresos;
+                    }else{
+                        $serie_comprobante=$numingresos;
+                        $num_comprobante=$numingresos;
+                    }
+                    
+                }
+            }
+        }
+       
         $ingreso=Ingreso::create([
         	'proveedor_id' => $request->proveedor_id,
             'usuario_id' => \Auth::user()->id,
             'tipo_comprobante' => $request->tipo_comprobante,
-            'serie_comprobante' => $request->serie_comprobante,
-            'num_comprobante' => $request->num_comprobante,
+            'serie_comprobante' => $serie_comprobante,
+            'num_comprobante' => $num_comprobante,
             'fecha_hora' => $mytime->toDateString(),
             'impuesto' => $request->impuesto,
             'total' => $request->total,

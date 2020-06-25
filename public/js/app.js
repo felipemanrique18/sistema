@@ -8277,7 +8277,7 @@ __webpack_require__.r(__webpack_exports__);
 
       me.pagination.current_page = page; //Envia la petición para visualizar la data de esa página
 
-      me.listarIngreso(page, tipo_busqueda, buscar);
+      me.listarVenta(page, tipo_busqueda, buscar);
     },
     registrarVenta: function registrarVenta() {
       if (this.validarVenta('todos')) {
@@ -8300,9 +8300,9 @@ __webpack_require__.r(__webpack_exports__);
           title: "Venta Registrada",
           text: "Quieres descargar la factura de la venta?",
           icon: "success",
-          buttons: ["Descargar", "Cancelar"]
-        }).then(function (willDelete) {
-          if (willDelete) {
+          buttons: ["cerrar", "Descargar"]
+        }).then(function (value) {
+          if (value) {
             window.open('http://ventasmanrique.herokuapp.com/venta/pdf/' + response.data.id);
           }
         });

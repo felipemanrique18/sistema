@@ -17,11 +17,13 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         $anio=date('Y');
+        $dia=date('d');
         $ingresos=DB::table('ingresos as i')
         ->select(DB::raw('EXTRACT(MONTH FROM i.fecha_hora) as mes'),
         DB::raw('EXTRACT(YEAR FROM i.fecha_hora) as anio'),
         DB::raw('SUM(i.total) as total'))
         ->whereYear('i.fecha_hora',$anio)
+        ->where('i.estado','=','Registrado')
         ->groupBy(DB::raw('EXTRACT(MONTH FROM i.fecha_hora)'),DB::raw('EXTRACT(YEAR FROM i.fecha_hora)'))
         ->get();
 
@@ -30,10 +32,19 @@ class DashboardController extends Controller
         DB::raw('EXTRACT(YEAR FROM v.fecha_hora) as anio'),
         DB::raw('SUM(v.total) as total'))
         ->whereYear('v.fecha_hora',$anio)
+        ->where('v.estado','=','Registrado')
         ->groupBy(DB::raw('EXTRACT(MONTH FROM v.fecha_hora)'),DB::raw('EXTRACT(YEAR FROM v.fecha_hora)'))
         ->get();
 
-        return ['ingresos'=>$ingresos,'ventas'=>$ventas,'anio'=>$anio];      
+        $ventasdia=DB::table('ventas as v')
+        ->select(DB::raw('EXTRACT(DAY FROM v.fecha_hora) as dia'),
+        DB::raw('SUM(v.total) as total_dia'))
+        ->whereDay('v.fecha_hora',$dia)
+        ->where('v.estado','=','Registrado')
+        ->groupBy(DB::raw('EXTRACT(DAY FROM v.fecha_hora)'))
+        ->get();
+
+        return ['ingresos'=>$ingresos,'ventas'=>$ventas,'ventas_dia'=>$ventasdia,'anio'=>$anio];      
 
     }
 }

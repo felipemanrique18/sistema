@@ -4037,11 +4037,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4050,43 +4045,67 @@ __webpack_require__.r(__webpack_exports__);
       ingresos: [],
       varTotalIngreso: [],
       varMesIngreso: [],
+      ventas_dia: [],
+      total_ventas_dia: 0,
+      total_ingresos: 0,
+      total_ventas: 0,
       varVenta: null,
       charVenta: null,
       ventas: [],
       varTotalVenta: [],
-      varMesVenta: []
+      varMesVenta: [],
+      meses: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+      ultimo_mes: ''
     };
   },
+  computed: {},
   methods: {
     getIngresos: function getIngresos() {
       var me = this;
       var url = '/dashboard';
       axios.get(url).then(function (response) {
         var respuesta = response.data;
-        me.ingresos = respuesta.ingresos; //cargamos los datos del chart
+        me.ingresos = respuesta.ingresos;
+        me.ventas = respuesta.ventas;
+        me.ventas_dia = respuesta.ventas_dia; //cargamos los datos del chart
 
         me.loadIngresos();
+        me.loadVentas();
+        me.totales();
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    getVentas: function getVentas() {
-      var me = this;
-      var url = '/dashboard';
-      axios.get(url).then(function (response) {
-        var respuesta = response.data;
-        me.ventas = respuesta.ventas; //cargamos los datos del chart
+    // getVentas(){
+    //     let me=this;
+    //     var url= '/dashboard';
+    //     axios.get(url).then(function (response) {
+    //         var respuesta= response.data;
+    //         me.ventas = respuesta.ventas;
+    //         //cargamos los datos del chart
+    //         me.loadVentas();
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //     });
+    // },
+    totales: function totales() {
+      this.total_ventas_dia = this.ventas_dia[0].total_dia; // for (var i = 0; i < varTotalIngreso.length; i++) {
+      //     this.total_ingresos=this.total_ingresos+varTotalIngreso[i];
+      // }
 
-        me.loadVentas();
-      })["catch"](function (error) {
-        console.log(error);
-      });
+      this.ultimo_mes = this.meses[this.ventas[this.ventas.length - 1].mes];
+      this.total_ventas = this.ventas[this.ventas.length - 1].total;
+      this.total_ingresos = this.ingresos[this.ingresos.length - 1].total;
     },
     loadIngresos: function loadIngresos() {
       var me = this;
       me.ingresos.map(function (x) {
-        me.varMesIngreso.push(x.mes);
-        me.varTotalIngreso.push(x.total);
+        var mes, total;
+        mes = me.meses[x.mes];
+        total = x.total;
+        me.varMesIngreso.push(mes);
+        me.varTotalIngreso.push(total);
       });
       me.varIngreso = document.getElementById('ingresos').getContext('2d');
       me.charIngreso = new Chart(me.varIngreso, {
@@ -4115,7 +4134,9 @@ __webpack_require__.r(__webpack_exports__);
     loadVentas: function loadVentas() {
       var me = this;
       me.ventas.map(function (x) {
-        me.varMesVenta.push(x.mes);
+        var mes;
+        mes = me.meses[x.mes];
+        me.varMesVenta.push(mes);
         me.varTotalVenta.push(x.total);
       });
       me.varVenta = document.getElementById('ventas').getContext('2d');
@@ -4149,8 +4170,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.getIngresos();
-    this.getVentas();
+    this.getIngresos(); // this.getVentas();
   }
 });
 
@@ -66402,80 +66422,76 @@ var render = function() {
       _c("div", { staticClass: "col-sm-12" }, [
         _c("div", { staticClass: "card-box widget-inline" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-3 col-sm-6" }, [
+            _c("div", { staticClass: "col-lg-4 col-sm-4" }, [
               _c("div", { staticClass: "widget-inline-box text-center" }, [
                 _c("h3", { staticClass: "m-t-10" }, [
                   _c("i", { staticClass: "fas fa-luggage-cart" }),
                   _vm._v(" "),
                   _c("b", { attrs: { "data-plugin": "counterup" } }, [
-                    _vm._v(_vm._s(_vm.formatNumber(_vm.varTotalIngreso[0])))
+                    _vm._v(_vm._s(_vm.formatNumber(_vm.total_ingresos)))
                   ])
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "text-muted" }, [
-                  _vm._v("Total Ingreso")
-                ])
+                _c(
+                  "p",
+                  { staticClass: "text-muted" },
+                  [
+                    _vm._v("Total Ingreso \n                      "),
+                    _c(
+                      "transition",
+                      { attrs: { name: "fade", mode: "in-out" } },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.ultimo_mes) +
+                            "\n                      "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-lg-3 col-sm-6" }, [
+            _c("div", { staticClass: "col-lg-4 col-sm-4" }, [
               _c("div", { staticClass: "widget-inline-box text-center" }, [
                 _c("h3", { staticClass: "m-t-10" }, [
                   _c("i", { staticClass: "fas fa-chart-line" }),
                   _vm._v(" "),
                   _c("b", { attrs: { "data-plugin": "counterup" } }, [
-                    _vm._v(_vm._s(_vm.formatNumber(_vm.varTotalVenta[0])))
+                    _vm._v(_vm._s(_vm.formatNumber(_vm.total_ventas)))
                   ])
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "text-muted" }, [_vm._v("Total Ventas")])
+                _c("p", { staticClass: "text-muted" }, [
+                  _vm._v("Total Ventas " + _vm._s(_vm.ultimo_mes))
+                ])
               ])
             ]),
             _vm._v(" "),
-            _vm._m(0),
-            _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "col-lg-4 col-sm-4" }, [
+              _c("div", { staticClass: "widget-inline-box text-center" }, [
+                _c("h3", { staticClass: "m-t-10" }, [
+                  _c("i", { staticClass: "text-info mdi mdi-black-mesa" }),
+                  _vm._v(" "),
+                  _c("b", { attrs: { "data-plugin": "counterup" } }, [
+                    _vm._v(_vm._s(_vm.formatNumber(_vm.total_ventas_dia)))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-muted" }, [_vm._v("Ventas Hoy")])
+              ])
+            ])
           ])
         ])
       ])
     ]),
     _vm._v(" "),
-    _vm._m(2)
+    _vm._m(0)
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-3 col-sm-6" }, [
-      _c("div", { staticClass: "widget-inline-box text-center" }, [
-        _c("h3", { staticClass: "m-t-10" }, [
-          _c("i", { staticClass: "text-info mdi mdi-black-mesa" }),
-          _vm._v(" "),
-          _c("b", { attrs: { "data-plugin": "counterup" } }, [_vm._v("6521")])
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "text-muted" }, [_vm._v("Ventas Hoy")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-3 col-sm-6" }, [
-      _c("div", { staticClass: "widget-inline-box text-center b-0" }, [
-        _c("h3", { staticClass: "m-t-10" }, [
-          _c("i", { staticClass: "text-danger mdi mdi-cellphone-link" }),
-          _vm._v(" "),
-          _c("b", { attrs: { "data-plugin": "counterup" } }, [_vm._v("325")])
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "text-muted" }, [_vm._v("Total visits")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

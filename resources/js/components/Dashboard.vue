@@ -4,34 +4,29 @@
             <div class="col-sm-12">
               <div class="card-box widget-inline">
                 <div class="row">
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-lg-4 col-sm-4">
                     <div class="widget-inline-box text-center">
-                      <h3 class="m-t-10"><i class="fas fa-luggage-cart"></i> <b data-plugin="counterup">{{ formatNumber(varTotalIngreso[0]) }}</b></h3>
-                      <p class="text-muted">Total Ingreso</p>
+                      <h3 class="m-t-10"><i class="fas fa-luggage-cart"></i> <b data-plugin="counterup">{{ formatNumber(total_ingresos) }}</b></h3>
+                      <p class="text-muted">Total Ingreso 
+                        <transition name="fade" mode="in-out">
+                          {{ ultimo_mes }}
+                        </transition></p>
                     </div>
                   </div>
 
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-lg-4 col-sm-4">
                     <div class="widget-inline-box text-center">
-                      <h3 class="m-t-10"><i class="fas fa-chart-line"></i> <b data-plugin="counterup">{{ formatNumber(varTotalVenta[0]) }}</b></h3>
-                      <p class="text-muted">Total Ventas</p>
+                      <h3 class="m-t-10"><i class="fas fa-chart-line"></i> <b data-plugin="counterup">{{ formatNumber(total_ventas) }}</b></h3>
+                      <p class="text-muted">Total Ventas {{ ultimo_mes }}</p>
                     </div>
                   </div>
 
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-lg-4 col-sm-4">
                     <div class="widget-inline-box text-center">
-                      <h3 class="m-t-10"><i class="text-info mdi mdi-black-mesa"></i> <b data-plugin="counterup">6521</b></h3>
+                      <h3 class="m-t-10"><i class="text-info mdi mdi-black-mesa"></i> <b data-plugin="counterup">{{ formatNumber(total_ventas_dia) }}</b></h3>
                       <p class="text-muted">Ventas Hoy</p>
                     </div>
                   </div>
-
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="widget-inline-box text-center b-0">
-                      <h3 class="m-t-10"><i class="text-danger mdi mdi-cellphone-link"></i> <b data-plugin="counterup">325</b></h3>
-                      <p class="text-muted">Total visits</p>
-                    </div>
-                  </div>
-
                 </div>
               </div>
             </div>
@@ -93,14 +88,23 @@
                 ingresos:[],
                 varTotalIngreso:[],
                 varMesIngreso:[], 
-                
+                ventas_dia:[],
+                total_ventas_dia:0,
+                total_ingresos:0,
+                total_ventas:0,
                 varVenta:null,
                 charVenta:null,
                 ventas:[],
                 varTotalVenta:[],
                 varMesVenta:[],
+                meses:["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+                ultimo_mes:'',
             }
         },
+        computed:{
+          
+        },
+
         methods : {
             getIngresos(){
                 let me=this;
@@ -108,31 +112,49 @@
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.ingresos = respuesta.ingresos;
+                    me.ventas = respuesta.ventas;
+                    me.ventas_dia = respuesta.ventas_dia;
                     //cargamos los datos del chart
+                    
                     me.loadIngresos();
+                    me.loadVentas();
+                    me.totales();
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
-            getVentas(){
-                let me=this;
-                var url= '/dashboard';
-                axios.get(url).then(function (response) {
-                    var respuesta= response.data;
-                    me.ventas = respuesta.ventas;
-                    //cargamos los datos del chart
-                    me.loadVentas();
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            // getVentas(){
+            //     let me=this;
+            //     var url= '/dashboard';
+            //     axios.get(url).then(function (response) {
+            //         var respuesta= response.data;
+            //         me.ventas = respuesta.ventas;
+            //         //cargamos los datos del chart
+            //         me.loadVentas();
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
+            // },
+            totales(){
+              this.total_ventas_dia=this.ventas_dia[0].total_dia;
+              // for (var i = 0; i < varTotalIngreso.length; i++) {
+              //     this.total_ingresos=this.total_ingresos+varTotalIngreso[i];
+              // }
+              this.ultimo_mes=this.meses[this.ventas[this.ventas.length - 1].mes];
+              this.total_ventas=this.ventas[this.ventas.length - 1].total;
+              this.total_ingresos=this.ingresos[this.ingresos.length - 1].total;
+
             },
             loadIngresos(){
                 let me=this;
                 me.ingresos.map(function(x){
-                    me.varMesIngreso.push(x.mes);
-                    me.varTotalIngreso.push(x.total);
+                    let mes,total;
+                    mes=me.meses[x.mes];
+                    total=x.total;
+                    me.varMesIngreso.push(mes);
+                    me.varTotalIngreso.push(total);
                     
                 });
                 me.varIngreso=document.getElementById('ingresos').getContext('2d');
@@ -163,7 +185,9 @@
             loadVentas(){
                 let me=this;
                 me.ventas.map(function(x){
-                    me.varMesVenta.push(x.mes);
+                    let mes;
+                    mes=me.meses[x.mes];
+                    me.varMesVenta.push(mes);
                     me.varTotalVenta.push(x.total);
                 });
                 me.varVenta=document.getElementById('ventas').getContext('2d');
@@ -200,7 +224,7 @@
         },
         mounted() {
             this.getIngresos();
-            this.getVentas();
+            // this.getVentas();
         }
     }
 </script>

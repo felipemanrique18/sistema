@@ -8257,6 +8257,7 @@ __webpack_require__.r(__webpack_exports__);
         me.pagination = respuesta.pagination;
         me.num_entradas = 'Mostrando de ' + me.pagination.current_page + ' a ' + me.pagination.per_page + ' de ' + me.pagination.total + ' entradas';
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -8267,6 +8268,7 @@ __webpack_require__.r(__webpack_exports__);
         var respuesta = response.data;
         me.arrayArticulos = respuesta.articulos.data;
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -8298,13 +8300,14 @@ __webpack_require__.r(__webpack_exports__);
           title: "Venta Registrada",
           text: "Quieres descargar la factura de la venta?",
           icon: "success",
-          buttons: ["Cancelar", "Descargar"]
+          buttons: ["Descargar", "Cancelar"]
         }).then(function (willDelete) {
           if (willDelete) {
             window.open('http://ventasmanrique.herokuapp.com/venta/pdf/' + response.data.id);
           }
         });
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -8330,6 +8333,7 @@ __webpack_require__.r(__webpack_exports__);
               timer: 2000
             });
           })["catch"](function (error) {
+            me.mostrarerror(error);
             console.log(error);
           });
         }
@@ -8347,6 +8351,7 @@ __webpack_require__.r(__webpack_exports__);
         me.arrayCliente = respuesta.clientes;
         loading(false);
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -8366,6 +8371,7 @@ __webpack_require__.r(__webpack_exports__);
           me.idarticulo = 0;
         }
       })["catch"](function (error) {
+        me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -8588,6 +8594,42 @@ __webpack_require__.r(__webpack_exports__);
       n = Math.trunc(n);
       n = String(n).replace(/\D/g, "");
       return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+    },
+    mostrarerror: function mostrarerror(error) {
+      switch (error.response.status) {
+        case 500:
+          swal("Eroor!", {
+            icon: "error",
+            text: "Actualiza tu fecha!",
+            buttons: false,
+            timer: 3000
+          });
+          break;
+
+        case 401:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        case 419:
+          swal("Eroor!", {
+            icon: "error",
+            text: "A caducado tu session!",
+            buttons: false,
+            timer: 3000
+          });
+          window.location.reload();
+          break;
+
+        default:
+          // statements_def
+          break;
+      }
     }
   }
 });

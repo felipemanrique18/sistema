@@ -301,6 +301,9 @@ File: Main file css
 @media (max-width: 767px) {
   .logo-lg {
     display: none; }
+  .table-responsive>.table-bordered {
+    border: 1px solid #ddd;
+  }
     
   .navbar-right .dropdown-menu {
     right: 13px;
@@ -330,6 +333,24 @@ File: Main file css
     margin-left: -2200px;
     z-index: 3; }
 
+  .container-titulo {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .detalle-venta {
+    padding-right: 1px !important;
+    padding-left: 1px !important;
+  }
+
+  .container-ventas-agregadas {
+     padding-right: 0px !important; 
+     padding-left: 0px !important; 
+  }
+  
+  .dataTables_wrapper {
+     padding-right: 0px !important; 
+     padding-left: 0px !important; 
+  }
   body.nav-collapse .sidebar-navigation {
     margin-left: 0;
     box-shadow: 7px 8px 9px rgba(0, 0, 0, 0.11);
@@ -2416,11 +2437,6 @@ h3.timeline-title {
   height: auto;
 }
 
-/*style ventas*/
-.detalle-venta{
-    padding-right: 30px;
-    padding-left: 20px;
-}
 .ventas-agregadas {
     border: 1px solid #e9e9e9;
     border-radius: 10px;

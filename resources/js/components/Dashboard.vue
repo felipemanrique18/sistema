@@ -136,7 +136,7 @@
             //     });
             // },
             totales(){
-              if (this.ventas_dia) {
+              if (this.ventas_dia[0]) {
                 this.total_ventas_dia=this.ventas_dia[0].total_dia;
               }
               // for (var i = 0; i < varTotalIngreso.length; i++) {

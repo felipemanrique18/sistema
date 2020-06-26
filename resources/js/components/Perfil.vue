@@ -9,8 +9,8 @@
                             <i class="fas fa-circle member-star text-success" title="verified user"></i>
                         </div>
                         <div class="">
-                            <h4 class="m-b-5">{{user.persona.nombre}}</h4>
-                            <p class="text-muted">{{user.rol.nombre_rol}}</p>
+                            <h4 class="m-b-5" v-text="nombre"></h4>
+                            <p class="text-muted" v-text="rol"></p>
                         </div>
 
                     </div>
@@ -46,31 +46,31 @@
                                     <div class="m-b-20">
                                         <strong><i class="fas fa-user"></i> Nombre</strong>
                                         <br>
-                                        <p class="text-muted">{{user.persona.nombre}}</p>
+                                        <p class="text-muted" v-text="nombre"></p>
                                     </div>
                                     <div class="m-b-20">
                                         <strong><i class="fas fa-id-card-alt"></i>
                                         Identificacion</strong>
                                         <br>
-                                        <p class="text-muted" v-if="user.persona.num_documento">{{user.persona.tipo_documento}} {{ user.persona.num_documento }}</p>
+                                        <p class="text-muted" v-if="identificacion" v-text="identificacion"></p>
                                         <p class="text-muted" v-else>Sin documento</p>
                                     </div>
                                     <div class="m-b-20">
                                         <strong><i class="fas fa-phone-square-alt"></i> Telefono</strong>
                                         <br>
-                                        <p class="text-muted" v-if="user.persona.telefono">{{ user.persona.telefono }}</p>
+                                        <p class="text-muted" v-if="telefono" v-text="telefono"></p>
                                         <p class="text-muted" v-else>Sin telefono</p>
                                     </div>
                                     <div class="m-b-20">
                                         <strong><i class="fas fa-envelope"></i> Email</strong>
                                         <br>
-                                        <p class="text-muted" v-if="user.persona.email">{{ user.persona.email }}</p>
+                                        <p class="text-muted" v-if="email" v-text="email"></p>
                                         <p class="text-muted" v-else>Sin email</p>
                                     </div>
                                     <div class="about-info-p m-b-0">
                                         <strong><i class="fas fa-map-marked-alt"></i> Direccion</strong>
                                         <br>
-                                        <p class="text-muted" v-if="user.persona.direccion">{{ user.persona.direccion }}</p>
+                                        <p class="text-muted" v-if="direccion" v-text="direccion"></p>
                                         <p class="text-muted" v-else>Sin direccion</p>
                                     </div>
                                 </div>
@@ -131,7 +131,13 @@
     export default {
         data (){
             return {
-                user:[]
+                user:[],
+                nombre:'',
+                rol:'',
+                identificacion:'',
+                telefono:'',
+                email:'',
+                direccion:''
             }
         },
         mounted(){
@@ -144,6 +150,12 @@
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     me.user = respuesta.user;
+                    me.nombre=me.user.persona.nombre;
+                    me.rol=me.user.rol.nombre_rol;
+                    me.identificacion=me.user.persona.tipo_documento+" "+me.user.persona.num_documento;
+                    me.telefono=me.user.persona.telefono;
+                    me.email=me.user.persona.email;
+                    me.direccion=me.user.persona.direccion;
                 })
                 .catch(function (error) {
                     me.mostrarerror(error);

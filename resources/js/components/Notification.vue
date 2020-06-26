@@ -1,6 +1,6 @@
 <template>
     <li class="dropdown top-menu-item-xs">
-        <a href="#" data-target="#" class="dropdown-toggle menu-right-item" data-toggle="dropdown" aria-expanded="true" @click="notificacionLeida()">
+        <a href="#" data-target="#" class="dropdown-toggle menu-right-item" data-toggle="dropdown" aria-expanded="true" @click="notificacionLeida(),cargarnotification()">
             <i class="fas fa-bell"></i> <span class="label label-danger">{{ notifications.noleida }}</span>
         </a>
         <ul class="dropdown-menu p-0 dropdown-menu-lg">
@@ -8,7 +8,7 @@
             <li class="list-group notification-list scroll-noti" style="height: 267px;">
                <div class="slimscroll" style="height:auto">
                    <!-- list item-->
-                   <div v-if="numNotifications">
+                   <div v-if="Notificaciones.notificacion">
                    		<transition-group name="list-complete" tag="p">
 	                   		<div v-for="item in notifications.notificacion"  :key="item.id" class="list-complete-item">
 	                   			 
@@ -68,12 +68,17 @@
 		props:['notifications'],
 		data(){
 			return {
-				nuNotifications:[],
+				Notificaciones:[],
+				numeroNotifications:0,
 			}
 		},
 		computed:{
 			numNotifications:function(){
-				return this.notifications.notificacion.length;
+				if (this.notifications.noticacion) {
+					return this.notifications.notificacion.length;
+				}
+				return 0;
+				
 			}
 		},
 		methods:{
@@ -88,8 +93,11 @@
 	                .catch(function (error) {
 	                    console.log(error);
 	                });
-				}
-                
+				}  
+			},
+			cargarnotification(){
+				this.Notificaciones=this.notifications;
+
 			}
 		}
 

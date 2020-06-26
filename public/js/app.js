@@ -4284,9 +4284,12 @@ __webpack_require__.r(__webpack_exports__);
     //     });
     // },
     totales: function totales() {
-      this.total_ventas_dia = this.ventas_dia[0].total_dia; // for (var i = 0; i < varTotalIngreso.length; i++) {
+      if (this.ventas_dia) {
+        this.total_ventas_dia = this.ventas_dia[0].total_dia;
+      } // for (var i = 0; i < varTotalIngreso.length; i++) {
       //     this.total_ingresos=this.total_ingresos+varTotalIngreso[i];
       // }
+
 
       this.ultimo_mes = this.meses[this.ventas[this.ventas.length - 1].mes];
       this.total_ventas = this.ventas[this.ventas.length - 1].total;
@@ -5508,12 +5511,17 @@ __webpack_require__.r(__webpack_exports__);
   props: ['notifications'],
   data: function data() {
     return {
-      nuNotifications: []
+      Notificaciones: [],
+      numeroNotifications: 0
     };
   },
   computed: {
     numNotifications: function numNotifications() {
-      return this.notifications.notificacion.length;
+      if (this.notifications.noticacion) {
+        return this.notifications.notificacion.length;
+      }
+
+      return 0;
     }
   },
   methods: {
@@ -5528,6 +5536,9 @@ __webpack_require__.r(__webpack_exports__);
           console.log(error);
         });
       }
+    },
+    cargarnotification: function cargarnotification() {
+      this.Notificaciones = this.notifications;
     }
   }
 });
@@ -5675,7 +5686,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      user: []
+      user: [],
+      nombre: '',
+      rol: '',
+      identificacion: '',
+      telefono: '',
+      email: '',
+      direccion: ''
     };
   },
   mounted: function mounted() {
@@ -5688,6 +5705,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.user = respuesta.user;
+        me.nombre = me.user.persona.nombre;
+        me.rol = me.user.rol.nombre_rol;
+        me.identificacion = me.user.persona.tipo_documento + " " + me.user.persona.num_documento;
+        me.telefono = me.user.persona.telefono;
+        me.email = me.user.persona.email;
+        me.direccion = me.user.persona.direccion;
       })["catch"](function (error) {
         me.mostrarerror(error);
         console.log(error);
@@ -69119,7 +69142,7 @@ var render = function() {
         },
         on: {
           click: function($event) {
-            return _vm.notificacionLeida()
+            _vm.notificacionLeida(), _vm.cargarnotification()
           }
         }
       },
@@ -69144,7 +69167,7 @@ var render = function() {
             "div",
             { staticClass: "slimscroll", staticStyle: { height: "auto" } },
             [
-              _vm.numNotifications
+              _vm.Notificaciones.notificacion
                 ? _c(
                     "div",
                     [
@@ -69302,13 +69325,15 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", {}, [
-              _c("h4", { staticClass: "m-b-5" }, [
-                _vm._v(_vm._s(_vm.user.persona.nombre))
-              ]),
+              _c("h4", {
+                staticClass: "m-b-5",
+                domProps: { textContent: _vm._s(_vm.nombre) }
+              }),
               _vm._v(" "),
-              _c("p", { staticClass: "text-muted" }, [
-                _vm._v(_vm._s(_vm.user.rol.nombre_rol))
-              ])
+              _c("p", {
+                staticClass: "text-muted",
+                domProps: { textContent: _vm._s(_vm.rol) }
+              })
             ])
           ])
         ])
@@ -69334,9 +69359,10 @@ var render = function() {
                       _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
-                      _c("p", { staticClass: "text-muted" }, [
-                        _vm._v(_vm._s(_vm.user.persona.nombre))
-                      ])
+                      _c("p", {
+                        staticClass: "text-muted",
+                        domProps: { textContent: _vm._s(_vm.nombre) }
+                      })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "m-b-20" }, [
@@ -69344,14 +69370,13 @@ var render = function() {
                       _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
-                      _vm.user.persona.num_documento
-                        ? _c("p", { staticClass: "text-muted" }, [
-                            _vm._v(
-                              _vm._s(_vm.user.persona.tipo_documento) +
-                                " " +
-                                _vm._s(_vm.user.persona.num_documento)
-                            )
-                          ])
+                      _vm.identificacion
+                        ? _c("p", {
+                            staticClass: "text-muted",
+                            domProps: {
+                              textContent: _vm._s(_vm.identificacion)
+                            }
+                          })
                         : _c("p", { staticClass: "text-muted" }, [
                             _vm._v("Sin documento")
                           ])
@@ -69362,10 +69387,11 @@ var render = function() {
                       _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
-                      _vm.user.persona.telefono
-                        ? _c("p", { staticClass: "text-muted" }, [
-                            _vm._v(_vm._s(_vm.user.persona.telefono))
-                          ])
+                      _vm.telefono
+                        ? _c("p", {
+                            staticClass: "text-muted",
+                            domProps: { textContent: _vm._s(_vm.telefono) }
+                          })
                         : _c("p", { staticClass: "text-muted" }, [
                             _vm._v("Sin telefono")
                           ])
@@ -69376,10 +69402,11 @@ var render = function() {
                       _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
-                      _vm.user.persona.email
-                        ? _c("p", { staticClass: "text-muted" }, [
-                            _vm._v(_vm._s(_vm.user.persona.email))
-                          ])
+                      _vm.email
+                        ? _c("p", {
+                            staticClass: "text-muted",
+                            domProps: { textContent: _vm._s(_vm.email) }
+                          })
                         : _c("p", { staticClass: "text-muted" }, [
                             _vm._v("Sin email")
                           ])
@@ -69390,10 +69417,11 @@ var render = function() {
                       _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
-                      _vm.user.persona.direccion
-                        ? _c("p", { staticClass: "text-muted" }, [
-                            _vm._v(_vm._s(_vm.user.persona.direccion))
-                          ])
+                      _vm.direccion
+                        ? _c("p", {
+                            staticClass: "text-muted",
+                            domProps: { textContent: _vm._s(_vm.direccion) }
+                          })
                         : _c("p", { staticClass: "text-muted" }, [
                             _vm._v("Sin direccion")
                           ])

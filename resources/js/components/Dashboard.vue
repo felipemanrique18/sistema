@@ -136,7 +136,9 @@
             //     });
             // },
             totales(){
-              this.total_ventas_dia=this.ventas_dia[0].total_dia;
+              if (this.ventas_dia) {
+                this.total_ventas_dia=this.ventas_dia[0].total_dia;
+              }
               // for (var i = 0; i < varTotalIngreso.length; i++) {
               //     this.total_ingresos=this.total_ingresos+varTotalIngreso[i];
               // }

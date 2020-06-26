@@ -61,6 +61,7 @@ const app = new Vue({
     	let me =this;
     	axios.post('notification/get').then(function(response){
     		me.notifications=response.data;
+
     	}).catch(function(error){
     		console.log(error);
     	});

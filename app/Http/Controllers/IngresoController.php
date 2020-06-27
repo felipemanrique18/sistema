@@ -22,7 +22,7 @@ class IngresoController extends Controller
 
     public function index(Request $request)
     {
-{
+
         $tipo=$request->tipo_busqueda;
         $buscar=$request->buscar;
 

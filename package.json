@@ -30,6 +30,7 @@
         "sweetalert": "^2.1.2",
         "v-select2-component": "^0.4.3",
         "vue-barcode": "^1.2.0",
+        "vue-router": "^3.3.4",
         "vue-select": "^3.10.3"
     }
 }

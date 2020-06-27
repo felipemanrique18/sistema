@@ -12,6 +12,7 @@ window.Vue = require('vue');
 import swal from 'sweetalert';
 import Vue from 'vue';
 import 'vue-select/dist/vue-select.css';
+import router from './routes.js';
 
 
 /**
@@ -24,22 +25,7 @@ import 'vue-select/dist/vue-select.css';
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-Vue.component('dashboard', require('./components/Dashboard.vue').default);
-Vue.component('categoria', require('./components/Categoria.vue').default);
-Vue.component('articulo', require('./components/Articulo.vue').default);
-Vue.component('cliente', require('./components/Cliente.vue').default);
-Vue.component('proveedor', require('./components/Proveedor.vue').default);
-Vue.component('rol', require('./components/Rol.vue').default);
-Vue.component('usuario', require('./components/Usuario.vue').default);
-Vue.component('ingreso', require('./components/IngresoV2.vue').default);
-Vue.component('venta', require('./components/Venta.vue').default);
-Vue.component('consultaingreso', require('./components/ConsultaIngreso.vue').default);
-Vue.component('consultaventa', require('./components/ConsultaVenta.vue').default);
 Vue.component('notification', require('./components/Notification.vue').default);
-Vue.component('venta2', require('./components/VentaV2.vue').default);
-Vue.component('perfil', require('./components/Perfil.vue').default);
-
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -53,6 +39,7 @@ Vue.component('perfil', require('./components/Perfil.vue').default);
  
 const app = new Vue({
     el: '#app',
+    router,
     data :{
     	menu:0,
     	notifications:[]

@@ -2475,3 +2475,13 @@ h3.timeline-title {
 .boton-cerrar-menu{
   font-size: 30px;
 }
+
+/*css navegacion*/
+.boton-navegacion{
+  padding: 7px 20px 7px 10px;
+  text-transform: capitalize;
+  color: #888d9a;
+  position: relative;
+  padding-left: 48px;
+  display: block;
+}

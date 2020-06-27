@@ -2,7 +2,10 @@
 
 
 @section('contenido')
-	<template v-if="menu==0">
+	<transition name="component-fade" mode="out-in">
+		<router-view></router-view>
+	</transition>
+	{{-- <template v-if="menu==0">
 		<transition name="component-fade" mode="out-in">
 		  <dashboard></dashboard>
 		</transition>		
@@ -82,7 +85,7 @@
 		<transition name="component-fade" mode="out-in">
 		  <perfil></perfil>
 		</transition>
-	</template>
+	</template> --}}
 
   
 @stop

@@ -17,10 +17,12 @@ class IngresoController extends Controller
         
         $this->middleware('auth');
         $this->middleware('roles:1,2,3');
+        $this->middleware('requestsVerify');
     }
 
     public function index(Request $request)
     {
+{
         $tipo=$request->tipo_busqueda;
         $buscar=$request->buscar;
 
@@ -48,6 +50,7 @@ class IngresoController extends Controller
             ],
             'ingresos' => $ingresos
         ];
+        
     }
   
     public function store(Request $request)

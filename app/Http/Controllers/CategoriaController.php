@@ -19,31 +19,28 @@ class CategoriaController extends Controller
         
         $this->middleware('auth');
         $this->middleware('roles:1,2,3');
+        $this->middleware('requestsVerify');
     }
     public function index(Request $request)
-    {
-        
-        $buscar=$request->buscar;
-
-        if ($buscar==''){
-            $categorias = Categoria::orderBy('id','DESC')->paginate(6);
-        }else{
-            $categorias = Categoria::where('nombre','like','%'.$buscar.'%')->orderBy('id','DESC')->paginate(6);
-        }
-        
-        
-
-        return [
-            'pagination' =>[
-                'total' => $categorias->total(),
-                'current_page' => $categorias->currentPage(),
-                'per_page' => $categorias->perPage(),
-                'last_page' => $categorias->lastPage(),
-                'from' => $categorias->firstItem(),
-                'to' => $categorias->lastItem(),
-            ],
-            'categorias' => $categorias
-        ];
+    {  
+            $buscar=$request->buscar;
+            if ($buscar==''){
+                $categorias = Categoria::orderBy('id','DESC')->paginate(6);
+            }else{
+                $categorias = Categoria::where('nombre','like','%'.$buscar.'%')->orderBy('id','DESC')->paginate(6);
+            }
+            return [
+                'pagination' =>[
+                    'total' => $categorias->total(),
+                    'current_page' => $categorias->currentPage(),
+                    'per_page' => $categorias->perPage(),
+                    'last_page' => $categorias->lastPage(),
+                    'from' => $categorias->firstItem(),
+                    'to' => $categorias->lastItem(),
+                ],
+                'categorias' => $categorias
+            ];
+     
     }
 
     public function selectCategoria(Request $request){

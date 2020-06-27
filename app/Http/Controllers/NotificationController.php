@@ -12,6 +12,7 @@ class NotificationController extends Controller
     {
         
         $this->middleware('auth');
+        $this->middleware('requestsVerify');
         // $this->middleware('roles:admin',['except' => ['edit','update','show']]);
     }
     public function get()

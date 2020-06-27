@@ -13,9 +13,11 @@ class DashboardController extends Controller
         
         $this->middleware('auth');
         // $this->middleware('roles:admin',['except' => ['edit','update','show']]);
+        $this->middleware('requestsVerify');
     }
     public function __invoke(Request $request)
     {
+
         $anio=date('Y');
         $dia=date('d');
         $ingresos=DB::table('ingresos as i')

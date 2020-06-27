@@ -18,6 +18,7 @@ class VentaController extends Controller
         
         $this->middleware('auth');
         $this->middleware('roles:1,2');
+        $this->middleware('requestsVerify');
     }
 
     public function index(Request $request)

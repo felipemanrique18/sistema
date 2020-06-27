@@ -12,9 +12,11 @@ class ClienteController extends Controller
         
         $this->middleware('auth');
         // $this->middleware('roles:admin',['except' => ['edit','update','show']]);
+        $this->middleware('requestsVerify');
     }
     public function index(Request $request)
     {
+
         $tipo=$request->tipo_busqueda;
         $buscar=$request->buscar;
 

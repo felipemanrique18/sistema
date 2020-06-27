@@ -18,9 +18,11 @@ class ArticuloController extends Controller
         
         $this->middleware('auth');
         // $this->middleware('roles:admin',['except' => ['edit','update','show']]);
+        $this->middleware('requestsVerify');
     }
     public function index(Request $request)
     {
+
         $buscar=$request->buscar;
 
         if ($buscar==''){

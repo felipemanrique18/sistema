@@ -18,6 +18,7 @@ class UserController extends Controller
         
         $this->middleware('auth');
         $this->middleware('roles:1')->except('show');
+        $this->middleware('requestsVerify');
     }
     public function index(Request $request)
     {

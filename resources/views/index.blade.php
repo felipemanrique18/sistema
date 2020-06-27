@@ -79,7 +79,7 @@
                                 <li class="dropdown top-menu-item-xs">
                                     <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/users/user.png" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
-                                        <li><a @click="menu=13" href="javascript:void(0)"><i class="fa fa-user-circle"></i> Profile</a></li>
+                                        <li><router-link to="/perfil"><i class="fa fa-user-circle"></i> Profile</router-link></li>
                                         <li><a href="javascript:void(0)"><i class="ti-settings m-r-10"></i> Settings</a></li>
                                         <li><a href="javascript:void(0)"><i class="ti-lock m-r-10"></i> Lock screen</a></li>
                                         <li class="divider"></li>

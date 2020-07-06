@@ -1,6 +1,9 @@
 <template>
 <div class="container">
-    <div class="row">
+    <div class="loadingio-spinner-spin-73ue9c5at0j" v-if="carga==0"><div class="ldio-yymc290haz">
+    <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+    </div></div>
+    <div class="row" v-if="carga==1">
         <div class="col-sm-12">
             <div class="m-b-20">
                 <div class="form-group container-titulo">
@@ -271,7 +274,8 @@
             num_entradas:'',
             idarticulo:0,
             codigo:'',
-            articulo:''
+            articulo:'',
+            carga:0,
           }
         },
         components: {
@@ -330,6 +334,7 @@
                     me.arrayIngreso = respuesta.ingresos.data;
                     me.pagination= respuesta.pagination;
                     me.num_entradas='Mostrando de '+me.pagination.current_page+' a '+me.pagination.per_page+' de '+me.pagination.total+' entradas';
+                    me.carga=1;
                 })
                 .catch(function (error) {
                     me.mostrarerror(error);

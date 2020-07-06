@@ -1,6 +1,9 @@
 <template>
 <div class="container">
-    <div class="row">
+    <div class="loadingio-spinner-spin-73ue9c5at0j" v-if="carga==0"><div class="ldio-yymc290haz">
+    <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+    </div></div>
+    <div class="row" v-if="carga==1">
         <div class="col-sm-12">
             <div class="m-b-20">
                 <div class="form-group container-titulo">
@@ -47,9 +50,9 @@
                                 <table id="datatable-buttons" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Accion</th>
-                                        <th>Cliente</th>
-                                        <th>Usuario</th>
+                                        <th style="padding-right:50px">Accion</th>
+                                        <th style="padding-right:25px;padding-left: 25px;">Cliente</th>
+                                        <th style="padding-right:25px;padding-left: 25px;">Usuario</th>
                                         <th>Tipo Comprobante</th>
                                         <th>Serie Comprobante</th>
                                         <th>Numero Comprobante</th>
@@ -289,7 +292,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="field-2" class="totalcontrol-label"></label>
-                                                        <button class="btn btn-primary form-control" @click="registrarVenta()">Registrar Compra</button>
+                                                        <button class="btn btn-primary form-control" :disabled="estado_boton.guardar" @click="registrarVenta()">Registrar Compra</button>
                                                     </div>
                                                 </div>
                                                  <!-- <div v-show="errorIngreso" class="div-error">
@@ -542,6 +545,11 @@
             codigo:'',
             articulo:'',
             ocultar_slider:1,
+            estado_boton:{
+                guardar:false,
+                actualizar:false
+            },
+            carga:0
           }
         },
         components: {
@@ -600,6 +608,7 @@
                     me.arrayVenta = respuesta.ventas.data;
                     me.pagination= respuesta.pagination;
                     me.num_entradas='Mostrando de '+me.pagination.current_page+' a '+me.pagination.per_page+' de '+me.pagination.total+' entradas';
+                    me.carga=1;
                 })
                 .catch(function (error) {
                     me.mostrarerror(error);
@@ -631,6 +640,7 @@
                 }
                 
                 let me=this;
+                me.estado_boton.guardar=true;
                 axios.post('venta/registrar',{
                     'cliente_id':this.idcliente.id,
                     'tipo_comprobante':this.tipo_comprobante,
@@ -916,6 +926,8 @@
                 this.listado=0;
                 this.ocultar_slider=0;
                 this.tipo_comprobante='Factura';
+                this.estado_boton.guardar=false;
+                this.estado_boton.actualizar=false;
             },
             ocultarDetalle(){
                 this.listado=1;

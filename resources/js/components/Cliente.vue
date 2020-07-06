@@ -1,6 +1,9 @@
 <template>
 <div class="container">
-    <div class="row">
+    <div class="loadingio-spinner-spin-73ue9c5at0j" v-if="carga==0"><div class="ldio-yymc290haz">
+    <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+    </div></div>
+    <div class="row" v-if="carga==1">
         <div class="col-sm-12">
             <div class="m-b-20">
                 <div class="form-group container-titulo">
@@ -150,8 +153,8 @@
                 <!-- /.modal-content -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="cerrarModal()" >Cerrar</button>
-                    <button type="button" v-if="tipoAccion==1" @click="registrarPersona()" class="btn btn-primary">Guardar</button>
-                    <button type="button" v-if="tipoAccion==2" @click="actualizarPersona()" class="btn btn-primary">Actualizar</button>
+                    <button type="button" v-if="tipoAccion==1" :disabled="estado_boton.guardar" @click="registrarPersona()" class="btn btn-primary">Guardar</button>
+                    <button type="button" v-if="tipoAccion==2" :disabled="estado_boton.actualizar" @click="actualizarPersona()" class="btn btn-primary">Actualizar</button>
                 </div>
             </div><!-- /.modal-dialog -->
 
@@ -190,7 +193,12 @@
             offset:3,
             buscar : '',
             tipo_busqueda:'nombre',
-            num_entradas:''
+            num_entradas:'',
+            estado_boton:{
+                guardar:false,
+                actualizar:false
+            },
+            carga:0,
 
 
           }
@@ -237,6 +245,7 @@
                     me.arrayPersona = respuesta.personas.data;
                     me.pagination= respuesta.pagination;
                     me.num_entradas='Mostrando de '+me.pagination.current_page+' a '+me.pagination.per_page+' de '+me.pagination.total+' entradas';
+                    me.carga=1;
                 })
                 .catch(function (error) {
                     me.mostrarerror(error);
@@ -256,7 +265,7 @@
                 }
                 
                 let me=this;
-
+                me.estado_boton.guardar=true;
                 axios.post('cliente/registrar',{
                     'nombre':this.nombre,
                     'tipo_documento':this.tipo_documento,
@@ -278,7 +287,7 @@
                 }
                 
                 let me = this;
-
+                me.estado_boton.actualizar=true;
                 axios.put('cliente/actualizar',{
                     'nombre': this.nombre,
                     'id': this.persona_id,
@@ -317,6 +326,8 @@
                 this.errorMostrarMsjPersona=[{nombre:''}]
             },
             abrirModal(modelo, accion, data = []){
+                this.estado_boton.guardar=false;
+                this.estado_boton.actualizar=false;
                 this.errorMostrarMsjPersona=[{nombre:''}];
                 switch(modelo){
                     case "persona":

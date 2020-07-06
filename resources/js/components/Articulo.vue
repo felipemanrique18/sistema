@@ -1,7 +1,10 @@
 
 <template>
 <div class="container">
-    <div class="row">
+    <div class="loadingio-spinner-spin-73ue9c5at0j" v-if="carga==0"><div class="ldio-yymc290haz">
+    <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+    </div></div>
+    <div class="row" v-if="carga==1">
         <div class="col-sm-12">
             <div class="m-b-20">
                 <div class="form-group container-titulo">
@@ -186,8 +189,8 @@
                 <!-- /.modal-content -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="cerrarModal()" >Cerrar</button>
-                    <button type="button" v-if="tipoAccion==1" @click="registrarArticulo()" class="btn btn-primary">Guardar</button>
-                    <button type="button" v-if="tipoAccion==2" @click="actualizarArticulo()" class="btn btn-primary">Actualizar</button>
+                    <button type="button" v-if="tipoAccion==1" :disabled="estado_boton.guardar" @click="registrarArticulo()" class="btn btn-primary">Guardar</button>
+                    <button type="button" v-if="tipoAccion==2" :disabled="estado_boton.actualizar" @click="actualizarArticulo()" class="btn btn-primary">Actualizar</button>
                 </div>
             </div><!-- /.modal-dialog -->
 
@@ -232,6 +235,11 @@
             buscar : '',
             num_entradas:'',
             arrayCategorias:[],
+            estado_boton:{
+                guardar:false,
+                actualizar:false
+            },
+            carga:0,
 
 
 
@@ -287,6 +295,7 @@
                     me.arrayArticulo = respuesta.articulos.data;
                     me.pagination= respuesta.pagination;
                     me.num_entradas='Mostrando de '+me.pagination.current_page+' a '+me.pagination.per_page+' de '+me.pagination.total+' entradas';
+                    me.carga=1
                 })
                 .catch(function (error) {
                     me.mostrarerror(error);
@@ -320,6 +329,7 @@
                 }
                 
                 let me=this;
+                me.estado_boton.guardar=true;
                 axios.post('articulo/registrar',{
                     'categoria_id':this.idcategoria,
                     'nombre':this.nombre,
@@ -342,7 +352,7 @@
                 }
                 
                 let me = this;
-
+                me.estado_boton.actualizar=true;
                 axios.put('articulo/actualizar',{
                     'id':this.articulo_id,
                     'categoria_id':this.idcategoria,
@@ -441,6 +451,8 @@
                 this.errorMostrarMsjArticulo=[{nombre:'',categoria:'',stock:'',precio:''}]
             },
             abrirModal(modelo, accion, data = []){
+                this.estado_boton.guardar=false;
+                this.estado_boton.actualizar=false;
                 this.errorMostrarMsjArticulo =[{nombre:'',categoria:'',stock:'',precio:''}];
                 switch(modelo){
                     case "articulo":

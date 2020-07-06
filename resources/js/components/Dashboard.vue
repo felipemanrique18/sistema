@@ -142,7 +142,7 @@
               // for (var i = 0; i < varTotalIngreso.length; i++) {
               //     this.total_ingresos=this.total_ingresos+varTotalIngreso[i];
               // }
-              this.ultimo_mes=this.meses[this.ventas[this.ventas.length - 1].mes];
+              this.ultimo_mes=this.meses[this.ventas[this.ventas.length - 1].mes-1];
               this.total_ventas=this.ventas[this.ventas.length - 1].total;
               this.total_ingresos=this.ingresos[this.ingresos.length - 1].total;
 
@@ -151,7 +151,7 @@
                 let me=this;
                 me.ingresos.map(function(x){
                     let mes,total;
-                    mes=me.meses[x.mes];
+                    mes=me.meses[x.mes-1];
                     total=x.total;
                     me.varMesIngreso.push(mes);
                     me.varTotalIngreso.push(total);
@@ -186,7 +186,7 @@
                 let me=this;
                 me.ventas.map(function(x){
                     let mes;
-                    mes=me.meses[x.mes];
+                    mes=me.meses[x.mes-1];
                     me.varMesVenta.push(mes);
                     me.varTotalVenta.push(x.total);
                 });

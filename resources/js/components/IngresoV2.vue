@@ -1,6 +1,9 @@
 <template>
 <div class="container">
-    <div class="row">
+    <div class="loadingio-spinner-spin-73ue9c5at0j" v-if="carga==0"><div class="ldio-yymc290haz">
+    <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+    </div></div>
+    <div class="row" v-if="carga==1">
         <div class="col-sm-12">
             <div class="m-b-20">
                 <div class="form-group container-titulo">
@@ -260,7 +263,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="field-2" class="totalcontrol-label"></label>
-                                                        <button class="btn btn-primary form-control" @click="registrarIngreso()">Registrar Compra</button>
+                                                        <button class="btn btn-primary form-control" :disabled="estado_boton.guardar" @click="registrarIngreso()">Registrar Compra</button>
                                                     </div>
                                                 </div>
                                                  <!-- <div v-show="errorIngreso" class="div-error">
@@ -507,7 +510,12 @@
             num_entradas:'',
             idarticulo:0,
             codigo:'',
-            articulo:''
+            articulo:'',
+            estado_boton:{
+                guardar:false,
+                actualizar:false
+            },
+            carga:0,
           }
         },
         components: {
@@ -566,6 +574,7 @@
                     me.arrayIngreso = respuesta.ingresos.data;
                     me.pagination= respuesta.pagination;
                     me.num_entradas='Mostrando de '+me.pagination.current_page+' a '+me.pagination.per_page+' de '+me.pagination.total+' entradas';
+                    me.carga=1;
                 })
                 .catch(function (error) {
                     me.mostrarerror(error);
@@ -597,6 +606,7 @@
                 }
                 
                 let me=this;
+                me.estado_boton.guardar=true;
                 axios.post('ingreso/registrar',{
                     'proveedor_id':this.idproveedor.id,
                     'tipo_comprobante':this.tipo_comprobante,
@@ -920,6 +930,8 @@
             },
             mostrarDetalle(){
                 this.listado=0;
+                this.estado_boton.guardar=false;
+                this.estado_boton.actualizar=false;
             },
             ocultarDetalle(){
                 this.listado=1;

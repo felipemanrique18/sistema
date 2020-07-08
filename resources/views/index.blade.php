@@ -7,6 +7,7 @@
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="google-site-verification" content="e6xkp_UHXBVig3KkEBN0q9AskoEbkbZP_Pv5N1Gnqus" />
 
         <link rel="shortcut icon" href="assets/images/favicon.ico">
         <!-- CSRF Token -->

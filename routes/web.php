@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +39,11 @@ Route::get('dashboard', 'DashboardController');
 // 		'condicion_user'=>'1'
 // 	]);
 // });
+
+Route::get("/eliminarventas",function(){
+	$user=App\DetalleVenta::truncate();
+	$user=DB::table('ventas')->delete();
+});
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('/');
 Route::post('login', 'Auth\LoginController@login')->name('login');

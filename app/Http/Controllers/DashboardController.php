@@ -17,9 +17,9 @@ class DashboardController extends Controller
     }
     public function __invoke(Request $request)
     {
-
+        date_default_timezone_set('America/Bogota');
         $anio=date('Y');
-        $dia=date('d');
+        $dia=date("d");
         $ingresos=DB::table('ingresos as i')
         ->select(DB::raw('EXTRACT(MONTH FROM i.fecha_hora) as mes'),
         DB::raw('EXTRACT(YEAR FROM i.fecha_hora) as anio'),
@@ -46,7 +46,8 @@ class DashboardController extends Controller
         ->groupBy(DB::raw('EXTRACT(DAY FROM v.fecha_hora)'))
         ->get();
 
-        return ['ingresos'=>$ingresos,'ventas'=>$ventas,'ventas_dia'=>$ventasdia,'anio'=>$anio];      
+        return ['ingresos'=>$ingresos,'ventas'=>$ventas,'ventas_dia'=>$ventasdia,'anio'=>$anio]; 
+  
 
     }
 }

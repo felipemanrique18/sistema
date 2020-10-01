@@ -20,7 +20,7 @@
 
                   <div class="col-lg-4 col-sm-4">
                     <div class="widget-inline-box text-center">
-                      <h3 class="m-t-10"><i class="text-info mdi mdi-black-mesa"></i> <b data-plugin="counterup">{{ formatNumber(total_ventas_dia) }}</b></h3>
+                      <h3 class="m-t-10"><i class="text-info mdi mdi-black-mesa"></i> <b data-plugin="counterup">{{ total_ventas_dia }}</b></h3>
                       <p class="text-muted">Ventas Hoy</p>
                     </div>
                   </div>

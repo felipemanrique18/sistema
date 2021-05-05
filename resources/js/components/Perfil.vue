@@ -5,7 +5,7 @@
                 <div class="p-0 text-center">
                     <div class="member-card">
                         <div class="thumb-xl member-thumb m-b-10 center-block">
-                            <img src="assets/images/users/user.png" class="img-circle img-thumbnail" alt="profile-image">
+                            <img src="/assets/images/users/user.png" class="img-circle img-thumbnail" alt="profile-image">
                             <i class="fas fa-circle member-star text-success" title="verified user"></i>
                         </div>
                         <div class="">
@@ -146,7 +146,7 @@
         methods:{
             getUser(){
                 let me=this;
-                var url= '/user/show';
+                var url= this.$api+'/user/show';
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     me.user = respuesta.user;

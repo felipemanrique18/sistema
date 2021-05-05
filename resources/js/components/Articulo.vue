@@ -289,8 +289,8 @@
         methods: {
             listarArticulo(page,buscar){
                 let me=this;
-                var url= 'articulo?page=' + page + '&buscar=' + buscar;
-                axios.get(url).then(function (response) {
+                var url= this.$api+'articulo?page=' + page + '&buscar=' + buscar;
+                axios.get(url,this.$token).then(function (response) {
                     var respuesta= response.data;
                     me.arrayArticulo = respuesta.articulos.data;
                     me.pagination= respuesta.pagination;
@@ -304,8 +304,8 @@
             },
             selectCategoria(){
                 let me=this;
-                var url= 'categoria/selectCategoria';
-                axios.get(url).then(function (response) {
+                var url= this.$api+'categoria/selectCategoria';
+                axios.get(url,this.$token).then(function (response) {
                     console.log(response);
                     var respuesta= response.data;
                     me.arrayCategorias = respuesta.categorias;
@@ -330,7 +330,7 @@
                 
                 let me=this;
                 me.estado_boton.guardar=true;
-                axios.post('articulo/registrar',{
+                axios.post(this.$api+'articulo/registrar',{
                     'categoria_id':this.idcategoria,
                     'nombre':this.nombre,
                     'descripcion':this.descripcion,
@@ -353,7 +353,7 @@
                 
                 let me = this;
                 me.estado_boton.actualizar=true;
-                axios.put('articulo/actualizar',{
+                axios.put(this.$api+'articulo/actualizar',{
                     'id':this.articulo_id,
                     'categoria_id':this.idcategoria,
                     'nombre':this.nombre,
@@ -395,7 +395,7 @@
                 .then((willDelete) => {
                   if (willDelete) {
                     let me = this;
-                    axios.put('articulo/desactivar',{
+                    axios.put(this.$api+'articulo/desactivar',{
                         'id': id
                     }).then(function (response) {
                         me.listarArticulo(1,me.buscar);
@@ -422,7 +422,7 @@
                 .then((willDelete) => {
                   if (willDelete) {
                     let me = this;
-                    axios.put('articulo/activar',{
+                    axios.put(this.$api+'articulo/activar',{
                         'id': id
                     }).then(function (response) {
                         me.listarArticulo(1,me.buscar);
@@ -495,7 +495,7 @@
                 }
             },
             cargarPdf(){
-                window.open('http://ventasmanrique.herokuapp.com/articulo/listarPdf','_blank')
+                window.open('/articulo/listarPdf','_blank')
             },
             mostrarerror(error){
                 switch (error.response.status) {

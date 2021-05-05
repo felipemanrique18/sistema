@@ -150,7 +150,7 @@
         methods: {
             listarRol(page,buscar){
                 let me=this;
-                var url= 'roles?page=' + page + '&buscar=' + buscar;
+                var url= this.$api+'roles?page=' + page + '&buscar=' + buscar;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.arrayRoles = respuesta.roles.data;

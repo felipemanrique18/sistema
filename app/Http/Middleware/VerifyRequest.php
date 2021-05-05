@@ -18,6 +18,6 @@ class VerifyRequest
         if($request->ajax()){
             return $next($request);
         }
-        return redirect('/');
+        // return redirect('/');
     }
 }

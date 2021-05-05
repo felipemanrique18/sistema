@@ -49,6 +49,9 @@ class ProveedorController extends Controller
   
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'nombre' => 'required|unique:personas',
+        ]);
         $persona=Persona::create($request->all());
 
         $persona->proveedor()->create([
@@ -67,7 +70,10 @@ class ProveedorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {   	
+    {   
+        $validated = $request->validate([
+            'nombre' => 'required|unique:personas',
+        ]);
         $persona=Persona::findOrFail($request->id);
         $persona->update($request->all());
         $persona->proveedor()->update([

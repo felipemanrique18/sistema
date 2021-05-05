@@ -2201,8 +2201,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarArticulo: function listarArticulo(page, buscar) {
       var me = this;
-      var url = 'articulo?page=' + page + '&buscar=' + buscar;
-      axios.get(url).then(function (response) {
+      var url = this.$api + 'articulo?page=' + page + '&buscar=' + buscar;
+      axios.get(url, this.$token).then(function (response) {
         var respuesta = response.data;
         me.arrayArticulo = respuesta.articulos.data;
         me.pagination = respuesta.pagination;
@@ -2215,8 +2215,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectCategoria: function selectCategoria() {
       var me = this;
-      var url = 'categoria/selectCategoria';
-      axios.get(url).then(function (response) {
+      var url = this.$api + 'categoria/selectCategoria';
+      axios.get(url, this.$token).then(function (response) {
         console.log(response);
         var respuesta = response.data;
         me.arrayCategorias = respuesta.categorias;
@@ -2239,7 +2239,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       me.estado_boton.guardar = true;
-      axios.post('articulo/registrar', {
+      axios.post(this.$api + 'articulo/registrar', {
         'categoria_id': this.idcategoria,
         'nombre': this.nombre,
         'descripcion': this.descripcion,
@@ -2261,7 +2261,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       me.estado_boton.actualizar = true;
-      axios.put('articulo/actualizar', {
+      axios.put(this.$api + 'articulo/actualizar', {
         'id': this.articulo_id,
         'categoria_id': this.idcategoria,
         'nombre': this.nombre,
@@ -2307,7 +2307,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this;
-          axios.put('articulo/desactivar', {
+          axios.put(_this.$api + 'articulo/desactivar', {
             'id': id
           }).then(function (response) {
             me.listarArticulo(1, me.buscar);
@@ -2333,7 +2333,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this2;
-          axios.put('articulo/activar', {
+          axios.put(_this2.$api + 'articulo/activar', {
             'id': id
           }).then(function (response) {
             me.listarArticulo(1, me.buscar);
@@ -2408,7 +2408,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     cargarPdf: function cargarPdf() {
-      window.open('http://ventasmanrique.herokuapp.com/articulo/listarPdf', '_blank');
+      window.open('/articulo/listarPdf', '_blank');
     },
     mostrarerror: function mostrarerror(error) {
       switch (error.response.status) {
@@ -2680,8 +2680,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarCategoria: function listarCategoria(page, buscar) {
       var me = this;
-      var url = 'categoria?page=' + page + '&buscar=' + buscar;
-      axios.get(url).then(function (response) {
+      var url = this.$api + 'categoria?page=' + page + '&buscar=' + buscar;
+      axios.get(url, this.$token).then(function (response) {
         var respuesta = response.data;
         me.arrayCategoria = respuesta.categorias.data;
         me.pagination = respuesta.pagination;
@@ -2705,12 +2705,12 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      var url = 'categoria/registrar';
+      var url = this.$api + 'categoria/registrar';
       me.estado_boton.guardar = true;
       axios.post(url, {
         nombre: this.nombre,
         descripcion: this.descripcion
-      }).then(function (response) {
+      }, this.$token).then(function (response) {
         me.cerrarModal();
         me.listarCategoria(1, '');
       })["catch"](function (error) {
@@ -2734,7 +2734,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       me.estado_boton.actualizar = true;
-      axios.put('categoria/actualizar', {
+      axios.put(this.$api + 'categoria/actualizar', {
         'nombre': this.nombre,
         'descripcion': this.descripcion,
         'id': this.categoria_id
@@ -2767,7 +2767,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this;
-          axios.put('categoria/desactivar', {
+          axios.put(_this.$api + 'categoria/desactivar', {
             'id': id
           }).then(function (response) {
             me.listarCategoria(1, me.buscar);
@@ -2793,7 +2793,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this2;
-          axios.put('categoria/activar', {
+          axios.put(_this2.$api + 'categoria/activar', {
             'id': id
           }).then(function (response) {
             me.listarCategoria(1, me.buscar);
@@ -3101,7 +3101,8 @@ __webpack_require__.r(__webpack_exports__);
         guardar: false,
         actualizar: false
       },
-      carga: 0
+      carga: 0,
+      errors: []
     };
   },
   computed: {
@@ -3141,7 +3142,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarPersona: function listarPersona(page, tipo_busqueda, buscar) {
       var me = this;
-      var url = 'cliente?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
+      var url = this.$api + 'cliente?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayPersona = respuesta.personas.data;
@@ -3167,7 +3168,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       me.estado_boton.guardar = true;
-      axios.post('cliente/registrar', {
+      axios.post(this.$api + 'cliente/registrar', {
         'nombre': this.nombre,
         'tipo_documento': this.tipo_documento,
         'num_documento': this.num_documento,
@@ -3189,7 +3190,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       me.estado_boton.actualizar = true;
-      axios.put('cliente/actualizar', {
+      axios.put(this.$api + 'cliente/actualizar', {
         'nombre': this.nombre,
         'id': this.persona_id,
         'tipo_documento': this.tipo_documento,
@@ -3297,6 +3298,9 @@ __webpack_require__.r(__webpack_exports__);
 
         default:
           // statements_def
+          this.errors.push(error.response.data.errors);
+          this.errorMostrarMsjPersona[0].nombre = "* ".concat(this.errors[0].nombre);
+          this.estado_boton.guardar = false;
           break;
       }
     }
@@ -3642,7 +3646,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarIngreso: function listarIngreso(page, tipo_busqueda, buscar) {
       var me = this;
-      var url = 'ingreso?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
+      var url = this.$api + 'ingreso?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayIngreso = respuesta.ingresos.data;
@@ -4087,7 +4091,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarVenta: function listarVenta(page, tipo_busqueda, buscar) {
       var me = this;
-      var url = 'venta?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
+      var url = this.$api + 'venta?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayVenta = respuesta.ventas.data;
@@ -4104,7 +4108,7 @@ __webpack_require__.r(__webpack_exports__);
 
       me.pagination.current_page = page; //Envia la petición para visualizar la data de esa página
 
-      me.listarIngreso(page, tipo_busqueda, buscar);
+      me.listarVenta(page, tipo_busqueda, buscar);
     },
     mostrarDetalle: function mostrarDetalle() {
       this.listado = 0;
@@ -4304,8 +4308,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getIngresos: function getIngresos() {
       var me = this;
-      var url = '/dashboard';
-      axios.get(url).then(function (response) {
+      var url = '/api/dashboard';
+      var data = {
+        'X-CSRF-TOKEN': window.$('meta[name="csrf-token"]').attr('content')
+      };
+      console.log(data);
+      axios.get(url, data).then(function (response) {
         var respuesta = response.data;
         me.ingresos = respuesta.ingresos;
         me.ventas = respuesta.ventas;
@@ -4315,7 +4323,7 @@ __webpack_require__.r(__webpack_exports__);
         me.loadVentas();
         me.totales();
       })["catch"](function (error) {
-        me.mostrarerror(error);
+        // me.mostrarerror(error);
         console.log(error);
       });
     },
@@ -5041,8 +5049,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarIngreso: function listarIngreso(page, tipo_busqueda, buscar) {
       var me = this;
-      var url = 'ingreso?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
-      axios.get(url).then(function (response) {
+      var url = this.$api + 'ingreso?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
+      axios.get(url, this.$token).then(function (response) {
         var respuesta = response.data;
         me.arrayIngreso = respuesta.ingresos.data;
         me.pagination = respuesta.pagination;
@@ -5055,8 +5063,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     listarArticulo: function listarArticulo(buscar) {
       var me = this;
-      var url = 'articulo/listarArticulo?buscar=' + buscar;
-      axios.get(url).then(function (response) {
+      var url = this.$api + 'articulo/listarArticulo?buscar=' + buscar;
+      axios.get(url, this.$token).then(function (response) {
         var respuesta = response.data;
         me.arrayArticulos = respuesta.articulos.data;
       })["catch"](function (error) {
@@ -5078,7 +5086,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       me.estado_boton.guardar = true;
-      axios.post('ingreso/registrar', {
+      axios.post(this.$api + 'ingreso/registrar', {
         'proveedor_id': this.idproveedor.id,
         'tipo_comprobante': this.tipo_comprobante,
         'impuesto': this.impuesto,
@@ -5152,7 +5160,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this;
-          axios.put('user/desactivar', {
+          axios.put(_this.$api + 'user/desactivar', {
             'id': id
           }).then(function (response) {
             me.listarPersona(1, '', '');
@@ -5178,7 +5186,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this2;
-          axios.put('user/activar', {
+          axios.put(_this2.$api + 'user/activar', {
             'id': id
           }).then(function (response) {
             me.listarPersona(1, '', '');
@@ -5195,7 +5203,7 @@ __webpack_require__.r(__webpack_exports__);
     selectProveedor: function selectProveedor(search, loading) {
       var me = this;
       loading(true);
-      var url = 'proveedor/selectProveedor?filtro=' + search;
+      var url = this.$api + 'proveedor/selectProveedor?filtro=' + search;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
 
@@ -5210,7 +5218,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     buscarArticulo: function buscarArticulo() {
       var me = this;
-      var url = 'articulo/buscarArticulo?filtro=' + me.codigo;
+      var url = this.$api + 'articulo/buscarArticulo?filtro=' + me.codigo;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayArticulo = respuesta.articulos;
@@ -5590,8 +5598,11 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
 
       if (me.notifications.noleida > 0) {
-        var url = '/notification/leidas';
-        axios.post(url).then(function (response) {
+        var url = '/api/notification/leidas';
+        var data = {
+          'X-CSRF-TOKEN': window.$('meta[name="csrf-token"]').attr('content')
+        };
+        axios.post(url, data).then(function (response) {
           me.notifications.noleida = 0; //cargamos los datos del chart
         })["catch"](function (error) {
           console.log(error);
@@ -5762,7 +5773,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getUser: function getUser() {
       var me = this;
-      var url = '/user/show';
+      var url = this.$api + '/user/show';
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.user = respuesta.user;
@@ -6090,7 +6101,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarPersona: function listarPersona(page, tipo_busqueda, buscar) {
       var me = this;
-      var url = 'proveedor?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
+      var url = this.$api + 'proveedor?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayPersona = respuesta.personas.data;
@@ -6121,7 +6132,7 @@ __webpack_require__.r(__webpack_exports__);
         this.tipo_documento = '';
       }
 
-      axios.post('proveedor/registrar', {
+      axios.post(this.$api + 'proveedor/registrar', {
         'nombre': this.nombre,
         'tipo_documento': this.tipo_documento,
         'num_documento': this.num_documento,
@@ -6150,7 +6161,7 @@ __webpack_require__.r(__webpack_exports__);
         this.tipo_documento = '';
       }
 
-      axios.put('proveedor/actualizar', {
+      axios.put(this.$api + 'proveedor/actualizar', {
         'nombre': this.nombre,
         'id': this.persona_id,
         'tipo_documento': this.tipo_documento,
@@ -6268,6 +6279,8 @@ __webpack_require__.r(__webpack_exports__);
 
         default:
           // statements_def
+          this.errorMostrarMsjPersona[0].nombre = "* ".concat(error.response.data.errors.nombre);
+          this.estado_boton.guardar = false;
           break;
       }
     }
@@ -6435,7 +6448,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarRol: function listarRol(page, buscar) {
       var me = this;
-      var url = 'roles?page=' + page + '&buscar=' + buscar;
+      var url = this.$api + 'roles?page=' + page + '&buscar=' + buscar;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayRoles = respuesta.roles.data;
@@ -6858,7 +6871,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarPersona: function listarPersona(page, tipo_busqueda, buscar) {
       var me = this;
-      var url = 'user?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
+      var url = this.$api + 'user?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayPersona = respuesta.personas.data;
@@ -6906,7 +6919,7 @@ __webpack_require__.r(__webpack_exports__);
           break;
       }
 
-      axios.post('user/registrar', {
+      axios.post(this.$api + 'user/registrar', {
         'nombre': this.nombre,
         'tipo_documento': this.tipo_documento,
         'num_documento': this.num_documento,
@@ -6960,7 +6973,7 @@ __webpack_require__.r(__webpack_exports__);
           break;
       }
 
-      axios.put('user/actualizar', {
+      axios.put(this.$api + 'user/actualizar', {
         'nombre': this.nombre,
         'id': this.persona_id,
         'user_id': this.user_id,
@@ -6998,7 +7011,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this;
-          axios.put('user/desactivar', {
+          axios.put(_this.$api + 'user/desactivar', {
             'id': id
           }).then(function (response) {
             me.listarPersona(1, '', '');
@@ -7024,7 +7037,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this2;
-          axios.put('user/activar', {
+          axios.put(_this2.$api + 'user/activar', {
             'id': id
           }).then(function (response) {
             me.listarPersona(1, '', '');
@@ -7054,7 +7067,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this3;
-          axios.put('user/actualizarP', {
+          axios.put(_this3.$api + 'user/actualizarP', {
             'id': id,
             'password': _this3.password
           }).then(function (response) {
@@ -7220,6 +7233,12 @@ __webpack_require__.r(__webpack_exports__);
 
         default:
           // statements_def
+          if (error.response.data.errors.nombre) {
+            this.errorMostrarMsjPersona[0].nombre = "* ".concat(error.response.data.errors.nombre);
+          }
+
+          this.estado_boton.guardar = false;
+          this.estado_boton.actualizar = false;
           break;
       }
     }
@@ -7239,6 +7258,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7850,8 +7875,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarVenta: function listarVenta(page, tipo_busqueda, buscar) {
       var me = this;
-      var url = 'venta?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
-      axios.get(url).then(function (response) {
+      var url = this.$api + 'venta?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
+      axios.get(url, this.$token).then(function (response) {
         var respuesta = response.data;
         me.arrayVenta = respuesta.ventas.data;
         me.pagination = respuesta.pagination;
@@ -7864,8 +7889,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     listarArticulo: function listarArticulo(buscar) {
       var me = this;
-      var url = 'articulo/listarArticulo?buscar=' + buscar + '&tipo=venta';
-      axios.get(url).then(function (response) {
+      var url = this.$api + 'articulo/listarArticulo?buscar=' + buscar + '&tipo=venta';
+      axios.get(url, this.$token).then(function (response) {
         var respuesta = response.data;
         me.arrayArticulos = respuesta.articulos.data;
       })["catch"](function (error) {
@@ -7887,7 +7912,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       me.estado_boton.guardar = true;
-      axios.post('venta/registrar', {
+      axios.post(this.$api + 'venta/registrar', {
         'cliente_id': this.idcliente.id,
         'tipo_comprobante': this.tipo_comprobante,
         'num_comprobante': this.num_comprobante,
@@ -7905,7 +7930,7 @@ __webpack_require__.r(__webpack_exports__);
           buttons: ["cerrar", "Descargar"]
         }).then(function (value) {
           if (value) {
-            window.open('http://ventasmanrique.herokuapp.com/venta/pdf/' + response.data.id);
+            window.open('/venta/pdf/' + response.data.id);
           }
         });
       })["catch"](function (error) {
@@ -7925,7 +7950,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (willDelete) {
         if (willDelete) {
           var me = _this;
-          axios.put('venta/desactivar', {
+          axios.put(_this.$api + 'venta/desactivar', {
             'id': id
           }).then(function (response) {
             me.listarVenta(1, '', '');
@@ -7944,8 +7969,8 @@ __webpack_require__.r(__webpack_exports__);
     selectCliente: function selectCliente(search, loading) {
       var me = this;
       loading(true);
-      var url = 'cliente/selectCliente?filtro=' + search;
-      axios.get(url).then(function (response) {
+      var url = this.$api + 'cliente/selectCliente?filtro=' + search;
+      axios.get(url, this.$token).then(function (response) {
         var respuesta = response.data;
 
         q: search;
@@ -7959,8 +7984,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     buscarArticulo: function buscarArticulo() {
       var me = this;
-      var url = 'articulo/buscarArticulo?filtro=' + me.codigo;
-      axios.get(url).then(function (response) {
+      var url = this.$api + 'articulo/buscarArticulo?filtro=' + me.codigo;
+      axios.get(url, this.$token).then(function (response) {
         var respuesta = response.data;
         me.arrayArticulo = respuesta.articulos;
 
@@ -8197,12 +8222,18 @@ __webpack_require__.r(__webpack_exports__);
       this.listado = 2;
       var me = this;
       me.arrayDetalle = venta;
+      me.venta_id = venta.id;
       me.proveedor = me.arrayDetalle.cliente.nombre;
       me.impuesto = me.arrayDetalle.impuesto;
       me.tipo_comprobante = me.arrayDetalle.tipo_comprobante;
       me.serie_comprobante = me.arrayDetalle.serie_comprobante;
       me.num_comprobante = me.arrayDetalle.num_comprobante;
       me.arrayDetalle = me.arrayDetalle.detalle_venta;
+    },
+    descargarFactura: function descargarFactura() {
+      var me = this; // console.log(me.venta_id);
+
+      window.open('/venta/pdf/' + me.venta_id);
     },
     cerrarModal: function cerrarModal() {
       $('#myModal').modal('hide');
@@ -66265,7 +66296,7 @@ var render = function() {
                   _c("i", { staticClass: "text-info mdi mdi-black-mesa" }),
                   _vm._v(" "),
                   _c("b", { attrs: { "data-plugin": "counterup" } }, [
-                    _vm._v(_vm._s(_vm.formatNumber(_vm.total_ventas_dia)))
+                    _vm._v(_vm._s(_vm.total_ventas_dia))
                   ])
                 ]),
                 _vm._v(" "),
@@ -69011,7 +69042,7 @@ var staticRenderFns = [
       [
         _c("img", {
           staticClass: "img-circle img-thumbnail",
-          attrs: { src: "assets/images/users/user.png", alt: "profile-image" }
+          attrs: { src: "/assets/images/users/user.png", alt: "profile-image" }
         }),
         _vm._v(" "),
         _c("i", {
@@ -70599,8 +70630,8 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.arrayPersona, function(persona) {
-                            return _c("tr", { key: _vm.persona_id }, [
+                          _vm._l(_vm.arrayPersona, function(persona, i) {
+                            return _c("tr", { key: "persona" + i }, [
                               _c("td", {
                                 domProps: {
                                   textContent: _vm._s(persona.nombre)
@@ -71348,11 +71379,15 @@ var render = function() {
                                       "div",
                                       { staticClass: "div-error" },
                                       _vm._l(_vm.errores.usuario, function(
-                                        error
+                                        error,
+                                        i
                                       ) {
                                         return _c(
                                           "div",
-                                          { staticClass: "text-error" },
+                                          {
+                                            key: "c" + i,
+                                            staticClass: "text-error"
+                                          },
                                           [
                                             _vm._v(
                                               "\r\n                                                " +
@@ -71469,10 +71504,13 @@ var render = function() {
                                             { staticClass: "div-error" },
                                             _vm._l(
                                               _vm.errores.password,
-                                              function(error) {
+                                              function(error, i) {
                                                 return _c(
                                                   "div",
-                                                  { staticClass: "text-error" },
+                                                  {
+                                                    key: "d" + i,
+                                                    staticClass: "text-error"
+                                                  },
                                                   [
                                                     _vm._v(
                                                       "\r\n                                                    " +
@@ -71727,7 +71765,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("b", [
       _c("i", { staticClass: "fas fa-users" }),
-      _vm._v(" Usuarios")
+      _vm._v(" Usuarios ")
     ])
   },
   function() {
@@ -73848,6 +73886,49 @@ var render = function() {
                                                     "\r\n                                                "
                                                 )
                                               ])
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-12" },
+                                            [
+                                              _c(
+                                                "div",
+                                                { staticClass: "form-group" },
+                                                [
+                                                  _c("label", {
+                                                    staticClass:
+                                                      "totalcontrol-label",
+                                                    attrs: { for: "field-2" }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-primary form-control",
+                                                      attrs: {
+                                                        disabled:
+                                                          _vm.estado_boton
+                                                            .guardar
+                                                      },
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.descargarFactura()
+                                                        }
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "Descargar factura"
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
                                             ]
                                           )
                                         ]
@@ -89443,6 +89524,10 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('notification', __webpack_r
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$api = '/api/';
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$token = {
+  'X-CSRF-TOKEN': window.$('meta[name="csrf-token"]').attr('content')
+};
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app',
   router: _routes_js__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -89452,7 +89537,10 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   },
   created: function created() {
     var me = this;
-    axios.post('notification/get').then(function (response) {
+    var data = {
+      'X-CSRF-TOKEN': window.$('meta[name="csrf-token"]').attr('content')
+    };
+    axios.post('/api/notification/get', data).then(function (response) {
       me.notifications = response.data;
     })["catch"](function (error) {
       console.log(error);
@@ -89499,6 +89587,13 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -89506,11 +89601,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 
+
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "f8852daaa3576f53b2ba",
-  cluster: "us2",
+  key: "",
+  cluster: "mt1",
   forceTLS: true
 });
 
@@ -90640,52 +90736,52 @@ var perfil = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('perfil', __we
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
-    path: '/inicio',
+    path: '/dashboard',
     name: 'Dashboard',
     component: dashboard // props: true
 
   }, {
-    path: '/articulo',
+    path: '/dashboard/articulo',
     name: 'articulos',
     component: articulo
   }, {
-    path: '/categoria',
+    path: '/dashboard/categoria',
     name: 'categorias',
     component: categoria
   }, {
-    path: '/cliente',
+    path: '/dashboard/cliente',
     name: 'clientes',
     component: cliente
   }, {
-    path: '/proveedor',
+    path: '/dashboard/proveedor',
     name: 'proveedores',
     component: proveedor
   }, {
-    path: '/rol',
+    path: '/dashboard/rol',
     name: 'roles',
     component: rol
   }, {
-    path: '/usuario',
+    path: '/dashboard/usuario',
     name: 'usuarios',
     component: usuario
   }, {
-    path: '/ingreso',
-    name: 'ingresos',
+    path: '/dashboard/ingreso',
+    name: '/dashboardingresos',
     component: ingreso
   }, {
-    path: '/venta',
+    path: '/dashboard/venta',
     name: 'ventas',
     component: venta
   }, {
-    path: '/consultaingreso',
+    path: '/dashboard/consultaingreso',
     name: 'consultaingresos',
     component: consultaingreso
   }, {
-    path: '/consultaventa',
+    path: '/dashboard/consultaventa',
     name: 'consultaventas',
     component: consultaventa
   }, {
-    path: '/perfil',
+    path: '/dashboard/perfil',
     name: 'perfil',
     component: perfil
   }],

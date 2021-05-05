@@ -36,7 +36,7 @@ mix.styles([
     'resources/assets/plugins/datatables/dataTables.colVis.css',
     'resources/assets/plugins/datatables/dataTables.bootstrap.min.css',
     'resources/assets/plugins/datatables/fixedColumns.dataTables.min.css',
-    ], 'public/css/plugins_datables.css');
+], 'public/css/plugins_datables.css');
 
 mix.scripts([
     'resources/assets/plugins/datatables/jquery.dataTables.min.js',

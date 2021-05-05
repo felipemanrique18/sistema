@@ -11,7 +11,7 @@ class DashboardController extends Controller
     function __construct()
     {
         
-        $this->middleware('auth');
+        // $this->middleware('auth');
         // $this->middleware('roles:admin',['except' => ['edit','update','show']]);
         $this->middleware('requestsVerify');
     }
@@ -41,7 +41,7 @@ class DashboardController extends Controller
         $ventasdia=DB::table('ventas as v')
         ->select(DB::raw('EXTRACT(DAY FROM v.fecha_hora) as dia'),
         DB::raw('SUM(v.total) as total_dia'))
-        ->whereDay('v.fecha_hora',$dia)
+        ->whereDate('v.fecha_hora',date('Y-m-d'))
         ->where('v.estado','=','Registrado')
         ->groupBy(DB::raw('EXTRACT(DAY FROM v.fecha_hora)'))
         ->get();

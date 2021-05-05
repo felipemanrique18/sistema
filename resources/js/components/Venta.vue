@@ -614,8 +614,11 @@
         methods: {
             listarVenta(page,tipo_busqueda,buscar){
                 let me=this;
-                var url= 'venta?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
-                axios.get(url).then(function (response) {
+                let data = {
+                    'X-CSRF-TOKEN': window.$('meta[name="csrf-token"]').attr('content')
+                }
+                var url= 'api/venta?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
+                axios.get(url,data).then(function (response) {
                     var respuesta= response.data;
                     me.arrayVenta = respuesta.ventas.data;
                     me.pagination= respuesta.pagination;

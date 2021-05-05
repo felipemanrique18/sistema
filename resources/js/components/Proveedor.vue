@@ -259,7 +259,7 @@
         methods: {
             listarPersona(page,tipo_busqueda,buscar){
                 let me=this;
-                var url= 'proveedor?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
+                var url= this.$api+'proveedor?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.arrayPersona = respuesta.personas.data;
@@ -290,7 +290,7 @@
                     this.tipo_documento='';
                 }
 
-                axios.post('proveedor/registrar',{
+                axios.post(this.$api+'proveedor/registrar',{
                     'nombre':this.nombre,
                     'tipo_documento':this.tipo_documento,
                     'num_documento':this.num_documento,
@@ -317,7 +317,7 @@
                 if(this.tipo_documento==0){
                     this.tipo_documento='';
                 }
-                axios.put('proveedor/actualizar',{
+                axios.put(this.$api+'proveedor/actualizar',{
                     'nombre': this.nombre,
                     'id': this.persona_id,
                     'tipo_documento':this.tipo_documento,
@@ -435,6 +435,8 @@
                         break;
                     default:
                         // statements_def
+                        this.errorMostrarMsjPersona[0].nombre=`* ${error.response.data.errors.nombre}`;
+                        this.estado_boton.guardar=false;
                         break;
                 }
             }

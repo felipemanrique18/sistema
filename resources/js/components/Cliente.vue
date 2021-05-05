@@ -199,6 +199,7 @@
                 actualizar:false
             },
             carga:0,
+            errors:[]
 
 
           }
@@ -239,7 +240,7 @@
         methods: {
             listarPersona(page,tipo_busqueda,buscar){
                 let me=this;
-                var url= 'cliente?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
+                var url= this.$api+'cliente?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.arrayPersona = respuesta.personas.data;
@@ -266,7 +267,7 @@
                 
                 let me=this;
                 me.estado_boton.guardar=true;
-                axios.post('cliente/registrar',{
+                axios.post(this.$api+'cliente/registrar',{
                     'nombre':this.nombre,
                     'tipo_documento':this.tipo_documento,
                     'num_documento':this.num_documento,
@@ -288,7 +289,7 @@
                 
                 let me = this;
                 me.estado_boton.actualizar=true;
-                axios.put('cliente/actualizar',{
+                axios.put(this.$api+'cliente/actualizar',{
                     'nombre': this.nombre,
                     'id': this.persona_id,
                     'tipo_documento':this.tipo_documento,
@@ -395,6 +396,9 @@
                         break;
                     default:
                         // statements_def
+                        this.errors.push(error.response.data.errors);
+                        this.errorMostrarMsjPersona[0].nombre=`* ${this.errors[0].nombre}`;
+                        this.estado_boton.guardar=false;
                         break;
                 }
             }

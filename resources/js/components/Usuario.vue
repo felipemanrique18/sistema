@@ -8,7 +8,7 @@
             <div class="m-b-20">
                 <div class="form-group container-titulo">
                     <h2>
-                        <b><i class="fas fa-users"></i> Usuarios</b>
+                        <b><i class="fas fa-users"></i> Usuarios </b>
                         <button class="btn btn-success pull-right" type="button" @click="abrirModal('persona','registrar')">
                         <i class="fa fa-plus"></i> Nuevo
                         </button>
@@ -53,7 +53,7 @@
 
 
                             <tbody>
-                            <tr v-for="persona in arrayPersona" :key="persona_id">
+                            <tr v-for="(persona,i) in arrayPersona" :key="'persona'+ i">
                                 <td v-text="persona.nombre"></td>
                                 <td v-if="persona.tipo_documento && persona.num_documento">{{ persona.tipo_documento }}.{{ persona.num_documento }}</td>
                                 <td v-else></td>
@@ -187,7 +187,7 @@
                                             </div>
                                         </div>
                                         <div v-if="errores" class="div-error">
-                                            <div class="text-error" v-for="error in errores.usuario" >
+                                            <div class="text-error" v-for="(error,i) in errores.usuario" :key="'c'+ i" >
                                                 {{ error }}
                                             </div>
                                         </div>
@@ -207,7 +207,7 @@
                                                 </div>
                                             </div>
                                             <div v-if="errores" class="div-error">
-                                                <div class="text-error" v-for="error in errores.password" >
+                                                <div class="text-error" v-for="(error,i) in errores.password" :key="'d'+ i" >
                                                     {{ error }}
                                                 </div>
                                             </div>
@@ -347,7 +347,7 @@
         methods: {
             listarPersona(page,tipo_busqueda,buscar){
                 let me=this;
-                var url= 'user?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
+                var url= this.$api+'user?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.arrayPersona = respuesta.personas.data;
@@ -390,7 +390,7 @@
                     default:
                         break;
                 }
-                axios.post('user/registrar',{
+                axios.post(this.$api+'user/registrar',{
                     'nombre':this.nombre,
                     'tipo_documento':this.tipo_documento,
                     'num_documento':this.num_documento,
@@ -436,7 +436,7 @@
                     default:
                         break;
                 }
-                axios.put('user/actualizar',{
+                axios.put(this.$api+'user/actualizar',{
                     'nombre': this.nombre,
                     'id': this.persona_id,
                     'user_id':this.user_id,
@@ -472,7 +472,7 @@
                 .then((willDelete) => {
                   if (willDelete) {
                     let me = this;
-                    axios.put('user/desactivar',{
+                    axios.put(this.$api+'user/desactivar',{
                         'id': id
                     }).then(function (response) {
                         me.listarPersona(1,'','');
@@ -499,7 +499,7 @@
                 .then((willDelete) => {
                   if (willDelete) {
                     let me = this;
-                    axios.put('user/activar',{
+                    axios.put(this.$api+'user/activar',{
                         'id': id
                     }).then(function (response) {
                         me.listarPersona(1,'','');
@@ -529,7 +529,7 @@
                   if (willDelete) {
                     let me = this;
 
-                    axios.put('user/actualizarP',{
+                    axios.put(this.$api+'user/actualizarP',{
                         'id': id,
                         'password':this.password
                     }).then(function (response) {
@@ -687,6 +687,11 @@
                         break;
                     default:
                         // statements_def
+                        if(error.response.data.errors.nombre){
+                            this.errorMostrarMsjPersona[0].nombre=`* ${error.response.data.errors.nombre}`;
+                        }
+                        this.estado_boton.guardar=false;
+                        this.estado_boton.actualizar=false;
                         break;
                 }
             }

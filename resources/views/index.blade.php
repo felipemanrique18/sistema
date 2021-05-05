@@ -2,9 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>SimpleAdmin - Responsive Admin Dashboard Template</title>
+        <title>Ventas Manrique</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Sistema de facturacion electronica de cualquier producto,Ventas Manrique" name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="google-site-verification" content="e6xkp_UHXBVig3KkEBN0q9AskoEbkbZP_Pv5N1Gnqus" />
@@ -13,23 +13,23 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!--Morris Chart CSS -->
-        <link rel="stylesheet" href="assets/plugins/morris/morris.css">
+        <link rel="stylesheet" href="/assets/plugins/morris/morris.css">
         <!-- DataTables -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <meta name="userId" content="{{ Auth::check()?Auth::user()->id:'' }}">
         
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/metismenu/dist/metisMenu.min.css">
 
 
-        <link href="css/plugins_datables.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/plugins_datables.css" rel="stylesheet" type="text/css"/>
         <!-- Bootstrap core CSS -->
         <!-- MetisMenu CSS -->
         <!-- Icons CSS -->
         <!-- Font Awesome -->
-        <link href="fontawesome/css/all.css" rel="stylesheet"> <!--load all styles -->
+        <link href="/fontawesome/css/all.css" rel="stylesheet"> <!--load all styles -->
         <!-- Custom styles for this template -->
         
-        <link href="css/plantilla.css" rel="stylesheet">
+        <link href="/css/plantilla.css" rel="stylesheet">
 
 
 
@@ -45,9 +45,9 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="">
-                        <a href="index.html" class="logo">
-                            <img src="assets/images/logo.png" alt="logo" class="logo-lg" />
-                            <img src="assets/images/logo_sm.png" alt="logo" class="logo-sm hidden" />
+                        <a href="/dashboard" class="logo">
+                            <img src="/assets/images/logo.png" alt="logo" class="logo-lg" />
+                            <img src="/assets/images/logo_sm.png" alt="logo" class="logo-sm hidden" />
                         </a>
                     </div>
                 </div>
@@ -78,9 +78,9 @@
                                 <notification :notifications="notifications"></notification>
 
                                 <li class="dropdown top-menu-item-xs">
-                                    <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/users/user.png" alt="user-img" class="img-circle"> </a>
+                                    <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown" aria-expanded="true"><img src="/assets/images/users/user.png" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
-                                        <li><router-link to="/perfil"><i class="fa fa-user-circle"></i> Profile</router-link></li>
+                                        <li><router-link to="/dashboard/perfil"><i class="fa fa-user-circle"></i> Profile</router-link></li>
                                         <li><a href="javascript:void(0)"><i class="ti-settings m-r-10"></i> Settings</a></li>
                                         <li><a href="javascript:void(0)"><i class="ti-lock m-r-10"></i> Lock screen</a></li>
                                         <li class="divider"></li>
@@ -113,11 +113,16 @@
                     @yield('contenido')
                     <!-- end container -->
                     <div class="footer">
-                        <div class="pull-right hidden-xs">
+                        {{-- <div class="pull-right hidden-xs">
                             Project Completed <strong class="text-custom">39%</strong>.
-                        </div>
+                        </div> --}}
                         <div>
-                            <strong>Simple Admin</strong> - Copyright &copy; 2017
+                            
+                                <script type="text/javascript">
+                                    copyright=new Date();
+                                    update=copyright.getFullYear();
+                                    document.write("© 2020 - " + update + " " + "Ventas Manrique");
+                                </script>
                         </div>
                     </div> <!-- end footer -->
                 </div>
@@ -131,16 +136,16 @@
         
         </div>       
 
-        <script src="js/app.js"></script>
-        <script src="js/plantilla.js"></script> 
-        <script src="assets/plugins/morris/morris.min.js"></script>
+        <script src="/js/app.js"></script>
+        <script src="/js/plantilla.js"></script> 
+        <script src="/assets/plugins/morris/morris.min.js"></script>
         {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script> --}}
-        <script src="js/plugins_datables.js"></script>
+        <script src="/js/plugins_datables.js"></script>
 
-        <script src="assets/plugins/raphael/raphael-min.js"></script>
+        <script src="/assets/plugins/raphael/raphael-min.js"></script>
         <!-- Dashboard init -->
 
-        <script src="assets/js/jquery.app.js"></script>
+        <script src="/assets/js/jquery.app.js"></script>
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script> --}}
         {{-- <script src="js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8" async defer></script>
         <script src="js/dataTables.responsive.min.js" type="text/javascript" charset="utf-8" async defer></script> --}}

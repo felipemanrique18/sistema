@@ -1,13 +1,12 @@
-
 /**
-* Theme: SimpleAdmin Template
-* Author: Coderthemes
-* Main Js File
-*
-*/
+ * Theme: SimpleAdmin Template
+ * Author: Coderthemes
+ * Main Js File
+ *
+ */
 
 
-(function ($) {
+(function($) {
 
     'use strict';
 
@@ -27,11 +26,11 @@
 
     function initLeftMenuCollapse() {
         // Left menu collapse
-        $('.button-menu-mobile').on('click', function (event) {
+        $('.button-menu-mobile').on('click', function(event) {
             event.preventDefault();
             $("body").toggleClass("nav-collapse");
         });
-        $('.page-right-content').on('click', function (event) {
+        $('.page-right-content').on('click', function(event) {
             $("body").toggleClass("nav-collapse");
         });
     }
@@ -40,14 +39,15 @@
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
 
-        $('[data-plugin="switchery"]').each(function (idx, obj) {
+        $('[data-plugin="switchery"]').each(function(idx, obj) {
             new Switchery($(this)[0], $(this).data());
         });
     }
 
     function initActiveMenu() {
         // === following js will activate the menu in left side bar based on url ====
-        $("#side-menu a").each(function () {
+        console.log('hola');
+        $("#side-menu a").each(function() {
             if (this.href == window.location.href) {
                 $(this).addClass("active");
                 $(this).parent().addClass("active"); // add active to li of the current link

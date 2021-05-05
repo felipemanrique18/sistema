@@ -328,7 +328,7 @@
         methods: {
             listarIngreso(page,tipo_busqueda,buscar){
                 let me=this;
-                var url= 'ingreso?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
+                var url= this.$api+'ingreso?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.arrayIngreso = respuesta.ingresos.data;

@@ -326,7 +326,7 @@
         methods: {
             listarVenta(page,tipo_busqueda,buscar){
                 let me=this;
-                var url= 'venta?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
+                var url= this.$api+'venta?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.arrayVenta = respuesta.ventas.data;
@@ -344,7 +344,7 @@
                 //Actualiza la página actual
                 me.pagination.current_page = page;
                 //Envia la petición para visualizar la data de esa página
-                me.listarIngreso(page,tipo_busqueda,buscar);
+                me.listarVenta(page,tipo_busqueda,buscar);
             },
             mostrarDetalle(){
                 this.listado=0;

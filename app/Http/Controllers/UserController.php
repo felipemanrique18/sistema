@@ -71,6 +71,11 @@ class UserController extends Controller
 
     public function store(CreateUserRequest $request)
     {
+        $request->validate([
+            'nombre'=>"required|unique:personas",
+            'usuario' => "required|unique:users"
+        ]);
+
         $persona=Persona::create($request->all());
 
          $persona->user()->create([
@@ -105,7 +110,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {   	
+    {   
+
         $usuario_id=$request->user_id;
         
         $request->validate([

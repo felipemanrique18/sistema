@@ -220,8 +220,8 @@
         methods: {
             listarCategoria(page,buscar){
                 let me=this;
-                var url= 'categoria?page=' + page + '&buscar=' + buscar;
-                axios.get(url).then(function (response) {
+                var url= this.$api+'categoria?page=' + page + '&buscar=' + buscar;
+                axios.get(url,this.$token).then(function (response) {
                     var respuesta= response.data;
                     me.arrayCategoria = respuesta.categorias.data;
                     me.pagination= respuesta.pagination;
@@ -247,12 +247,12 @@
                     return;
                 }
                 let me=this;
-                var url = 'categoria/registrar';
+                var url = this.$api+'categoria/registrar';
                 me.estado_boton.guardar=true;
                 axios.post(url, {
                     nombre:this.nombre,
                     descripcion:this.descripcion
-                }).then(response => {
+                },this.$token).then(response => {
                     me.cerrarModal();
                     me.listarCategoria(1,''); 
                 }).catch(error => {
@@ -278,7 +278,7 @@
                 
                 let me = this;
                 me.estado_boton.actualizar=true;
-                axios.put('categoria/actualizar',{
+                axios.put(this.$api+'categoria/actualizar',{
                     'nombre': this.nombre,
                     'descripcion': this.descripcion,
                     'id': this.categoria_id
@@ -310,7 +310,7 @@
                 .then((willDelete) => {
                   if (willDelete) {
                     let me = this;
-                    axios.put('categoria/desactivar',{
+                    axios.put(this.$api+'categoria/desactivar',{
                         'id': id
                     }).then(function (response) {
                         me.listarCategoria(1,me.buscar);
@@ -337,7 +337,7 @@
                 .then((willDelete) => {
                   if (willDelete) {
                     let me = this;
-                    axios.put('categoria/activar',{
+                    axios.put(this.$api+'categoria/activar',{
                         'id': id
                     }).then(function (response) {
                         me.listarCategoria(1,me.buscar);

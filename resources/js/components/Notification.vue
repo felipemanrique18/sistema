@@ -85,8 +85,11 @@
 			notificacionLeida(){
 				let me=this;
 				if (me.notifications.noleida>0) {
-					var url= '/notification/leidas';
-	                axios.post(url).then(function (response) {
+					var url= '/api/notification/leidas';
+					let data = {
+						'X-CSRF-TOKEN': window.$('meta[name="csrf-token"]').attr('content')
+					};
+	                axios.post(url,data).then(function (response) {
 	                    me.notifications.noleida=0;
 	                    //cargamos los datos del chart
 	                })

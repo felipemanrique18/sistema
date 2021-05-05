@@ -18,7 +18,7 @@ class VentaController extends Controller
         
         $this->middleware('auth');
         $this->middleware('roles:1,2');
-        $this->middleware('requestsVerify');
+        $this->middleware('requestsVerify')->except(['pdf']);
     }
 
     public function index(Request $request)

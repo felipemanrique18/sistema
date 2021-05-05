@@ -105,8 +105,13 @@
         methods : {
             getIngresos(){
                 let me=this;
-                var url= '/dashboard';
-                axios.get(url).then(function (response) {
+                var url= '/api/dashboard';
+                let data = {
+                'X-CSRF-TOKEN': window.$('meta[name="csrf-token"]').attr('content')
+                }
+
+                console.log(data);
+                axios.get(url,data).then(function (response) {
                     var respuesta= response.data;
                     me.ingresos = respuesta.ingresos;
                     me.ventas = respuesta.ventas;
@@ -118,7 +123,7 @@
                     me.totales();
                 })
                 .catch(function (error) {
-                    me.mostrarerror(error);
+                    // me.mostrarerror(error);
                     console.log(error);
                 });
             },

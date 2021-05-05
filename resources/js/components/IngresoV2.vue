@@ -568,8 +568,8 @@
         methods: {
             listarIngreso(page,tipo_busqueda,buscar){
                 let me=this;
-                var url= 'ingreso?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
-                axios.get(url).then(function (response) {
+                var url= this.$api+'ingreso?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
+                axios.get(url,this.$token).then(function (response) {
                     var respuesta= response.data;
                     me.arrayIngreso = respuesta.ingresos.data;
                     me.pagination= respuesta.pagination;
@@ -583,8 +583,8 @@
             },
             listarArticulo(buscar){
                 let me=this;
-                var url= 'articulo/listarArticulo?buscar=' + buscar;
-                axios.get(url).then(function (response) {
+                var url= this.$api+'articulo/listarArticulo?buscar=' + buscar;
+                axios.get(url,this.$token).then(function (response) {
                     var respuesta= response.data;
                     me.arrayArticulos = respuesta.articulos.data;
                 })
@@ -607,7 +607,7 @@
                 
                 let me=this;
                 me.estado_boton.guardar=true;
-                axios.post('ingreso/registrar',{
+                axios.post(this.$api+'ingreso/registrar',{
                     'proveedor_id':this.idproveedor.id,
                     'tipo_comprobante':this.tipo_comprobante,
                     'impuesto':this.impuesto,
@@ -675,7 +675,7 @@
                 .then((willDelete) => {
                   if (willDelete) {
                     let me = this;
-                    axios.put('user/desactivar',{
+                    axios.put(this.$api+'user/desactivar',{
                         'id': id
                     }).then(function (response) {
                         me.listarPersona(1,'','');
@@ -702,7 +702,7 @@
                 .then((willDelete) => {
                   if (willDelete) {
                     let me = this;
-                    axios.put('user/activar',{
+                    axios.put(this.$api+'user/activar',{
                         'id': id
                     }).then(function (response) {
                         me.listarPersona(1,'','');
@@ -721,7 +721,7 @@
                 let me=this;
                 loading(true)
 
-                var url= 'proveedor/selectProveedor?filtro='+search;
+                var url= this.$api+'proveedor/selectProveedor?filtro='+search;
                 axios.get(url).then(function (response) {
                     let respuesta = response.data;
                     q: search
@@ -735,7 +735,7 @@
             },
             buscarArticulo(){
                 let me=this;
-                var url= 'articulo/buscarArticulo?filtro='+me.codigo;
+                var url= this.$api+'articulo/buscarArticulo?filtro='+me.codigo;
                 axios.get(url).then(function (response) {
                     let respuesta = response.data;
 

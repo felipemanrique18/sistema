@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-  require('./bootstrap');
+require('./bootstrap');
 window.axios = require('axios');
 window.Vue = require('vue');
 // window.Pusher=require('pusher-js');
@@ -36,29 +36,36 @@ Vue.component('notification', require('./components/Notification.vue').default);
 
 
 
- 
+Vue.prototype.$api = '/api/';
+Vue.prototype.$token = {
+    'X-CSRF-TOKEN': window.$('meta[name="csrf-token"]').attr('content')
+};
+
 const app = new Vue({
     el: '#app',
     router,
-    data :{
-    	menu:0,
-    	notifications:[]
+    data: {
+        menu: 0,
+        notifications: []
     },
-    created(){
-    	let me =this;
-    	axios.post('notification/get').then(function(response){
-    		me.notifications=response.data;
+    created() {
+        let me = this;
+        let data = {
+            'X-CSRF-TOKEN': window.$('meta[name="csrf-token"]').attr('content')
+        }
+        axios.post('/api/notification/get', data).then(function(response) {
+            me.notifications = response.data;
 
-    	}).catch(function(error){
-    		console.log(error);
-    	});
-        var userId=($('meta[name="userId"]').attr('content'));
-        Echo.private('App.User.' + userId)
-        .notification((notification) => {
-            me.notifications.notificacion.unshift(notification);
-            me.notifications.noleida=me.notifications.noleida+1;
+        }).catch(function(error) {
+            console.log(error);
         });
-        
-        
+        var userId = ($('meta[name="userId"]').attr('content'));
+        Echo.private('App.User.' + userId)
+            .notification((notification) => {
+                me.notifications.notificacion.unshift(notification);
+                me.notifications.noleida = me.notifications.noleida + 1;
+            });
+
+
     }
 });

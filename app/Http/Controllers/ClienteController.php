@@ -44,6 +44,10 @@ class ClienteController extends Controller
   
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'nombre' => 'required|unique:personas',
+        ]);
+    
         $persona = new Persona();
         $persona->nombre = $request->nombre;
         $persona->tipo_documento = $request->tipo_documento;
@@ -64,7 +68,9 @@ class ClienteController extends Controller
      */
     public function update(Request $request)
     {
-    	
+    	$validated = $request->validate([
+            'nombre' => 'required|unique:personas',
+        ]);
         $persona= Persona::findOrFail($request->id);
         $persona->nombre = $request->nombre;
         $persona->tipo_documento = $request->tipo_documento;

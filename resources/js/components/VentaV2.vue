@@ -412,6 +412,12 @@
                                                     Total: $ {{ formatNumber(total=calculartotal) }}
                                                 </strong>
                                             </div>
+                                           <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="field-2" class="totalcontrol-label"></label>
+                                                    <button class="btn btn-primary form-control" :disabled="estado_boton.guardar" @click="descargarFactura()">Descargar factura</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -602,8 +608,8 @@
         methods: {
             listarVenta(page,tipo_busqueda,buscar){
                 let me=this;
-                var url= 'venta?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
-                axios.get(url).then(function (response) {
+                var url= this.$api+'venta?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
+                axios.get(url,this.$token).then(function (response) {
                     var respuesta= response.data;
                     me.arrayVenta = respuesta.ventas.data;
                     me.pagination= respuesta.pagination;
@@ -617,8 +623,8 @@
             },
             listarArticulo(buscar){
                 let me=this;
-                var url= 'articulo/listarArticulo?buscar=' + buscar+'&tipo=venta';
-                axios.get(url).then(function (response) {
+                var url= this.$api+'articulo/listarArticulo?buscar=' + buscar+'&tipo=venta';
+                axios.get(url,this.$token).then(function (response) {
                     var respuesta= response.data;
                     me.arrayArticulos = respuesta.articulos.data;
                 })
@@ -641,7 +647,7 @@
                 
                 let me=this;
                 me.estado_boton.guardar=true;
-                axios.post('venta/registrar',{
+                axios.post(this.$api+'venta/registrar',{
                     'cliente_id':this.idcliente.id,
                     'tipo_comprobante':this.tipo_comprobante,
                     'num_comprobante':this.num_comprobante,
@@ -660,7 +666,7 @@
                     })
                     .then((value) => {
                       if (value) {
-                        window.open('http://ventasmanrique.herokuapp.com/venta/pdf/'+response.data.id);
+                        window.open('/venta/pdf/'+response.data.id);
                       }
                     });
                 }).catch(function(error){
@@ -679,7 +685,7 @@
                 .then((willDelete) => {
                   if (willDelete) {
                     let me = this;
-                    axios.put('venta/desactivar',{
+                    axios.put(this.$api+'venta/desactivar',{
                         'id': id
                     }).then(function (response) {
                         me.listarVenta(1,'','');
@@ -701,8 +707,8 @@
                 let me=this;
                 loading(true)
 
-                var url= 'cliente/selectCliente?filtro='+search;
-                axios.get(url).then(function (response) {
+                var url= this.$api+'cliente/selectCliente?filtro='+search;
+                axios.get(url,this.$token).then(function (response) {
                     let respuesta = response.data;
                     q: search
                     me.arrayCliente=respuesta.clientes;
@@ -715,8 +721,8 @@
             },
             buscarArticulo(){
                 let me=this;
-                var url= 'articulo/buscarArticulo?filtro='+me.codigo;
-                axios.get(url).then(function (response) {
+                var url= this.$api+'articulo/buscarArticulo?filtro='+me.codigo;
+                axios.get(url,this.$token).then(function (response) {
                     let respuesta = response.data;
 
                     me.arrayArticulo=respuesta.articulos;
@@ -952,12 +958,18 @@
                 this.listado=2;
                 let me=this;
                 me.arrayDetalle = venta;
+                me.venta_id=venta.id;
                 me.proveedor = me.arrayDetalle.cliente.nombre;
                 me.impuesto=me.arrayDetalle.impuesto;
                 me.tipo_comprobante=me.arrayDetalle.tipo_comprobante;
                 me.serie_comprobante=me.arrayDetalle.serie_comprobante;
                 me.num_comprobante=me.arrayDetalle.num_comprobante;
                 me.arrayDetalle=me.arrayDetalle.detalle_venta;
+            },
+            descargarFactura(){
+                let me=this;
+                // console.log(me.venta_id);
+                window.open('/venta/pdf/'+me.venta_id);
             },
             cerrarModal(){
                 $('#myModal').modal('hide');

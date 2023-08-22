@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         ]);
 
         User::insert([
-            'persona_id'=>7,
+            'persona_id'=>1,
             'rol_id'=>1,
             'usuario'=>'Admin',
             'password'=>Hash::make('12345'),

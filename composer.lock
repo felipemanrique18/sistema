@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b078acb2eb6118b57454c275ec696a40",
+    "content-hash": "266d5eeae29967dcdcc8356f223e38a8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -64,34 +64,40 @@
         },
         {
             "name": "barryvdh/laravel-dompdf",
-            "version": "v0.8.7",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-dompdf.git",
-                "reference": "30310e0a675462bf2aa9d448c8dcbf57fbcc517d"
+                "reference": "de83130d029289e1b59f28b41c314ce1d157b4a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/30310e0a675462bf2aa9d448c8dcbf57fbcc517d",
-                "reference": "30310e0a675462bf2aa9d448c8dcbf57fbcc517d",
+                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/de83130d029289e1b59f28b41c314ce1d157b4a0",
+                "reference": "de83130d029289e1b59f28b41c314ce1d157b4a0",
                 "shasum": ""
             },
             "require": {
-                "dompdf/dompdf": "^0.8",
-                "illuminate/support": "^5.5|^6|^7|^8",
-                "php": ">=7"
+                "dompdf/dompdf": "^1.2.1",
+                "illuminate/support": "^6|^7|^8|^9",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "nunomaduro/larastan": "^1|^2",
+                "orchestra/testbench": "^4|^5|^6|^7",
+                "phpro/grumphp": "^1",
+                "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.8-dev"
+                    "dev-master": "1.0-dev"
                 },
                 "laravel": {
                     "providers": [
                         "Barryvdh\\DomPDF\\ServiceProvider"
                     ],
                     "aliases": {
-                        "PDF": "Barryvdh\\DomPDF\\Facade"
+                        "PDF": "Barryvdh\\DomPDF\\Facade\\Pdf"
                     }
                 }
             },
@@ -118,15 +124,19 @@
             ],
             "support": {
                 "issues": "https://github.com/barryvdh/laravel-dompdf/issues",
-                "source": "https://github.com/barryvdh/laravel-dompdf/tree/master"
+                "source": "https://github.com/barryvdh/laravel-dompdf/tree/v1.0.2"
             },
             "funding": [
+                {
+                    "url": "https://fruitcake.nl",
+                    "type": "custom"
+                },
                 {
                     "url": "https://github.com/barryvdh",
                     "type": "github"
                 }
             ],
-            "time": "2020-09-07T11:50:18+00:00"
+            "time": "2022-05-19T15:08:38+00:00"
         },
         {
             "name": "brick/math",
@@ -426,28 +436,30 @@
         },
         {
             "name": "dompdf/dompdf",
-            "version": "v0.8.6",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "db91d81866c69a42dad1d2926f61515a1e3f42c5"
+                "reference": "5031045d9640b38cfc14aac9667470df09c9e090"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/db91d81866c69a42dad1d2926f61515a1e3f42c5",
-                "reference": "db91d81866c69a42dad1d2926f61515a1e3f42c5",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/5031045d9640b38cfc14aac9667470df09c9e090",
+                "reference": "5031045d9640b38cfc14aac9667470df09c9e090",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-mbstring": "*",
-                "phenx/php-font-lib": "^0.5.2",
-                "phenx/php-svg-lib": "^0.3.3",
-                "php": "^7.1"
+                "phenx/php-font-lib": "^0.5.4",
+                "phenx/php-svg-lib": "^0.3.3 || ^0.4.0",
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
+                "ext-json": "*",
+                "ext-zip": "*",
                 "mockery/mockery": "^1.3",
-                "phpunit/phpunit": "^7.5",
+                "phpunit/phpunit": "^7.5 || ^8 || ^9",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "suggest": {
@@ -457,11 +469,6 @@
                 "ext-zlib": "Needed for pdf stream compression"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.7-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Dompdf\\": "src/"
@@ -492,9 +499,9 @@
             "homepage": "https://github.com/dompdf/dompdf",
             "support": {
                 "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/master"
+                "source": "https://github.com/dompdf/dompdf/tree/v1.2.2"
             },
-            "time": "2020-08-30T22:54:22+00:00"
+            "time": "2022-04-27T13:50:54+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -2105,23 +2112,25 @@
         },
         {
             "name": "phenx/php-svg-lib",
-            "version": "v0.3.3",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/PhenX/php-svg-lib.git",
-                "reference": "5fa61b65e612ce1ae15f69b3d223cb14ecc60e32"
+                "url": "https://github.com/dompdf/php-svg-lib.git",
+                "reference": "4498b5df7b08e8469f0f8279651ea5de9626ed02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PhenX/php-svg-lib/zipball/5fa61b65e612ce1ae15f69b3d223cb14ecc60e32",
-                "reference": "5fa61b65e612ce1ae15f69b3d223cb14ecc60e32",
+                "url": "https://api.github.com/repos/dompdf/php-svg-lib/zipball/4498b5df7b08e8469f0f8279651ea5de9626ed02",
+                "reference": "4498b5df7b08e8469f0f8279651ea5de9626ed02",
                 "shasum": ""
             },
             "require": {
-                "sabberworm/php-css-parser": "^8.3"
+                "ext-mbstring": "*",
+                "php": "^7.1 || ^7.2 || ^7.3 || ^7.4 || ^8.0",
+                "sabberworm/php-css-parser": "^8.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.5|^6.5"
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5"
             },
             "type": "library",
             "autoload": {
@@ -2142,10 +2151,10 @@
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
             "support": {
-                "issues": "https://github.com/PhenX/php-svg-lib/issues",
-                "source": "https://github.com/PhenX/php-svg-lib/tree/master"
+                "issues": "https://github.com/dompdf/php-svg-lib/issues",
+                "source": "https://github.com/dompdf/php-svg-lib/tree/0.4.1"
             },
-            "time": "2019-09-11T20:02:13+00:00"
+            "time": "2022-03-07T12:52:04+00:00"
         },
         {
             "name": "phpoption/phpoption",

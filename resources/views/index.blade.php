@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Ventas Manrique</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="Sistema de facturacion electronica de cualquier producto,Ventas Manrique" name="description" />
         <meta content="Coderthemes" name="author" />
@@ -69,20 +69,20 @@
 
                             <!-- Top nav Right menu -->
                             <ul class="nav navbar-nav navbar-right top-navbar-items-right pull-right">
-                                <li class="hidden-xs">
+                                {{-- <li class="hidden-xs">
                                     <form role="search" class="navbar-left app-search pull-left">
                                          <input type="text" placeholder="Search..." class="form-control">
                                          <a href=""><i class="fa fa-search"></i></a>
                                     </form>
-                                </li>
+                                </li> --}}
                                 <notification :notifications="notifications"></notification>
 
                                 <li class="dropdown top-menu-item-xs">
                                     <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown" aria-expanded="true"><img src="/assets/images/users/user.png" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
-                                        <li><router-link to="/dashboard/perfil"><i class="fa fa-user-circle"></i> Profile</router-link></li>
-                                        <li><a href="javascript:void(0)"><i class="ti-settings m-r-10"></i> Settings</a></li>
-                                        <li><a href="javascript:void(0)"><i class="ti-lock m-r-10"></i> Lock screen</a></li>
+                                        <li><router-link to="/dashboard/perfil"><i class="fa fa-user-circle"></i> Perfil</router-link></li>
+                                        {{-- <li><a href="javascript:void(0)"><i class="ti-settings m-r-10"></i> Settings</a></li>
+                                        <li><a href="javascript:void(0)"><i class="ti-lock m-r-10"></i> Lock screen</a></li> --}}
                                         <li class="divider"></li>
                                         <li>
                                              <a href="javascript:void(0)" onclick="document.getElementById('logoutForm').submit()"><i class="fas fa-sign-out-alt"></i> Cerrar Session</a>

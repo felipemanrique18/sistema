@@ -1106,6 +1106,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .alert-dismissable .close, .alert-dismissible .close {
   opacity: 0.9; }
+  
 
 .alert-icon {
   padding-left: 50px; }
@@ -2576,3 +2577,14 @@ h3.timeline-title {
       transform-origin: 0 0; /* see note above */
     }
     .ldio-yymc290haz div { box-sizing: content-box; }
+
+    /* Media query para pantallas más pequeñas, como tablets o móviles */
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 16px !important; /* Tamaño de fuente para pantallas más pequeñas */
+  }
+
+  .close {
+      font-size: 29px !important;
+  }
+}

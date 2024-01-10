@@ -9,7 +9,7 @@
             <div class="m-b-20">
                 <div class="form-group container-titulo">
                     <h2>
-                        <b>Articulos</b>
+                        <b>Art&iacute;culos</b>
                         <div class="pull-right">
                             
                             <button class="btn btn-success " type="button" @click="abrirModal('articulo','registrar')">
@@ -60,7 +60,7 @@
                                 <td >
                                     <div style='width:200px; overflow:hidden;' v-text="articulo.descripcion"></div>
                                 </td>
-                                <td v-text="articulo.precio_venta"></td>
+                                <td>{{ formatNumber(articulo.precio_venta) }}</td>
                                 <td v-text="articulo.stock"></td>
                                 <td v-text="articulo.codigo"></td>
                                 <td>
@@ -127,7 +127,7 @@
                 <div class="modal-body">
                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group row" :class="errorMostrarMsjArticulo[0].nombre?'has-error':''">
-                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                            <label class="col-md-3 form-control-label" for="text-input">Nombre (*)</label>
                             <div class="col-md-9">
                                 <input type="text" v-model="nombre" class="form-control" placeholder="Nombre del articulo">
                                 <div v-show="errorMostrarMsjArticulo[0].nombre" class="text-error" >
@@ -137,11 +137,11 @@
                             
                         </div>
                         <div class="form-group row" :class="errorMostrarMsjArticulo[0].categoria?'has-error':''">
-                            <label class="col-md-3 form-control-label" for="text-input">Categoría</label>
+                            <label class="col-md-3 form-control-label" for="text-input">Categoría (*)</label>
                             <div class="col-md-9">
                                 <select v-model="idcategoria" class="form-control" style="width: 100%;" >
                                     <option v-if="tipoAccion==2 && nombre_categoria['condicion']==0" v-bind:value="nombre_categoria['id']" disabled>{{ nombre_categoria['nombre'] }}</option>
-                                    <option v-if="tipoAccion==1" v-bind:value="idcategoria" disabled>Seleccione...</option>
+                                    <option v-if="tipoAccion==1" v-bind:value="0" disabled>Seleccione...</option>
                                     <option v-for="categoria in arrayCategorias" :key="categoria.id" v-text="categoria.nombre" v-bind:value="categoria.id"></option>
                                 </select>
                                 <div v-show="errorMostrarMsjArticulo[0].categoria" class="text-error" >
@@ -158,7 +158,7 @@
                             </div>
                         </div>
                         <div class="form-group row" :class="errorMostrarMsjArticulo[0].precio?'has-error':''">
-                            <label class="col-md-3 form-control-label" for="email-input">Precio Venta</label>
+                            <label class="col-md-3 form-control-label" for="email-input">Precio Venta (*)</label>
                             <div class="col-md-9">
                                 <input type="number" v-model="precio_venta" class="form-control" placeholder="Ingrese el precio de venta">
                                 <div v-show="errorMostrarMsjArticulo[0].precio" class="text-error" >
@@ -167,7 +167,7 @@
                             </div>
                         </div>
                         <div class="form-group row" :class="errorMostrarMsjArticulo[0].stock?'has-error':''">
-                            <label class="col-md-3 form-control-label" for="email-input">Stock</label>
+                            <label class="col-md-3 form-control-label" for="email-input">Stock (*)</label>
                             <div class="col-md-9">
                                 <input type="number" v-model="stock" class="form-control" placeholder="Ingrese el numero de elementos">
                                 <div v-show="errorMostrarMsjArticulo[0].stock" class="text-error" >
@@ -475,8 +475,9 @@
                             }
                             case 'actualizar':
                             {
+                                let numero = data['precio_venta'];
                                 $('#myModal').modal('show');
-                                this.tituloModal='Actualizar categoría';
+                                this.tituloModal='Actualizar Artículo';
                                 this.tipoAccion=2;
                                 this.articulo_id=data['id'];
                                 this.nombre_categoria=data['categoria'];
@@ -484,7 +485,7 @@
                                 this.idcategoria=data['categoria_id'];
                                 this.codigo=data['codigo'];
                                 this.stock=data['stock'];
-                                this.precio_venta=data['precio_venta'];
+                                this.precio_venta= Math.floor(numero).toString();
                                 this.descripcion= data['descripcion'];
                                 break;
                             
@@ -529,6 +530,12 @@
                         // statements_def
                         break;
                 }
+            },
+            formatNumber(n){
+                n = Math.trunc(n);
+                n = String(n).replace(/\D/g, "");
+                return (n === '' ? n : Number(n).toLocaleString())
+                // return n === '' ? n : Number(n).toLocaleString();
             }
         }
 

@@ -80,8 +80,8 @@
                         </ul>
                     </li>
                 @endif
-                <li @click="menu=11"><a class="seleccion" href="javascript:void(0)"><i class="fas fa-info-circle"></i>Ayuda </a></li>
-                <li @click="menu=12"><a class="seleccion" href="javascript:void(0)"><i class="fas fa-question-circle"></i>Acerca de.... </a></li>
+                {{-- <li @click="menu=11"><a class="seleccion" href="javascript:void(0)"><i class="fas fa-info-circle"></i>Ayuda </a></li>
+                <li @click="menu=12"><a class="seleccion" href="javascript:void(0)"><i class="fas fa-question-circle"></i>Acerca de.... </a></li> --}}
 
             </ul>
         </div>

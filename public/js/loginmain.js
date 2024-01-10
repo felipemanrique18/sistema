@@ -78,5 +78,8 @@
         
     });
 
-
+    $('#usuario').on('input', function() {
+        var texto = $(this).val();
+        $(this).val(texto.toLowerCase());
+    });
 })(jQuery);

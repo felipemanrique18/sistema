@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->  
-    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 <!--===============================================================================================-->
     <link href="css/plantilla.css" rel="stylesheet">
     <link href="fontawesome/css/all.min.css" rel="stylesheet">
@@ -21,23 +21,23 @@
                 <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
                     @csrf
                     <span class="login100-form-title p-b-26">
-                        Welcome
+                        Bienvenido
                     </span>
                     <span class="login100-form-title p-b-48">
                         <i class="fas fa-store"></i>
                     </span>
 
                     <div class="wrap-input100 validate-input" data-validate = "Usuario No valido">
-                        <input class="input100" type="text" id="usuario" name="usuario" value="{{ old('usuario') }}" autofocus>
+                        <input class="input100" type="text" id="usuario" name="usuario" value="{{ old('usuario') }}" autofocus oninput="convertirAMinusculas()">
                         <span class="focus-input100" data-placeholder="Usuario"></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Ingresa password">
+                    <div class="wrap-input100 validate-input" data-validate="Ingresa contraseña">
                         <span class="btn-show-pass">
                             <i class="zmdi zmdi-eye"></i>
                         </span>
                         <input class="input100" type="password" name="password" id="password">
-                        <span class="focus-input100" data-placeholder="Password"></span>
+                        <span class="focus-input100" data-placeholder="Contraseña"></span>
                     </div>
                     @error('usuario')
                         <div>
@@ -52,7 +52,7 @@
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
                             <button class="login100-form-btn" type="submit">
-                                Login
+                                Ingresar
                             </button>
                         </div>
                     </div>

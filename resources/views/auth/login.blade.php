@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <title>{{ config('app.name', 'Laravel') }}</title>
     <meta charset="UTF-8">

@@ -10,6 +10,8 @@ use App\DetalleVenta;
 use App\User;
 use App\Persona;
 use App\Notifications\NotifyAdmin;
+use DateTime;
+use DateTimeZone;
 
 class VentaController extends Controller
 {
@@ -57,29 +59,23 @@ class VentaController extends Controller
 
         $numventas=Venta::count();
     	$mytime=Carbon::now('America/Bogota');
-        if ($numventas<10) {
-            $serie_comprobante="0000".$numventas;
-            $num_comprobante='0000'.$numventas;
-        }else{
-            if ($numventas<100) {
-                 $serie_comprobante="000".$numventas;
-                 $num_comprobante='000'.$numventas;
-            }else{
-                if ($numventas<1000) {
-                    $serie_comprobante="00".$numventas;
-                    $num_comprobante='00'.$numventas;
-                }else{
-                    if ($numventas<10000) {
-                        $serie_comprobante="0".$numventas;
-                        $num_comprobante='0'.$numventas;
-                    }else{
-                        $serie_comprobante=$numventas;
-                        $num_comprobante=$numventas;
-                    }
-                    
-                }
-            }
-        }
+        // Asegúrate de que $numventas sea un número entero positivo
+        $numventas = max(0, (int)$numventas);
+
+        // Define la longitud deseada del número
+        $longitud = 5;
+
+        // Rellena con ceros a la izquierda según la longitud deseada
+        $serie_comprobante = str_pad($numventas, $longitud, '0', STR_PAD_LEFT);
+        $num_comprobante = $serie_comprobante;
+
+
+        // Establecer la zona horaria de Bogotá
+        $zonaHorariaBogota = new DateTimeZone('America/Bogota');
+
+        // Obtener la fecha y hora actual en Bogotá
+        $fechaHoraBogota = new DateTime('now', $zonaHorariaBogota);
+
         if ($request->cliente_id==0) {
             $desconocido=Persona::where('nombre','=','desconocido')->get();
             $venta=Venta::create([
@@ -88,7 +84,7 @@ class VentaController extends Controller
                 'tipo_comprobante' => $request->tipo_comprobante,
                 'serie_comprobante' => $serie_comprobante,
                 'num_comprobante' => $num_comprobante,
-                'fecha_hora' => $mytime->toDateString(),
+                'fecha_hora' => $fechaHoraBogota,
                 'impuesto' => $request->impuesto,
                 'total' => $request->total,
                 'estado' => 'Registrado'
@@ -101,7 +97,7 @@ class VentaController extends Controller
                 'tipo_comprobante' => $request->tipo_comprobante,
                 'serie_comprobante' => $serie_comprobante,
                 'num_comprobante' => $num_comprobante,
-                'fecha_hora' => $mytime->toDateString(),
+                'fecha_hora' => $fechaHoraBogota,
                 'impuesto' => $request->impuesto,
                 'total' => $request->total,
                 'estado' => 'Registrado'

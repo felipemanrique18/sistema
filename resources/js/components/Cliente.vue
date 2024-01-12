@@ -39,8 +39,8 @@
                             <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Tipo documento</th>
-                                <th>Numero</th> 
+                                <th>Tipo Docuemnto</th>
+                                <th>Numero Documento</th> 
                                 <th>Direccion</th>
                                 <th>Telefono</th>
                                 <th>Email</th>
@@ -102,7 +102,7 @@
                 <div class="modal-body">
                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group row" :class="errorMostrarMsjPersona[0].nombre?'has-error':''">
-                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                            <label class="col-md-3 form-control-label" for="text-input">Nombre (*)</label>
                             <div class="col-md-9">
                                 <input type="text" v-model="nombre" class="form-control" placeholder="Nombre de cliente">
                                 <div v-show="errorMostrarMsjPersona[0].nombre" class="div-error">
@@ -240,7 +240,7 @@
         methods: {
             listarPersona(page,tipo_busqueda,buscar){
                 let me=this;
-                var url= this.$api+'cliente?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar;
+                var url= this.$api+'cliente?page=' + page + '&tipo_busqueda='+tipo_busqueda +'&buscar=' + buscar.toLowerCase();
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.arrayPersona = respuesta.personas.data;

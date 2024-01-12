@@ -20,7 +20,7 @@
 
                   <div class="col-lg-4 col-sm-4">
                     <div class="widget-inline-box text-center">
-                      <h3 class="m-t-10"><i class="text-info mdi mdi-black-mesa"></i> <b data-plugin="counterup">{{ total_ventas_dia }}</b></h3>
+                      <h3 class="m-t-10"><i class="text-info mdi mdi-black-mesa"></i> <b data-plugin="counterup">{{ formatNumber(total_ventas_dia) }}</b></h3>
                       <p class="text-muted">Ventas Hoy</p>
                     </div>
                   </div>
@@ -221,10 +221,18 @@
                 });
             },
             formatNumber(n){
-                n = Math.trunc(n);
-                n = String(n).replace(/\D/g, "");
-                return (n === '' ? n : Number(n).toLocaleString())
-                // return n === '' ? n : Number(n).toLocaleString();
+                let formatoNumero = new Intl.NumberFormat('es-CO', {
+                    style: 'currency',
+                    currency: 'COP',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                }).format(n);
+
+                // Eliminar los decimales si son 00
+                formatoNumero = formatoNumero.replace(/\.00$/, '');
+
+                // Retornar el número formateado
+                return formatoNumero;
             },
             mostrarerror(error){
                 switch (error.response.status) {

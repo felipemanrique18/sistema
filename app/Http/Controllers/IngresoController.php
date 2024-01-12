@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\DB;
 use App\Ingreso;
 use Carbon\Carbon;
 use App\DetalleIngreso;
+use App\Articulo;
 use App\User;
 use App\Notifications\NotifyAdmin;
+use DateTime;
+use DateTimeZone;
 
 class IngresoController extends Controller
 {
@@ -58,37 +61,31 @@ class IngresoController extends Controller
 
     	$numingresos=Ingreso::count();
         $mytime=Carbon::now('America/Bogota');
-        if ($numingresos<10) {
-            $serie_comprobante="0000".$numingresos;
-            $num_comprobante='0000'.$numingresos;
-        }else{
-            if ($numingresos<100) {
-                 $serie_comprobante="000".$numingresos;
-                 $num_comprobante='000'.$numingresos;
-            }else{
-                if ($numingresos<1000) {
-                    $serie_comprobante="00".$numingresos;
-                    $num_comprobante='00'.$numingresos;
-                }else{
-                    if ($numingresos<10000) {
-                        $serie_comprobante="0".$numingresos;
-                        $num_comprobante='0'.$numingresos;
-                    }else{
-                        $serie_comprobante=$numingresos;
-                        $num_comprobante=$numingresos;
-                    }
-                    
-                }
-            }
-        }
-       
+        
+        // Asegúrate de que $numingresos sea un número entero positivo
+        $numingresos = max(0, (int)$numingresos);
+
+        // Define la longitud deseada del número
+        $longitud = 5;
+
+        // Rellena con ceros a la izquierda según la longitud deseada
+        $serie_comprobante = str_pad($numingresos, $longitud, '0', STR_PAD_LEFT);
+        $num_comprobante = $serie_comprobante;
+
+
+        // Establecer la zona horaria de Bogotá
+        $zonaHorariaBogota = new DateTimeZone('America/Bogota');
+
+        // Obtener la fecha y hora actual en Bogotá
+        $fechaHoraBogota = new DateTime('now', $zonaHorariaBogota);
+
         $ingreso=Ingreso::create([
         	'proveedor_id' => $request->proveedor_id,
             'usuario_id' => \Auth::user()->id,
             'tipo_comprobante' => $request->tipo_comprobante,
             'serie_comprobante' => $serie_comprobante,
             'num_comprobante' => $num_comprobante,
-            'fecha_hora' => $mytime->toDateString(),
+            'fecha_hora' => $fechaHoraBogota,
             'impuesto' => $request->impuesto,
             'total' => $request->total,
             'estado' => 'Registrado'
@@ -106,6 +103,14 @@ class IngresoController extends Controller
                 'precio' => $det['precio']
 
             ]);
+
+            $articulo = Articulo::find($det['idarticulo']);
+
+            if($articulo){
+                $articulo->stock = $articulo->stock + $det['cantidad'];
+                $articulo->save();
+            }
+            
         }
         $fechaActual=date('Y-m-d');
         

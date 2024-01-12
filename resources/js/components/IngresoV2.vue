@@ -38,7 +38,7 @@
                                     <select v-model="tipo_busqueda" class="form-control input-sm">
                                         <option value="num_comprobante">Numero Comprobante</option>
                                         <option value="serie_comprobante">Serie Comprobante</option>
-                                        <option value="fecha">fecha</option>
+                                        <option value="fecha_hora">fecha</option>
                                     </Select>
                                     <input type="search" v-model="buscar" @keyup="listarIngreso(1,tipo_busqueda,buscar)" @keyup.delete="listarIngreso(1,tipo_busqueda,buscar)" class="form-control input-sm" placeholder="" aria-controls="datatable-buttons" >
                                     <button type="submit" @click="listarIngreso(1,tipo_busqueda,buscar)" class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -562,7 +562,7 @@
         ,
         mounted() {
             this.listarIngreso(1,this.tipo_busqueda,this.buscar); 
-
+            this.selectProveedor('');
 
         },
         methods: {
@@ -719,14 +719,18 @@
             },
             selectProveedor(search,loading){
                 let me=this;
-                loading(true)
+                if(loading){
+                    loading(true)
+                }
 
-                var url= this.$api+'proveedor/selectProveedor?filtro='+search;
+                var url= this.$api+'proveedor/selectProveedor?filtro='+search.toLowerCase();
                 axios.get(url).then(function (response) {
                     let respuesta = response.data;
                     q: search
                     me.arrayProveedor=respuesta.proveedores;
-                    loading(false)
+                    if(loading){
+                        loading(false)
+                    }
                 })
                 .catch(function (error) {
                     me.mostrarerror(error);
@@ -975,10 +979,18 @@
                 this.tituloModal = 'Seleccione el articulo';
             },
             formatNumber(n){
-                n = Math.trunc(n);
-                n = String(n).replace(/\D/g, "");
-                return (n === '' ? n : Number(n).toLocaleString())
-                // return n === '' ? n : Number(n).toLocaleString();
+                let formatoNumero = new Intl.NumberFormat('es-CO', {
+                    style: 'currency',
+                    currency: 'COP',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                }).format(n);
+
+                // Eliminar los decimales si son 00
+                formatoNumero = formatoNumero.replace(/\.00$/, '');
+
+                // Retornar el número formateado
+                return formatoNumero;
             },
             mostrarerror(error){
                 switch (error.response.status) {

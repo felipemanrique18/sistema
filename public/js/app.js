@@ -2448,9 +2448,16 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     formatNumber: function formatNumber(n) {
-      n = Math.trunc(n);
-      n = String(n).replace(/\D/g, "");
-      return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+      var formatoNumero = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }).format(n); // Eliminar los decimales si son 00
+
+      formatoNumero = formatoNumero.replace(/\.00$/, ''); // Retornar el número formateado
+
+      return formatoNumero;
     }
   }
 });
@@ -3148,7 +3155,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarPersona: function listarPersona(page, tipo_busqueda, buscar) {
       var me = this;
-      var url = this.$api + 'cliente?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar;
+      var url = this.$api + 'cliente?page=' + page + '&tipo_busqueda=' + tipo_busqueda + '&buscar=' + buscar.toLowerCase();
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayPersona = respuesta.personas.data;
@@ -3712,9 +3719,16 @@ __webpack_require__.r(__webpack_exports__);
       me.arrayDetalle = me.arrayDetalleIngreso.detalle_ingreso;
     },
     formatNumber: function formatNumber(n) {
-      n = Math.trunc(n);
-      n = String(n).replace(/\D/g, "");
-      return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+      var formatoNumero = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }).format(n); // Eliminar los decimales si son 00
+
+      formatoNumero = formatoNumero.replace(/\.00$/, ''); // Retornar el número formateado
+
+      return formatoNumero;
     },
     mostrarerror: function mostrarerror(error) {
       switch (error.response.status) {
@@ -4157,9 +4171,16 @@ __webpack_require__.r(__webpack_exports__);
       me.arrayDetalle = me.arrayDetalle.detalle_venta;
     },
     formatNumber: function formatNumber(n) {
-      n = Math.trunc(n);
-      n = String(n).replace(/\D/g, "");
-      return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+      var formatoNumero = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }).format(n); // Eliminar los decimales si son 00
+
+      formatoNumero = formatoNumero.replace(/\.00$/, ''); // Retornar el número formateado
+
+      return formatoNumero;
     },
     mostrarerror: function mostrarerror(error) {
       switch (error.response.status) {
@@ -4424,9 +4445,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     formatNumber: function formatNumber(n) {
-      n = Math.trunc(n);
-      n = String(n).replace(/\D/g, "");
-      return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+      var formatoNumero = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }).format(n); // Eliminar los decimales si son 00
+
+      formatoNumero = formatoNumero.replace(/\.00$/, ''); // Retornar el número formateado
+
+      return formatoNumero;
     },
     mostrarerror: function mostrarerror(error) {
       switch (error.response.status) {
@@ -5051,6 +5079,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.listarIngreso(1, this.tipo_busqueda, this.buscar);
+    this.selectProveedor('');
   },
   methods: {
     listarIngreso: function listarIngreso(page, tipo_busqueda, buscar) {
@@ -5208,15 +5237,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectProveedor: function selectProveedor(search, loading) {
       var me = this;
-      loading(true);
-      var url = this.$api + 'proveedor/selectProveedor?filtro=' + search;
+
+      if (loading) {
+        loading(true);
+      }
+
+      var url = this.$api + 'proveedor/selectProveedor?filtro=' + search.toLowerCase();
       axios.get(url).then(function (response) {
         var respuesta = response.data;
 
         q: search;
 
         me.arrayProveedor = respuesta.proveedores;
-        loading(false);
+
+        if (loading) {
+          loading(false);
+        }
       })["catch"](function (error) {
         me.mostrarerror(error);
         console.log(error);
@@ -5463,9 +5499,16 @@ __webpack_require__.r(__webpack_exports__);
       this.tituloModal = 'Seleccione el articulo';
     },
     formatNumber: function formatNumber(n) {
-      n = Math.trunc(n);
-      n = String(n).replace(/\D/g, "");
-      return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+      var formatoNumero = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }).format(n); // Eliminar los decimales si son 00
+
+      formatoNumero = formatoNumero.replace(/\.00$/, ''); // Retornar el número formateado
+
+      return formatoNumero;
     },
     mostrarerror: function mostrarerror(error) {
       switch (error.response.status) {
@@ -7877,6 +7920,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.listarVenta(1, this.tipo_busqueda, this.buscar);
+    this.selectCliente('');
   },
   methods: {
     listarVenta: function listarVenta(page, tipo_busqueda, buscar) {
@@ -7974,15 +8018,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectCliente: function selectCliente(search, loading) {
       var me = this;
-      loading(true);
-      var url = this.$api + 'cliente/selectCliente?filtro=' + search;
+
+      if (loading) {
+        loading(true);
+      }
+
+      var url = this.$api + 'cliente/selectCliente?filtro=' + search.toLowerCase();
       axios.get(url, this.$token).then(function (response) {
         var respuesta = response.data;
 
         q: search;
 
         me.arrayCliente = respuesta.clientes;
-        loading(false);
+
+        if (loading) {
+          loading(false);
+        }
       })["catch"](function (error) {
         me.mostrarerror(error);
         console.log(error);
@@ -8197,6 +8248,7 @@ __webpack_require__.r(__webpack_exports__);
       this.tipo_comprobante = 'Factura';
       this.estado_boton.guardar = false;
       this.estado_boton.actualizar = false;
+      this.idarticulo = 0;
     },
     ocultarDetalle: function ocultarDetalle() {
       this.listado = 1;
@@ -8253,9 +8305,16 @@ __webpack_require__.r(__webpack_exports__);
       this.tituloModal = 'Seleccione el articulo';
     },
     formatNumber: function formatNumber(n) {
-      n = Math.trunc(n);
-      n = String(n).replace(/\D/g, "");
-      return n === '' ? n : Number(n).toLocaleString(); // return n === '' ? n : Number(n).toLocaleString();
+      var formatoNumero = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }).format(n); // Eliminar los decimales si son 00
+
+      formatoNumero = formatoNumero.replace(/\.00$/, ''); // Retornar el número formateado
+
+      return formatoNumero;
     },
     mostrarerror: function mostrarerror(error) {
       switch (error.response.status) {
@@ -64026,7 +64085,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre")]
+                        [_vm._v("Nombre (*)")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -64382,9 +64441,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tipo documento")]),
+        _c("th", [_vm._v("Tipo Docuemnto")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Numero")]),
+        _c("th", [_vm._v("Numero Documento")]),
         _vm._v(" "),
         _c("th", [_vm._v("Direccion")]),
         _vm._v(" "),
@@ -66304,7 +66363,7 @@ var render = function() {
                   _c("i", { staticClass: "text-info mdi mdi-black-mesa" }),
                   _vm._v(" "),
                   _c("b", { attrs: { "data-plugin": "counterup" } }, [
-                    _vm._v(_vm._s(_vm.total_ventas_dia))
+                    _vm._v(_vm._s(_vm.formatNumber(_vm.total_ventas_dia)))
                   ])
                 ]),
                 _vm._v(" "),
@@ -66517,7 +66576,7 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "option",
-                                        { attrs: { value: "fecha" } },
+                                        { attrs: { value: "fecha_hora" } },
                                         [_vm._v("fecha")]
                                       )
                                     ]
@@ -71953,7 +72012,7 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "option",
-                                        { attrs: { value: "fecha" } },
+                                        { attrs: { value: "fecha_hora" } },
                                         [_vm._v("fecha")]
                                       )
                                     ]
